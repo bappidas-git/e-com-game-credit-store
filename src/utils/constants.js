@@ -172,10 +172,19 @@ export const BREAKPOINTS = {
 };
 
 export const CURRENCIES = {
+  INR: { symbol: "₹", code: "INR", name: "Indian Rupee" },
   USD: { symbol: "$", code: "USD", name: "US Dollar" },
   EUR: { symbol: "€", code: "EUR", name: "Euro" },
   GBP: { symbol: "£", code: "GBP", name: "British Pound" },
   JPY: { symbol: "¥", code: "JPY", name: "Japanese Yen" },
 };
 
-export const DEFAULT_CURRENCY = CURRENCIES.USD;
+export const DEFAULT_CURRENCY = CURRENCIES.INR;
+
+export const REGIONS = {
+  GLOBAL: "Global",
+  BRAZIL: "Brazil",
+  RUSSIA: "Russia",
+  PHILIPPINES: "Philippines",
+  INDIA: "India",
+};

@@ -9,17 +9,20 @@ import {
   Chip,
   Skeleton,
   Grid,
+  Rating,
 } from "@mui/material";
 import {
   ShoppingCart,
   FlashOn,
   TrendingUp,
-  LocalOffer,
+  Bolt,
+  Star,
+  Public,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import { formatCurrency, calculateDiscount } from "../../utils/helpers";
+import { formatCurrency, getProductMinPrice, getProductMaxDiscount } from "../../utils/helpers";
 import useSound from "../../hooks/useSound";
 import styles from "./FeaturedProducts.module.css";
 
@@ -75,92 +78,84 @@ const FeaturedProducts = ({ products = [], isLoading = false }) => {
       ? products
       : [
           {
-            id: 1,
-            name: "Free Fire Diamond Plus",
-            price: 9.99,
-            originalPrice: 12.99,
-            image: "https://placehold.co/300x400/7B1FA2/FFFFFF?text=Free+Fire",
-            discount: 23,
+            id: "4690774",
+            name: "Mobile Legends (Global)",
+            slug: "mobile-legends-global",
+            shortDescription: "Diamond Top Up for Mobile Legends Global Server",
+            image: "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
             platform: "Mobile",
+            region: "Global",
+            rating: 4.9,
+            totalReviews: 12847,
             trending: true,
             hot: true,
+            instantDelivery: true,
+            deliveryTime: "Instant - 3 Minutes",
+            currency: "Diamonds",
+            offers: [
+              { id: "578634", name: "5 Diamonds", sellingPrice: 10.90, originalPrice: 12.0, discount: 9, currency: "INR" },
+              { id: "4690773", name: "70 Diamonds", sellingPrice: 130.19, originalPrice: 140.0, discount: 7, popular: true, currency: "INR" }
+            ]
           },
           {
-            id: 2,
-            name: "PUBG G-Coin Global",
-            price: 19.99,
-            originalPrice: 24.99,
-            image: "https://placehold.co/300x400/1976D2/FFFFFF?text=PUBG",
-            discount: 20,
-            platform: "Global",
-            trending: false,
-            hot: false,
-          },
-          {
-            id: 3,
-            name: "Steam Gift Card $50",
-            price: 50.0,
-            originalPrice: 50.0,
-            image: "https://placehold.co/300x400/424242/FFFFFF?text=Steam",
-            discount: 0,
-            platform: "PC",
-            trending: true,
-            hot: false,
-          },
-          {
-            id: 4,
-            name: "Valorant Points",
-            price: 35.99,
-            originalPrice: 39.99,
-            image: "https://placehold.co/300x400/E91E63/FFFFFF?text=Valorant",
-            discount: 10,
-            platform: "PC",
+            id: "5177311",
+            name: "Honor of Kings",
+            slug: "honor-of-kings",
+            shortDescription: "Token Top Up for Honor of Kings",
+            image: "https://cdn.moogold.com/2023/09/honor-of-kings.jpg",
+            platform: "Mobile",
+            region: "Global",
+            rating: 4.8,
+            totalReviews: 3892,
             trending: true,
             hot: true,
+            instantDelivery: false,
+            deliveryTime: "15-30 Minutes",
+            currency: "Tokens",
+            offers: [
+              { id: "5177683", name: "16 Tokens", sellingPrice: 20.26, originalPrice: 22.0, discount: 8, currency: "INR" },
+              { id: "5177684", name: "80 Tokens", sellingPrice: 92.77, originalPrice: 100.0, discount: 7, popular: true, currency: "INR" }
+            ]
           },
           {
-            id: 5,
-            name: "Mobile Legends Diamonds",
-            price: 14.99,
-            originalPrice: 19.99,
-            image: "https://placehold.co/300x400/4CAF50/FFFFFF?text=ML",
-            discount: 25,
+            id: "6963",
+            name: "PUBG Mobile (Global)",
+            slug: "pubg-mobile-global",
+            shortDescription: "Unknown Cash (UC) Top Up for PUBG Mobile Global",
+            image: "https://cdn.moogold.com/2019/08/pubg.jpg",
             platform: "Mobile",
+            region: "Global",
+            rating: 4.9,
+            totalReviews: 18432,
             trending: true,
             hot: true,
+            instantDelivery: false,
+            deliveryTime: "15-30 Minutes",
+            currency: "Unknown Cash (UC)",
+            offers: [
+              { id: "4085924", name: "60 Unknown Cash", sellingPrice: 94.28, originalPrice: 100.0, discount: 6, currency: "INR" },
+              { id: "4085925", name: "325 Unknown Cash", sellingPrice: 471.43, originalPrice: 500.0, discount: 6, popular: true, currency: "INR" }
+            ]
           },
           {
-            id: 6,
-            name: "Genshin Impact Genesis",
-            price: 49.99,
-            originalPrice: 54.99,
-            image: "https://placehold.co/300x400/3F51B5/FFFFFF?text=Genshin",
-            discount: 9,
-            platform: "Cross-platform",
-            trending: false,
-            hot: false,
-          },
-          {
-            id: 7,
-            name: "Call of Duty Mobile CP",
-            price: 29.99,
-            originalPrice: 34.99,
-            image: "https://placehold.co/300x400/FF5722/FFFFFF?text=COD",
-            discount: 14,
+            id: "5846232",
+            name: "Mobile Legends (Brazil)",
+            slug: "mobile-legends-brazil",
+            shortDescription: "Diamond Top Up for Mobile Legends Brazil Server",
+            image: "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
             platform: "Mobile",
+            region: "Brazil",
+            rating: 4.9,
+            totalReviews: 3421,
             trending: true,
-            hot: false,
-          },
-          {
-            id: 8,
-            name: "PlayStation Gift Card",
-            price: 100.0,
-            originalPrice: 100.0,
-            image: "https://placehold.co/300x400/003791/FFFFFF?text=PSN",
-            discount: 0,
-            platform: "PlayStation",
-            trending: false,
-            hot: false,
+            hot: true,
+            instantDelivery: true,
+            deliveryTime: "Instant - 5 Minutes",
+            currency: "Diamonds",
+            offers: [
+              { id: "15973174", name: "50 + 5 Diamonds", sellingPrice: 79.92, originalPrice: 90.0, discount: 11, currency: "INR" },
+              { id: "5846336", name: "78 + 8 Diamonds", sellingPrice: 110.82, originalPrice: 120.0, discount: 8, currency: "INR" }
+            ]
           },
         ];
 
@@ -180,101 +175,148 @@ const FeaturedProducts = ({ products = [], isLoading = false }) => {
       </motion.div>
 
       <Grid container spacing={3} className={styles.productsGrid}>
-        {displayProducts.map((product, index) => (
-          <Grid item xs={6} sm={6} md={4} lg={3} key={product.id}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className={styles.productWrapper}
-            >
-              <Card className={styles.productCard}>
-                {/* Badges */}
-                <Box className={styles.badges}>
-                  {product.hot && (
-                    <Chip
-                      label="HOT"
-                      size="small"
-                      icon={<FlashOn />}
-                      className={styles.hotBadge}
-                    />
-                  )}
-                  {product.trending && (
-                    <Chip
-                      label="Trending"
-                      size="small"
-                      icon={<TrendingUp />}
-                      className={styles.trendingBadge}
-                    />
-                  )}
-                  {product.discount > 0 && (
-                    <Chip
-                      label={`-${product.discount}%`}
-                      size="small"
-                      className={`${styles.discountBadge} ${getDiscountColor(
-                        product.discount
-                      )}`}
-                    />
-                  )}
-                </Box>
+        {displayProducts.map((product, index) => {
+          const priceInfo = getProductMinPrice(product);
+          const maxDiscount = getProductMaxDiscount(product);
 
-                {/* Image */}
-                <Box className={styles.imageContainer}>
-                  <CardMedia
-                    component="img"
-                    image={product.image}
-                    alt={product.name}
-                    className={styles.productImage}
-                  />
-                  <Box className={styles.imageOverlay}>
-                    <Button
-                      variant="contained"
-                      className={styles.quickViewButton}
-                      onClick={() => handleViewProduct(product.id)}
-                    >
-                      Quick View
-                    </Button>
-                  </Box>
-                </Box>
-
-                {/* Content */}
-                <CardContent className={styles.cardContent}>
-                  <Chip
-                    label={product.platform}
-                    size="small"
-                    className={styles.platformChip}
-                  />
-
-                  <Typography className={styles.productName}>
-                    {product.name}
-                  </Typography>
-
-                  <Box className={styles.priceContainer}>
-                    <Typography className={styles.price}>
-                      {formatCurrency(product.price)}
-                    </Typography>
-                    {product.originalPrice > product.price && (
-                      <Typography className={styles.originalPrice}>
-                        {formatCurrency(product.originalPrice)}
-                      </Typography>
+          return (
+            <Grid item xs={6} sm={6} md={4} lg={3} key={product.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -10 }}
+                className={styles.productWrapper}
+              >
+                <Card className={styles.productCard}>
+                  {/* Badges */}
+                  <Box className={styles.badges}>
+                    {product.hot && (
+                      <Chip
+                        label="HOT"
+                        size="small"
+                        icon={<FlashOn />}
+                        className={styles.hotBadge}
+                      />
+                    )}
+                    {product.trending && (
+                      <Chip
+                        label="Trending"
+                        size="small"
+                        icon={<TrendingUp />}
+                        className={styles.trendingBadge}
+                      />
+                    )}
+                    {product.instantDelivery && (
+                      <Chip
+                        label="Instant"
+                        size="small"
+                        icon={<Bolt />}
+                        className={styles.instantBadge}
+                      />
+                    )}
+                    {maxDiscount > 0 && (
+                      <Chip
+                        label={`-${maxDiscount}%`}
+                        size="small"
+                        className={`${styles.discountBadge} ${getDiscountColor(
+                          maxDiscount
+                        )}`}
+                      />
                     )}
                   </Box>
 
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    startIcon={<ShoppingCart />}
-                    className={styles.addToCartButton}
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    Add to Cart
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </Grid>
-        ))}
+                  {/* Image */}
+                  <Box className={styles.imageContainer}>
+                    <CardMedia
+                      component="img"
+                      image={product.image}
+                      alt={product.name}
+                      className={styles.productImage}
+                    />
+                    <Box className={styles.imageOverlay}>
+                      <Button
+                        variant="contained"
+                        className={styles.quickViewButton}
+                        onClick={() => handleViewProduct(product.id)}
+                      >
+                        Quick View
+                      </Button>
+                    </Box>
+                  </Box>
+
+                  {/* Content */}
+                  <CardContent className={styles.cardContent}>
+                    <Box className={styles.chipContainer}>
+                      <Chip
+                        label={product.platform}
+                        size="small"
+                        className={styles.platformChip}
+                      />
+                      {product.region && product.region !== "Global" && (
+                        <Chip
+                          label={product.region}
+                          size="small"
+                          icon={<Public style={{ fontSize: '14px' }} />}
+                          className={styles.regionChip}
+                        />
+                      )}
+                    </Box>
+
+                    <Typography className={styles.productName}>
+                      {product.name}
+                    </Typography>
+
+                    {/* Rating */}
+                    {product.rating && (
+                      <Box className={styles.ratingContainer}>
+                        <Rating
+                          value={product.rating}
+                          precision={0.1}
+                          size="small"
+                          readOnly
+                        />
+                        <Typography className={styles.reviewCount}>
+                          ({product.totalReviews?.toLocaleString() || 0})
+                        </Typography>
+                      </Box>
+                    )}
+
+                    <Box className={styles.priceContainer}>
+                      <Typography className={styles.priceLabel}>
+                        From
+                      </Typography>
+                      <Typography className={styles.price}>
+                        {formatCurrency(priceInfo.sellingPrice, priceInfo.currency)}
+                      </Typography>
+                      {priceInfo.originalPrice > priceInfo.sellingPrice && (
+                        <Typography className={styles.originalPrice}>
+                          {formatCurrency(priceInfo.originalPrice, priceInfo.currency)}
+                        </Typography>
+                      )}
+                    </Box>
+
+                    {/* Delivery Time */}
+                    {product.deliveryTime && (
+                      <Typography className={styles.deliveryTime}>
+                        {product.deliveryTime}
+                      </Typography>
+                    )}
+
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      className={styles.addToCartButton}
+                      onClick={() => handleViewProduct(product.id)}
+                    >
+                      View Options
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          );
+        })}
       </Grid>
 
       <Box className={styles.viewAllContainer}>
