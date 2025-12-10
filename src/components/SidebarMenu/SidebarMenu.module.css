@@ -95,8 +95,17 @@
 .logo {
   width: 40px;
   height: 40px;
-  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
   animation: float 3s ease-in-out infinite;
+}
+
+/* Dark mode logo */
+.container[data-theme="dark"] .logo {
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+}
+
+/* Light mode logo */
+.container[data-theme="light"] .logo {
+  filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
 }
 
 @keyframes float {
@@ -111,7 +120,19 @@
 
 .title {
   font-weight: 700;
+}
+
+/* Dark mode title */
+.container[data-theme="dark"] .title {
   background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Light mode title */
+.container[data-theme="light"] .title {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -196,13 +217,27 @@
   left: -100%;
   width: 100%;
   height: 100%;
+  transition: left 0.5s ease;
+}
+
+/* Dark mode menu button before */
+.container[data-theme="dark"] .menuButton::before {
   background: linear-gradient(
     90deg,
     transparent 0%,
     rgba(168, 85, 247, 0.2) 50%,
     transparent 100%
   );
-  transition: left 0.5s ease;
+}
+
+/* Light mode menu button before */
+.container[data-theme="light"] .menuButton::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(102, 126, 234, 0.15) 50%,
+    transparent 100%
+  );
 }
 
 .menuButton:hover::before {
@@ -238,7 +273,16 @@
 
 .menuIcon svg {
   font-size: 24px;
+}
+
+/* Dark mode menu icon svg */
+.container[data-theme="dark"] .menuIcon svg {
   filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.3));
+}
+
+/* Light mode menu icon svg */
+.container[data-theme="light"] .menuIcon svg {
+  filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.3));
 }
 
 /* Dark mode menu text */
@@ -262,10 +306,19 @@
   transform: translateY(-50%);
   width: 0;
   height: 60%;
-  background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
   border-radius: 0 4px 4px 0;
   opacity: 0;
   transition: all 0.3s ease;
+}
+
+/* Dark mode menu indicator */
+.container[data-theme="dark"] .menuIndicator {
+  background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+}
+
+/* Light mode menu indicator */
+.container[data-theme="light"] .menuIndicator {
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Dark mode footer */

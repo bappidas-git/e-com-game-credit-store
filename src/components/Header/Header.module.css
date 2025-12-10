@@ -224,6 +224,32 @@
   }
 }
 
+/* Light Mode Explicit Styles */
+:global(.light) .appBar {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(245, 247, 250, 0.95) 100%
+  ) !important;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+:global(.light) .iconButton {
+  color: #4c5ed0 !important;
+}
+
+:global(.light) .iconButton:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+:global(.light) .accountIcon {
+  color: #4c5ed0 !important;
+}
+
+:global(.light) .menuItem {
+  color: #1a1f3a;
+}
+
 /* Dark Mode Overrides */
 :global(.dark) .appBar {
   background: linear-gradient(
