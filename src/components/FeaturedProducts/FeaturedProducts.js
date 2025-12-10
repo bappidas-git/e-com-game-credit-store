@@ -58,7 +58,7 @@ const FeaturedProducts = ({ products = [], isLoading = false }) => {
         </Typography>
         <Grid container spacing={3} className={styles.productsGrid}>
           {[...Array(8)].map((_, index) => (
-            <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <Card className={styles.productCard}>
                 <Skeleton variant="rectangular" height={200} />
                 <CardContent>
@@ -180,7 +180,7 @@ const FeaturedProducts = ({ products = [], isLoading = false }) => {
           const maxDiscount = getProductMaxDiscount(product);
 
           return (
-            <Grid item xs={6} sm={6} md={4} lg={3} key={product.id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
