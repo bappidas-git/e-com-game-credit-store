@@ -11,6 +11,8 @@ export const ROUTES = {
   GIFT_CARDS: "/gift-cards",
   PROFILE: "/profile",
   ORDERS: "/orders",
+  ORDER_CONFIRMATION: "/order-confirmation",
+  CHECKOUT: "/checkout",
   WISHLIST: "/wishlist",
   SUPPORT: "/support",
 };

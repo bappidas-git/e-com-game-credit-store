@@ -23,6 +23,7 @@ import {
   Star,
   PhoneIphone,
   DesktopMac,
+  Receipt,
 } from "@mui/icons-material";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -49,9 +50,9 @@ const menuSections = [
         color: "#ec4899",
       },
       {
-        title: "Trending Now",
-        path: "/products?filter=trending",
-        icon: <TrendingUp />,
+        title: "Order History",
+        path: "/orders",
+        icon: <Receipt />,
         color: "#3b82f6",
       },
       {
