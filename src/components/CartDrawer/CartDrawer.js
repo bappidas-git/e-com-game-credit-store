@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Drawer,
   IconButton,
@@ -28,6 +29,7 @@ import styles from "./CartDrawer.module.css";
 const CartDrawer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate();
   const {
     isCartOpen,
     setIsCartOpen,
@@ -55,8 +57,8 @@ const CartDrawer = () => {
 
   const handleCheckout = () => {
     play();
-    // TODO: Navigate to checkout
-    console.log("Proceeding to checkout...");
+    setIsCartOpen(false);
+    navigate("/checkout");
   };
 
   return (
