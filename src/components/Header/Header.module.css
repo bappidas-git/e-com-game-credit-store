@@ -62,9 +62,13 @@
 }
 
 .iconButton {
-  color: #667eea;
+  color: #4c5ed0 !important;
   transition: all 0.3s ease;
   position: relative;
+}
+
+.iconButton svg {
+  color: inherit !important;
 }
 
 .iconButton:hover {
@@ -129,7 +133,7 @@
 
 .accountIcon {
   font-size: 32px;
-  color: #667eea;
+  color: #4c5ed0 !important;
 }
 
 .userMenu {
@@ -270,7 +274,11 @@
 }
 
 :global(.dark) .iconButton {
-  color: #ffffff;
+  color: #ffffff !important;
+}
+
+:global(.dark) .iconButton svg {
+  color: inherit !important;
 }
 
 :global(.dark) .iconButton:hover {

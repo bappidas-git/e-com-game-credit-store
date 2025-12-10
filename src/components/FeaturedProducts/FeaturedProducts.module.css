@@ -6,11 +6,11 @@
   text-align: center;
   font-weight: 700 !important;
   margin-bottom: 8px !important;
-  color: #1a202c;
+  color: #1a202c !important;
 }
 
 :global(.dark) .sectionTitle {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .titleGradient {
@@ -29,13 +29,13 @@
 
 .sectionSubtitle {
   text-align: center;
-  color: #4a5568;
+  color: #4a5568 !important;
   margin-bottom: 40px !important;
   font-size: 1.1rem;
 }
 
 :global(.dark) .sectionSubtitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .productsGrid {
