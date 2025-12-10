@@ -56,6 +56,43 @@ body.dark .main-content {
   background-color: #0a0e27;
 }
 
+/* Light Theme Explicit Styles */
+body.light .App {
+  background-color: #f5f7fa;
+}
+
+body.light .main-content {
+  background-color: #f5f7fa;
+}
+
+body.light .glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+body.light .neon-glow {
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3), 0 0 40px rgba(102, 126, 234, 0.2),
+    0 0 60px rgba(102, 126, 234, 0.1);
+}
+
+body.light .card-hover:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light .loading-spinner {
+  border: 3px solid rgba(102, 126, 234, 0.2);
+  border-top-color: #667eea;
+}
+
+/* Light theme scrollbar */
+body.light::-webkit-scrollbar-track {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+body.light::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
 /* Glassmorphism effect */
 .glass-effect {
   background: var(--glass-bg);
