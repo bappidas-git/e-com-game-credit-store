@@ -1,7 +1,11 @@
 .orderHistoryPage {
   min-height: 100vh;
   padding: 2rem 0 4rem;
-  background: var(--background-default);
+  background: #f5f7fa;
+}
+
+:global(.dark) .orderHistoryPage {
+  background: #0a0e27;
 }
 
 /* Header */
@@ -13,7 +17,11 @@
 }
 
 .backButton {
-  color: var(--text-secondary);
+  color: #4a5568;
+}
+
+:global(.dark) .backButton {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .headerContent {
@@ -31,23 +39,46 @@
   background-clip: text;
 }
 
+:global(.dark) .pageTitle {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .titleIcon {
   font-size: 2rem;
   color: #667eea;
   -webkit-text-fill-color: initial;
 }
 
+:global(.dark) .titleIcon {
+  color: #a855f7;
+}
+
 .pageSubtitle {
-  color: var(--text-secondary);
+  color: #4a5568;
   margin-top: 0.25rem;
 }
 
+:global(.dark) .pageSubtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .refreshButton {
-  color: var(--text-secondary);
+  color: #4a5568;
+}
+
+:global(.dark) .refreshButton {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .refreshButton:hover {
-  color: var(--primary-main);
+  color: #667eea;
+}
+
+:global(.dark) .refreshButton:hover {
+  color: #a855f7;
 }
 
 .spinning {
@@ -75,9 +106,15 @@
 
 /* Empty State */
 .emptyCard {
-  background: var(--background-paper);
+  background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+:global(.dark) .emptyCard {
+  background: rgba(26, 31, 58, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(168, 85, 247, 0.1);
 }
 
 .emptyContent {
@@ -87,14 +124,22 @@
 
 .emptyIcon {
   font-size: 5rem;
-  color: var(--text-disabled);
+  color: #9ca3af;
   margin-bottom: 1rem;
+}
+
+:global(.dark) .emptyIcon {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .emptyTitle {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: #1a202c;
+}
+
+:global(.dark) .emptyTitle {
+  color: #ffffff;
 }
 
 .shopButton {
@@ -102,16 +147,30 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+:global(.dark) .shopButton {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+}
+
 .shopButton:hover {
   background: linear-gradient(135deg, #5a6fd6 0%, #6a4393 100%);
 }
 
+:global(.dark) .shopButton:hover {
+  background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+}
+
 /* Login Prompt */
 .loginPromptCard {
-  background: var(--background-paper);
+  background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   margin-top: 4rem;
+}
+
+:global(.dark) .loginPromptCard {
+  background: rgba(26, 31, 58, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(168, 85, 247, 0.1);
 }
 
 .loginPromptContent {
@@ -121,14 +180,22 @@
 
 .loginIcon {
   font-size: 5rem;
-  color: var(--primary-main);
+  color: #667eea;
   margin-bottom: 1rem;
+}
+
+:global(.dark) .loginIcon {
+  color: #a855f7;
 }
 
 .loginTitle {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: #1a202c;
+}
+
+:global(.dark) .loginTitle {
+  color: #ffffff;
 }
 
 .loginButton {
@@ -137,8 +204,16 @@
   padding: 0.75rem 2rem;
 }
 
+:global(.dark) .loginButton {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+}
+
 .loginButton:hover {
   background: linear-gradient(135deg, #5a6fd6 0%, #6a4393 100%);
+}
+
+:global(.dark) .loginButton:hover {
+  background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
 }
 
 .homeLink {
@@ -154,10 +229,16 @@
 }
 
 .orderAccordion {
-  background: var(--background-paper);
+  background: #ffffff;
   border-radius: 16px !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
   overflow: hidden;
+}
+
+:global(.dark) .orderAccordion {
+  background: rgba(26, 31, 58, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(168, 85, 247, 0.1);
 }
 
 .orderAccordion::before {
@@ -202,23 +283,39 @@
 .orderNumber {
   font-weight: 700;
   font-size: 1.1rem;
-  color: var(--text-primary);
+  color: #1a202c;
   font-family: monospace;
 }
 
+:global(.dark) .orderNumber {
+  color: #ffffff;
+}
+
 .copyButton {
-  color: var(--text-secondary);
+  color: #4a5568;
   padding: 4px;
 }
 
+:global(.dark) .copyButton {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .copyButton:hover {
-  color: var(--primary-main);
+  color: #667eea;
+}
+
+:global(.dark) .copyButton:hover {
+  color: #a855f7;
 }
 
 .orderDate {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: #4a5568;
   margin-top: 0.25rem;
+}
+
+:global(.dark) .orderDate {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .orderMetaInfo {
@@ -230,13 +327,21 @@
 
 .orderItemCount {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: #4a5568;
+}
+
+:global(.dark) .orderItemCount {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .orderTotal {
   font-weight: 700;
   font-size: 1.1rem;
-  color: var(--primary-main);
+  color: #667eea;
+}
+
+:global(.dark) .orderTotal {
+  color: #a855f7;
 }
 
 .statusChip {
@@ -250,17 +355,25 @@
 
 .sectionLabel {
   font-weight: 600;
-  color: var(--text-primary);
+  color: #1a202c;
   margin-bottom: 1rem;
+}
+
+:global(.dark) .sectionLabel {
+  color: #ffffff;
 }
 
 .orderItem {
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  background: var(--background-default);
+  background: #f5f7fa;
   border-radius: 12px;
   margin-bottom: 0.75rem;
+}
+
+:global(.dark) .orderItem {
+  background: rgba(10, 14, 39, 0.5);
 }
 
 .itemImage {
@@ -285,14 +398,22 @@
 .itemName {
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text-primary);
+  color: #1a202c;
   margin-bottom: 0.25rem;
+}
+
+:global(.dark) .itemName {
+  color: #ffffff;
 }
 
 .itemOffer {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: #4a5568;
   margin-bottom: 0.5rem;
+}
+
+:global(.dark) .itemOffer {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .itemChips {
@@ -314,7 +435,11 @@
 
 .requiredInfo span {
   font-size: 0.7rem;
-  color: var(--text-secondary);
+  color: #4a5568;
+}
+
+:global(.dark) .requiredInfo span {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .itemPricing {
@@ -324,13 +449,21 @@
 
 .itemQuantity {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: #4a5568;
   margin-bottom: 0.25rem;
+}
+
+:global(.dark) .itemQuantity {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .itemPrice {
   font-weight: 700;
-  color: var(--primary-main);
+  color: #667eea;
+}
+
+:global(.dark) .itemPrice {
+  color: #a855f7;
 }
 
 /* Section Divider */
@@ -341,14 +474,22 @@
 /* Contact Details */
 .contactDetails {
   padding: 1rem;
-  background: var(--background-default);
+  background: #f5f7fa;
   border-radius: 8px;
+}
+
+:global(.dark) .contactDetails {
+  background: rgba(10, 14, 39, 0.5);
 }
 
 .contactDetails p {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #4a5568;
   margin-bottom: 0.25rem;
+}
+
+:global(.dark) .contactDetails p {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .contactDetails p:last-child {
@@ -358,8 +499,12 @@
 /* Payment Summary */
 .paymentSummary {
   padding: 1rem;
-  background: var(--background-default);
+  background: #f5f7fa;
   border-radius: 8px;
+}
+
+:global(.dark) .paymentSummary {
+  background: rgba(10, 14, 39, 0.5);
 }
 
 .summaryRow {
@@ -370,7 +515,11 @@
 
 .summaryRow p {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #4a5568;
+}
+
+:global(.dark) .summaryRow p {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .miniDivider {
@@ -378,8 +527,12 @@
 }
 
 .totalValue {
-  color: var(--primary-main);
+  color: #667eea;
   font-weight: 700;
+}
+
+:global(.dark) .totalValue {
+  color: #a855f7;
 }
 
 /* Order Actions */
@@ -388,7 +541,11 @@
   gap: 1rem;
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--divider);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:global(.dark) .orderActions {
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
 }
 
 /* Responsive */
@@ -419,7 +576,11 @@
     justify-content: space-between;
     margin-top: 0.75rem;
     padding-top: 0.75rem;
-    border-top: 1px solid var(--divider);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.dark) .orderMetaInfo {
+    border-top: 1px solid rgba(168, 85, 247, 0.2);
   }
 
   .orderItem {
