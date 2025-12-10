@@ -88,6 +88,12 @@
   font-weight: 600 !important;
 }
 
+.instantBadge {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
 .discountBadge {
   background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important;
   color: #ffffff !important;
@@ -185,18 +191,49 @@
   padding: 16px !important;
 }
 
+.chipContainer {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
 .platformChip {
   background: rgba(102, 126, 234, 0.1) !important;
   color: #667eea !important;
   font-size: 0.75rem !important;
   height: 22px !important;
-  margin-bottom: 8px !important;
   font-weight: 600 !important;
 }
 
 :global(.dark) .platformChip {
   background: rgba(168, 85, 247, 0.2) !important;
   color: #a855f7 !important;
+}
+
+.regionChip {
+  background: rgba(236, 72, 153, 0.1) !important;
+  color: #ec4899 !important;
+  font-size: 0.7rem !important;
+  height: 22px !important;
+  font-weight: 600 !important;
+}
+
+:global(.dark) .regionChip {
+  background: rgba(236, 72, 153, 0.2) !important;
+  color: #f472b6 !important;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.reviewCount {
+  font-size: 0.75rem;
+  color: #9ca3af;
 }
 
 .productName {
@@ -215,8 +252,26 @@
 .priceContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.priceLabel {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.deliveryTime {
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+:global(.dark) .deliveryTime {
+  color: #34d399;
 }
 
 .price {

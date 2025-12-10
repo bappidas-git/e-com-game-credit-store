@@ -1,10 +1,48 @@
-export const formatCurrency = (amount, currency = "USD") => {
-  return new Intl.NumberFormat("en-US", {
+export const formatCurrency = (amount, currency = "INR") => {
+  const locale = currency === "INR" ? "en-IN" : "en-US";
+  return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
+};
+
+// Get the minimum price from product offers
+export const getProductMinPrice = (product) => {
+  if (!product) return { sellingPrice: 0, originalPrice: 0, discount: 0 };
+
+  // If product has offers array, get the minimum selling price
+  if (product.offers && product.offers.length > 0) {
+    const minOffer = product.offers.reduce((min, offer) =>
+      offer.sellingPrice < min.sellingPrice ? offer : min
+    , product.offers[0]);
+    return {
+      sellingPrice: minOffer.sellingPrice,
+      originalPrice: minOffer.originalPrice,
+      discount: minOffer.discount || 0,
+      currency: minOffer.currency || "INR"
+    };
+  }
+
+  // Fallback to old structure
+  return {
+    sellingPrice: product.price || product.sellingPrice || 0,
+    originalPrice: product.originalPrice || product.price || 0,
+    discount: product.discount || 0,
+    currency: product.currency || "INR"
+  };
+};
+
+// Get the maximum discount from product offers
+export const getProductMaxDiscount = (product) => {
+  if (!product) return 0;
+
+  if (product.offers && product.offers.length > 0) {
+    return Math.max(...product.offers.map(offer => offer.discount || 0));
+  }
+
+  return product.discount || 0;
 };
 
 export const formatNumber = (num) => {
