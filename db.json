@@ -1,0 +1,245 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "user@mail.com",
+      "password": "112233",
+      "firstName": "Jhon",
+      "lastName": "Doe"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Free Fire Diamond Plus",
+      "category": "mobile-game",
+      "price": 9.99,
+      "originalPrice": 12.99,
+      "image": "https://placehold.co/300x400/7B1FA2/FFFFFF?text=Free+Fire",
+      "rating": 4.8,
+      "description": "Get instant diamonds for Free Fire Battle Royale",
+      "platform": "Mobile",
+      "discount": 23,
+      "featured": true,
+      "trending": true
+    },
+    {
+      "id": 2,
+      "name": "PUBG G-Coin",
+      "category": "mobile-game",
+      "price": 19.99,
+      "originalPrice": 24.99,
+      "image": "https://placehold.co/300x400/1976D2/FFFFFF?text=PUBG",
+      "rating": 4.9,
+      "description": "Premium G-Coins for PUBG Global",
+      "platform": "Global",
+      "discount": 20,
+      "featured": true,
+      "trending": false
+    },
+    {
+      "id": 3,
+      "name": "Steam Gift Card",
+      "category": "gift-card",
+      "price": 50,
+      "originalPrice": 50,
+      "image": "https://placehold.co/300x400/424242/FFFFFF?text=Steam",
+      "rating": 5,
+      "description": "Steam Wallet Code for all regions",
+      "platform": "PC",
+      "discount": 0,
+      "featured": true,
+      "trending": true
+    },
+    {
+      "id": 4,
+      "name": "Valorant Points",
+      "category": "pc-game",
+      "price": 35.99,
+      "originalPrice": 39.99,
+      "image": "https://placehold.co/300x400/E91E63/FFFFFF?text=Valorant",
+      "rating": 4.7,
+      "description": "VP for Valorant skins and battle pass",
+      "platform": "PC",
+      "discount": 10,
+      "featured": true,
+      "trending": true
+    },
+    {
+      "id": 5,
+      "name": "Roblox Gift Card",
+      "category": "gift-card",
+      "price": 25,
+      "originalPrice": 25,
+      "image": "https://placehold.co/300x400/4CAF50/FFFFFF?text=Roblox",
+      "rating": 4.6,
+      "description": "Robux gift card for all platforms",
+      "platform": "Universal",
+      "discount": 0,
+      "featured": false,
+      "trending": true
+    },
+    {
+      "id": 6,
+      "name": "League of Legends RP",
+      "category": "pc-game",
+      "price": 15.99,
+      "originalPrice": 19.99,
+      "image": "https://placehold.co/300x400/00BCD4/FFFFFF?text=LoL",
+      "rating": 4.8,
+      "description": "Riot Points for League of Legends",
+      "platform": "PC",
+      "discount": 20,
+      "featured": true,
+      "trending": false
+    },
+    {
+      "id": 7,
+      "name": "Call of Duty Mobile CP",
+      "category": "mobile-game",
+      "price": 29.99,
+      "originalPrice": 34.99,
+      "image": "https://placehold.co/300x400/FF5722/FFFFFF?text=COD+Mobile",
+      "rating": 4.9,
+      "description": "COD Points for Call of Duty Mobile",
+      "platform": "Mobile",
+      "discount": 14,
+      "featured": true,
+      "trending": true
+    },
+    {
+      "id": 8,
+      "name": "Mobile Legends Diamonds",
+      "category": "mobile-game",
+      "price": 12.99,
+      "originalPrice": 15.99,
+      "image": "https://placehold.co/300x400/9C27B0/FFFFFF?text=ML",
+      "rating": 4.7,
+      "description": "Instant diamonds delivery for Mobile Legends",
+      "platform": "Mobile",
+      "discount": 19,
+      "featured": true,
+      "trending": true
+    },
+    {
+      "id": 9,
+      "name": "Genshin Impact Genesis",
+      "category": "cross-platform",
+      "price": 49.99,
+      "originalPrice": 54.99,
+      "image": "https://placehold.co/300x400/3F51B5/FFFFFF?text=Genshin",
+      "rating": 4.9,
+      "description": "Genesis Crystals for Genshin Impact",
+      "platform": "Cross-platform",
+      "discount": 9,
+      "featured": true,
+      "trending": true
+    },
+    {
+      "id": 10,
+      "name": "PlayStation Gift Card",
+      "category": "gift-card",
+      "price": 100,
+      "originalPrice": 100,
+      "image": "https://placehold.co/300x400/003791/FFFFFF?text=PlayStation",
+      "rating": 5,
+      "description": "PSN gift card for PlayStation Store",
+      "platform": "PlayStation",
+      "discount": 0,
+      "featured": true,
+      "trending": false
+    },
+    {
+      "id": 11,
+      "name": "Xbox Gift Card",
+      "category": "gift-card",
+      "price": 75,
+      "originalPrice": 75,
+      "image": "https://placehold.co/300x400/107C10/FFFFFF?text=Xbox",
+      "rating": 4.9,
+      "description": "Xbox gift card for Microsoft Store",
+      "platform": "Xbox",
+      "discount": 0,
+      "featured": false,
+      "trending": true
+    },
+    {
+      "id": 12,
+      "name": "Apex Legends Coins",
+      "category": "cross-platform",
+      "price": 39.99,
+      "originalPrice": 44.99,
+      "image": "https://placehold.co/300x400/D32F2F/FFFFFF?text=Apex",
+      "rating": 4.6,
+      "description": "Apex Coins for all platforms",
+      "platform": "Cross-platform",
+      "discount": 11,
+      "featured": false,
+      "trending": false
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Mobile Games",
+      "slug": "mobile-game",
+      "icon": "mdi:cellphone-gaming"
+    },
+    {
+      "id": 2,
+      "name": "PC Games",
+      "slug": "pc-game",
+      "icon": "mdi:desktop-classic"
+    },
+    {
+      "id": 3,
+      "name": "Gift Cards",
+      "slug": "gift-card",
+      "icon": "mdi:wallet-giftcard"
+    },
+    {
+      "id": 4,
+      "name": "Cross Platform",
+      "slug": "cross-platform",
+      "icon": "mdi:gamepad-variant"
+    }
+  ],
+  "cart": [
+    {
+      "id": 3,
+      "name": "Steam Gift Card",
+      "category": "gift-card",
+      "price": 50,
+      "originalPrice": 50,
+      "image": "https://placehold.co/300x400/424242/FFFFFF?text=Steam",
+      "rating": 5,
+      "description": "Steam Wallet Code for all regions",
+      "platform": "PC",
+      "discount": 0,
+      "featured": true,
+      "trending": true,
+      "quantity": 2,
+      "cartItemId": 1763123284146,
+      "userId": 1
+    },
+    {
+      "id": 1,
+      "name": "Free Fire Diamond Plus",
+      "category": "mobile-game",
+      "price": 9.99,
+      "originalPrice": 12.99,
+      "image": "https://placehold.co/300x400/7B1FA2/FFFFFF?text=Free+Fire",
+      "rating": 4.8,
+      "description": "Get instant diamonds for Free Fire Battle Royale",
+      "platform": "Mobile",
+      "discount": 23,
+      "featured": true,
+      "trending": true,
+      "quantity": 2,
+      "cartItemId": 1763123290575,
+      "userId": 1
+    }
+  ],
+  "orders": [],
+  "wishlist": []
+}

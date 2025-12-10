@@ -1,0 +1,5 @@
+// Base URL configuration for API calls
+// Change this to your production API URL when deploying
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+
+export default BASE_URL;

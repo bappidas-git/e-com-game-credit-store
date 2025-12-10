@@ -1,0 +1,479 @@
+.drawer {
+  z-index: 1300;
+}
+
+.drawerPaper {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Light Mode Drawer */
+.drawerPaper.light {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-top: 2px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Drawer */
+.drawerPaper.dark {
+  background: rgba(26, 31, 58, 0.98) !important;
+  border-top: 2px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 -4px 30px rgba(168, 85, 247, 0.1);
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.handleBar {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  margin: 12px auto 8px;
+  transition: all 0.3s ease;
+}
+
+/* Light Mode Handle Bar */
+.light .handleBar {
+  background: rgba(102, 126, 234, 0.5);
+}
+
+.light .handleBar:hover {
+  background: rgba(102, 126, 234, 0.8);
+  width: 50px;
+}
+
+/* Dark Mode Handle Bar */
+.dark .handleBar {
+  background: rgba(168, 85, 247, 0.5);
+}
+
+.dark .handleBar:hover {
+  background: rgba(168, 85, 247, 0.8);
+  width: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+/* Light Mode Header */
+.light .header {
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.08) 0%,
+    rgba(118, 75, 162, 0.08) 100%
+  );
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+/* Dark Mode Header */
+.dark .header {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.1) 0%,
+    rgba(236, 72, 153, 0.1) 100%
+  );
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Light Mode Title */
+.light .title {
+  color: #a855f7;
+}
+
+/* Dark Mode Title */
+.dark .title {
+  color: #ffffff;
+}
+
+.closeButton {
+  transition: all 0.3s ease;
+}
+
+/* Light Mode Close Button */
+.light .closeButton {
+  color: rgba(26, 32, 44, 0.7);
+}
+
+.light .closeButton:hover {
+  color: #1a202c;
+  background: rgba(102, 126, 234, 0.15);
+  transform: rotate(90deg);
+}
+
+/* Dark Mode Close Button */
+.dark .closeButton {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .closeButton:hover {
+  color: #ffffff;
+  background: rgba(168, 85, 247, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Light Mode Divider */
+.light .divider {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+/* Dark Mode Divider */
+.dark .divider {
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+}
+
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Light Mode Scrollbar */
+.light .content::-webkit-scrollbar-track {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.light .content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+}
+
+/* Dark Mode Scrollbar */
+.dark .content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark .content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+  border-radius: 3px;
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  padding: 0 12px;
+}
+
+/* Light Mode Section Title */
+.light .sectionTitle {
+  color: rgba(74, 85, 104, 0.8);
+}
+
+/* Dark Mode Section Title */
+.dark .sectionTitle {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.menuList {
+  padding: 0 !important;
+}
+
+.menuItem {
+  margin-bottom: 4px;
+}
+
+.menuButton {
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+/* Light Mode Menu Button */
+.light .menuButton {
+  background: rgba(102, 126, 234, 0.03) !important;
+}
+
+.light .menuButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(102, 126, 234, 0.12) 50%,
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+}
+
+.light .menuButton:hover::before {
+  left: 100%;
+}
+
+.light .menuButton:hover {
+  background: rgba(102, 126, 234, 0.08) !important;
+  border-color: rgba(102, 126, 234, 0.25);
+  transform: translateX(4px);
+}
+
+/* Dark Mode Menu Button */
+.dark .menuButton {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.dark .menuButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(168, 85, 247, 0.15) 50%,
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+}
+
+.dark .menuButton:hover::before {
+  left: 100%;
+}
+
+.dark .menuButton:hover {
+  background: rgba(168, 85, 247, 0.1) !important;
+  border-color: rgba(168, 85, 247, 0.3);
+  transform: translateX(4px);
+}
+
+.menuButton:hover .menuIndicator {
+  width: 4px;
+  opacity: 1;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.menuIcon {
+  min-width: 44px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuIcon svg {
+  font-size: 24px;
+  filter: drop-shadow(0 0 8px currentColor);
+  transition: all 0.3s ease;
+}
+
+.menuButton:hover .menuIcon svg {
+  transform: scale(1.1);
+}
+
+.menuText :global(.MuiListItemText-primary) {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Light Mode Menu Text */
+.light .menuText :global(.MuiListItemText-primary) {
+  color: #1a202c;
+}
+
+/* Dark Mode Menu Text */
+.dark .menuText :global(.MuiListItemText-primary) {
+  color: #ffffff;
+}
+
+.menuIndicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 60%;
+  border-radius: 0 4px 4px 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.footer {
+  padding: 20px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Light Mode Footer */
+.light .footer {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(102, 126, 234, 0.05) 100%
+  );
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+/* Dark Mode Footer */
+.dark .footer {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(168, 85, 247, 0.05) 100%
+  );
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.footerLogo {
+  width: 32px;
+  height: 32px;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Light Mode Footer Logo */
+.light .footerLogo {
+  filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+}
+
+/* Dark Mode Footer Logo */
+.dark .footerLogo {
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.footerText {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Light Mode Footer Text */
+.light .footerText {
+  color: rgba(74, 85, 104, 0.8);
+}
+
+/* Dark Mode Footer Text */
+.dark .footerText {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .drawerPaper {
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  .header {
+    padding: 14px 20px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .content {
+    padding: 16px 12px;
+  }
+
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .sectionTitle {
+    font-size: 0.7rem;
+    padding: 0 8px;
+  }
+
+  .menuButton {
+    padding: 12px 14px !important;
+  }
+
+  .menuIcon {
+    min-width: 40px !important;
+  }
+
+  .menuIcon svg {
+    font-size: 22px;
+  }
+
+  .menuText :global(.MuiListItemText-primary) {
+    font-size: 0.9rem;
+  }
+
+  .footer {
+    padding: 16px 20px;
+  }
+
+  .footerLogo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .footerText {
+    font-size: 0.8rem;
+  }
+}
+
+/* Tablet Responsive */
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .content {
+    padding: 12px 8px;
+  }
+
+  .menuButton {
+    padding: 10px 12px !important;
+  }
+
+  .menuButton:hover {
+    transform: translateX(2px);
+  }
+}
+
+/* Animation for drawer opening */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
