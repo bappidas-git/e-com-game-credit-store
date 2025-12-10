@@ -21,6 +21,7 @@ import Footer from "./components/Footer/Footer";
 
 // Pages
 import Home from "./pages/Home/Home";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 // import About from "./pages/About/About";
 // import Products from "./pages/Products/Products";
 // import TopUp from "./pages/TopUp/TopUp";
@@ -46,6 +47,7 @@ function App() {
                 <AnimatePresence mode="wait">
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/products/:id" element={<ProductDetails />} />
                     {/* <Route path="/about" element={<About />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/top-up" element={<TopUp />} />

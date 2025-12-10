@@ -132,10 +132,17 @@ const CartDrawer = () => {
                         {item.name}
                       </Typography>
                       <Typography className={styles.itemPlatform}>
-                        {item.platform}
+                        {item.platform} {item.region && `• ${item.region}`}
                       </Typography>
+                      {item.requiredInfo && Object.keys(item.requiredInfo).length > 0 && (
+                        <Typography className={styles.itemRequiredInfo}>
+                          {Object.entries(item.requiredInfo).map(([key, value]) => (
+                            <span key={key}>{key}: {value}</span>
+                          ))}
+                        </Typography>
+                      )}
                       <Typography className={styles.itemPrice}>
-                        {formatCurrency(item.price)}
+                        {formatCurrency(item.price, item.currency || "INR")}
                       </Typography>
                     </Box>
 
