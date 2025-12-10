@@ -23,6 +23,15 @@ export const ThemeContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
     document.body.style.backgroundColor = isDarkMode ? "#0a0e27" : "#f5f7fa";
+
+    // Add/remove .dark class on body for CSS selectors
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
+    } else {
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
+    }
   }, [isDarkMode]);
 
   const lightTheme = createTheme({

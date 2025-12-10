@@ -10,7 +10,7 @@ import {
   CardMedia,
   Divider,
   useMediaQuery,
-  useTheme,
+  useTheme as useMuiTheme,
 } from "@mui/material";
 import {
   Close,
@@ -22,13 +22,15 @@ import {
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../../context/CartContext";
+import { useTheme } from "../../context/ThemeContext";
 import { formatCurrency } from "../../utils/helpers";
 import useSound from "../../hooks/useSound";
 import styles from "./CartDrawer.module.css";
 
 const CartDrawer = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const muiTheme = useMuiTheme();
+  const { isDarkMode } = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
   const navigate = useNavigate();
   const {
     isCartOpen,
@@ -68,7 +70,7 @@ const CartDrawer = () => {
       onClose={handleClose}
       className={styles.drawer}
       PaperProps={{
-        className: styles.drawerPaper,
+        className: `${styles.drawerPaper} ${isDarkMode ? styles.dark : styles.light}`,
         style: {
           width: isMobile ? "100%" : "35%",
           height: isMobile ? "90vh" : "100vh",
