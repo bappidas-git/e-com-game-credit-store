@@ -2,6 +2,12 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+  background-color: #f5f7fa;
+  transition: background-color 0.3s ease;
+}
+
+:global(.dark) .homePage {
+  background-color: #0a0e27;
 }
 
 .heroSection {

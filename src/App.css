@@ -35,6 +35,12 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  background-color: #f5f7fa;
+  transition: background-color 0.3s ease;
+}
+
+body.dark .App {
+  background-color: #0a0e27;
 }
 
 .main-content {
@@ -42,6 +48,12 @@ body {
   padding-top: 60px;
   padding-bottom: 80px;
   min-height: calc(100vh - 70px);
+  background-color: #f5f7fa;
+  transition: background-color 0.3s ease;
+}
+
+body.dark .main-content {
+  background-color: #0a0e27;
 }
 
 /* Glassmorphism effect */
