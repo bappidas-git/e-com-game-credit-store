@@ -1053,7 +1053,7 @@
       "image": "https://cdn.moogold.com/2022/02/PUBG-New-State-Logo.png",
       "rating": 4.6,
       "totalReviews": 2134,
-      "featured": false,
+      "featured": true,
       "trending": true,
       "hot": false,
       "instantDelivery": true,
