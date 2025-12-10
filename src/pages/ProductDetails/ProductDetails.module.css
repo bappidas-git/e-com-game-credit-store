@@ -1,7 +1,12 @@
 .container {
   padding: 40px 0 80px;
   min-height: calc(100vh - 64px);
-  background-color: transparent;
+  background-color: #f5f7fa;
+  transition: background-color 0.3s ease;
+}
+
+:global(.light) .container {
+  background-color: #f5f7fa;
 }
 
 :global(.dark) .container {

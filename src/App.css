@@ -27,7 +27,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #f5f7fa;
+  color: #1a202c;
+}
+
+body.light {
+  background-color: #f5f7fa;
+  color: #1a202c;
+}
+
+body.dark {
+  background-color: #0a0e27;
+  color: #f5f7fa;
 }
 
 .App {
@@ -37,6 +49,10 @@ body {
   position: relative;
   background-color: #f5f7fa;
   transition: background-color 0.3s ease;
+}
+
+body.light .App {
+  background-color: #f5f7fa;
 }
 
 body.dark .App {
@@ -50,6 +66,10 @@ body.dark .App {
   min-height: calc(100vh - 70px);
   background-color: #f5f7fa;
   transition: background-color 0.3s ease;
+}
+
+body.light .main-content {
+  background-color: #f5f7fa;
 }
 
 body.dark .main-content {

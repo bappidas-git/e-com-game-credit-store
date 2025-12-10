@@ -6,6 +6,10 @@
   transition: background-color 0.3s ease;
 }
 
+:global(.light) .homePage {
+  background-color: #f5f7fa;
+}
+
 :global(.dark) .homePage {
   background-color: #0a0e27;
 }
