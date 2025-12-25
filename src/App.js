@@ -19,6 +19,7 @@ import { OrderProvider } from "./context/OrderContext";
 import Header from "./components/Header/Header";
 import BottomNav from "./components/BottomNav/BottomNav";
 import Footer from "./components/Footer/Footer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 // Pages
 import Home from "./pages/Home/Home";
@@ -44,6 +45,7 @@ function App() {
         <CartProvider>
           <OrderProvider>
             <Router>
+              <ScrollToTop />
               <CssBaseline />
               <div className="App">
                 <Header />
