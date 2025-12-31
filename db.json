@@ -1933,6 +1933,36 @@
       "createdAt": "2025-12-27T14:20:00.000Z",
       "updatedAt": "2025-12-27T14:20:00.000Z",
       "notes": ""
+    },
+    {
+      "type": "newsletter",
+      "name": null,
+      "email": "bappi@assamdigital.com",
+      "phone": null,
+      "orderNumber": null,
+      "category": null,
+      "subject": null,
+      "message": null,
+      "status": "subscribed",
+      "createdAt": "2025-12-31T09:14:26.666Z",
+      "updatedAt": "2025-12-31T09:14:26.676Z",
+      "notes": "",
+      "id": 3
+    },
+    {
+      "type": "contact",
+      "name": "Bappi Das",
+      "email": "mail4bappidas@gmail.com",
+      "phone": null,
+      "orderNumber": "1234567890",
+      "category": "payment",
+      "subject": "Test",
+      "message": "Test message Test message Test message Test message ",
+      "status": "new",
+      "createdAt": "2025-12-31T09:15:50.253Z",
+      "updatedAt": "2025-12-31T09:15:50.253Z",
+      "notes": "",
+      "id": 4
     }
   ]
 }
