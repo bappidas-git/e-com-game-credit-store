@@ -11,6 +11,15 @@ export const useTheme = () => {
   return context;
 };
 
+// Alias for useTheme to match naming convention
+export const useThemeContext = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useThemeContext must be used within a ThemeContextProvider");
+  }
+  return { mode: context.isDarkMode ? "dark" : "light", toggleTheme: context.toggleTheme };
+};
+
 export const ThemeContextProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");

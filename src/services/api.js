@@ -133,6 +133,47 @@ const apiService = {
       return response.data;
     },
   },
+
+  // Admin endpoints
+  admin: {
+    login: async (credentials) => {
+      const response = await api.get("/admins", {
+        params: {
+          email: credentials.email,
+          password: credentials.password,
+        },
+      });
+      return response.data[0] || null;
+    },
+    getProducts: async () => {
+      const response = await api.get("/products");
+      return response.data;
+    },
+    getProduct: async (id) => {
+      const response = await api.get(`/products/${id}`);
+      return response.data;
+    },
+    createProduct: async (productData) => {
+      const response = await api.post("/products", productData);
+      return response.data;
+    },
+    updateProduct: async (id, productData) => {
+      const response = await api.put(`/products/${id}`, productData);
+      return response.data;
+    },
+    deleteProduct: async (id) => {
+      const response = await api.delete(`/products/${id}`);
+      return response.data;
+    },
+    getOrders: async () => {
+      const response = await api.get("/orders");
+      return response.data;
+    },
+    updateOrderStatus: async (id, status) => {
+      const response = await api.patch(`/orders/${id}`, { status });
+      return response.data;
+    },
+  },
 };
 
 export default apiService;
