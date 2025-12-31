@@ -186,7 +186,7 @@ const AuthModal = ({ open, onClose }) => {
               <Box className={styles.header}>
                 <AccountCircle className={styles.headerIcon} />
                 <Typography variant="h4" className={styles.title}>
-                  Welcome to GameHub
+                  Welcome to KELLS GLOBAL
                 </Typography>
                 <Typography className={styles.subtitle}>
                   Join the ultimate gaming marketplace

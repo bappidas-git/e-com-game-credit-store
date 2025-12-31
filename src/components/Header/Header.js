@@ -101,7 +101,6 @@ const Header = () => {
           >
             <Link to="/" className={styles.logoLink}>
               <img src={LOGO} alt="KELLS GLOBAL" className={styles.logo} />
-              <span className={styles.logoText}>GameHub</span>
             </Link>
           </motion.div>
 

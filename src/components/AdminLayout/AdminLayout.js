@@ -111,7 +111,7 @@ const AdminLayout = () => {
         </Box>
         <Box>
           <Typography variant="h6" fontWeight="bold" sx={{ lineHeight: 1.2 }}>
-            GameHub
+            KELLS GLOBAL
           </Typography>
           <Typography variant="caption" color="text.secondary">
             Admin Panel

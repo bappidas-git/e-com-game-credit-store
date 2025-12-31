@@ -213,8 +213,8 @@ const BottomDrawer = ({ open, onClose }) => {
 
         {/* Footer */}
         <Box className={styles.footer}>
-          <img src={LOGO} alt="GameHub" className={styles.footerLogo} />
-          <Typography className={styles.footerText}>GameHub © 2024</Typography>
+          <img src={LOGO} alt="KELLS GLOBAL" className={styles.footerLogo} />
+          <Typography className={styles.footerText}>KELLS GLOBAL © 2024</Typography>
         </Box>
       </Box>
     </SwipeableDrawer>
