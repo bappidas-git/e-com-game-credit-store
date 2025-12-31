@@ -31,6 +31,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useSound from "../../hooks/useSound";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import apiService from "../../services/api";
 import styles from "./Support.module.css";
 
 const Support = () => {
@@ -131,8 +132,16 @@ const Support = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      await apiService.leads.createContactLead({
+        name: formData.name,
+        email: formData.email,
+        orderNumber: formData.orderNumber,
+        category: formData.category,
+        subject: formData.subject,
+        message: formData.message,
+      });
+
       setIsSubmitting(false);
       Swal.fire({
         icon: "success",
@@ -148,7 +157,15 @@ const Support = () => {
         subject: "",
         message: "",
       });
-    }, 1500);
+    } catch (error) {
+      setIsSubmitting(false);
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Something went wrong. Please try again later.",
+        confirmButtonColor: "#667eea",
+      });
+    }
   };
 
   const handleNavigateToHelp = () => {

@@ -11,6 +11,7 @@ import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import useSound from "../../hooks/useSound";
+import apiService from "../../services/api";
 import styles from "./Newsletter.module.css";
 
 const Newsletter = () => {
@@ -27,15 +28,22 @@ const Newsletter = () => {
     play();
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      await apiService.leads.createNewsletterLead(email.trim());
       setIsSubmitting(false);
       setIsSuccess(true);
       setEmail("");
 
       // Reset success state after 3 seconds
       setTimeout(() => setIsSuccess(false), 3000);
-    }, 1000);
+    } catch (error) {
+      setIsSubmitting(false);
+      // Still show success even if there's a duplicate or error
+      // to prevent email enumeration
+      setIsSuccess(true);
+      setEmail("");
+      setTimeout(() => setIsSuccess(false), 3000);
+    }
   };
 
   const features = [

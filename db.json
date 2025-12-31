@@ -1902,5 +1902,37 @@
       "id": 5
     }
   ],
-  "wishlist": []
+  "wishlist": [],
+  "leads": [
+    {
+      "id": 1,
+      "type": "contact",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": null,
+      "orderNumber": "ORD-12345",
+      "category": "order",
+      "subject": "Order Delivery Issue",
+      "message": "I have not received my order yet. It has been 3 days since I placed the order.",
+      "status": "new",
+      "createdAt": "2025-12-28T10:30:00.000Z",
+      "updatedAt": "2025-12-28T10:30:00.000Z",
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "type": "newsletter",
+      "name": null,
+      "email": "subscriber@example.com",
+      "phone": null,
+      "orderNumber": null,
+      "category": null,
+      "subject": null,
+      "message": null,
+      "status": "subscribed",
+      "createdAt": "2025-12-27T14:20:00.000Z",
+      "updatedAt": "2025-12-27T14:20:00.000Z",
+      "notes": ""
+    }
+  ]
 }

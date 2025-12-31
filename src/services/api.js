@@ -173,6 +173,64 @@ const apiService = {
       const response = await api.patch(`/orders/${id}`, { status });
       return response.data;
     },
+    // Lead management endpoints
+    getLeads: async (params = {}) => {
+      const response = await api.get("/leads", { params });
+      return response.data;
+    },
+    getLead: async (id) => {
+      const response = await api.get(`/leads/${id}`);
+      return response.data;
+    },
+    updateLead: async (id, leadData) => {
+      const response = await api.patch(`/leads/${id}`, {
+        ...leadData,
+        updatedAt: new Date().toISOString(),
+      });
+      return response.data;
+    },
+    deleteLead: async (id) => {
+      const response = await api.delete(`/leads/${id}`);
+      return response.data;
+    },
+  },
+
+  // Lead endpoints (public - for form submissions)
+  leads: {
+    createContactLead: async (leadData) => {
+      const response = await api.post("/leads", {
+        type: "contact",
+        name: leadData.name,
+        email: leadData.email,
+        phone: leadData.phone || null,
+        orderNumber: leadData.orderNumber || null,
+        category: leadData.category,
+        subject: leadData.subject,
+        message: leadData.message,
+        status: "new",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        notes: "",
+      });
+      return response.data;
+    },
+    createNewsletterLead: async (email) => {
+      const response = await api.post("/leads", {
+        type: "newsletter",
+        name: null,
+        email: email,
+        phone: null,
+        orderNumber: null,
+        category: null,
+        subject: null,
+        message: null,
+        status: "subscribed",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        notes: "",
+      });
+      return response.data;
+    },
   },
 };
 

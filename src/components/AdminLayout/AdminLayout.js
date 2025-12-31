@@ -46,6 +46,11 @@ const menuItems = [
     path: "/admin/orders",
   },
   {
+    title: "Leads",
+    icon: "mdi:account-group",
+    path: "/admin/leads",
+  },
+  {
     title: "Sync Products",
     icon: "mdi:cloud-sync",
     path: "/admin/sync",
