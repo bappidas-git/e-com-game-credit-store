@@ -9,9 +9,11 @@ import {
   Chip,
 } from "@mui/material";
 import { Search, TrendingUp, Security, Speed } from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import useSound from "../../hooks/useSound";
+import { useTheme } from "../../context/ThemeContext";
 import styles from "./HeroSection.module.css";
 
 import HERO_BG_1 from "../../assets/hero-1.jpg";
@@ -21,6 +23,7 @@ import HERO_BG_3 from "../../assets/hero-3.jpg";
 const HeroSection = () => {
   const navigate = useNavigate();
   const { play } = useSound();
+  const { isDarkMode } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -49,9 +52,9 @@ const HeroSection = () => {
   ];
 
   const trustBadges = [
-    { icon: <Speed />, text: "Instant Delivery" },
-    { icon: <Security />, text: "Secure Checkout" },
-    { icon: <TrendingUp />, text: "24/7 Support" },
+    { icon: <Speed />, text: "Instant Delivery", subtext: "1-5 min" },
+    { icon: <Security />, text: "Secure Checkout", subtext: "SSL Protected" },
+    { icon: <TrendingUp />, text: "24/7 Support", subtext: "Always Online" },
   ];
 
   const popularSearches = [
@@ -83,7 +86,10 @@ const HeroSection = () => {
   };
 
   return (
-    <Box className={styles.heroSection}>
+    <Box
+      className={styles.heroSection}
+      data-theme={isDarkMode ? "dark" : "light"}
+    >
       {/* Background Slider */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -92,15 +98,17 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.2 }}
           style={{
             backgroundImage: `url(${slides[currentSlide].image})`,
           }}
         />
       </AnimatePresence>
 
-      {/* Overlay */}
-      <Box className={styles.overlay} />
+      {/* Overlay with Pattern */}
+      <Box className={styles.overlay}>
+        <div className={styles.overlayPattern} />
+      </Box>
 
       {/* Content */}
       <Container maxWidth="lg" className={styles.content}>
@@ -108,7 +116,19 @@ const HeroSection = () => {
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
+          className={styles.contentInner}
         >
+          {/* Badge */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className={styles.heroBadge}
+          >
+            <Icon icon="mdi:lightning-bolt" className={styles.badgeIcon} />
+            <span>Trusted by 50,000+ Gamers</span>
+          </motion.div>
+
           {/* Title */}
           <Typography variant="h1" className={styles.title}>
             <motion.span
@@ -116,13 +136,19 @@ const HeroSection = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
+              className={styles.titleMain}
             >
               {slides[currentSlide].title}
             </motion.span>
-            <span className={styles.titleGradient}>
-              {" "}
+            <motion.span
+              key={`subtitle-${currentSlide}`}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className={styles.titleGradient}
+            >
               {slides[currentSlide].subtitle}
-            </span>
+            </motion.span>
           </Typography>
 
           {/* Description */}
@@ -138,71 +164,97 @@ const HeroSection = () => {
           </Typography>
 
           {/* Search Bar */}
-          <Box className={styles.searchContainer}>
-            <TextField
-              fullWidth
-              placeholder="Search for Free Fire, PUBG, Mobile Legends..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-              className={styles.searchInput}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search className={styles.searchIcon} />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <Button
-                    variant="contained"
-                    onClick={handleSearch}
-                    className={styles.searchButton}
-                  >
-                    Search
-                  </Button>
-                ),
-              }}
-            />
-          </Box>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className={styles.searchContainer}
+          >
+            <Box className={styles.searchWrapper}>
+              <TextField
+                fullWidth
+                placeholder="Search for Free Fire, PUBG, Mobile Legends..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+                className={styles.searchInput}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search className={styles.searchIcon} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleSearch}
+                className={styles.searchButton}
+              >
+                <span className={styles.searchButtonText}>Search</span>
+                <Icon icon="mdi:arrow-right" className={styles.searchButtonIcon} />
+              </Button>
+            </Box>
+          </motion.div>
 
           {/* Popular Searches */}
-          <Box className={styles.popularSearches}>
-            <Typography className={styles.popularLabel}>Popular:</Typography>
-            {popularSearches.map((search, index) => (
-              <motion.div
-                key={search}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className={styles.chipWrapper}
-              >
-                <Chip
-                  label={search}
-                  onClick={() => handleQuickSearch(search)}
-                  className={styles.searchChip}
-                  clickable
-                />
-              </motion.div>
-            ))}
-          </Box>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className={styles.popularSearches}
+          >
+            <Typography className={styles.popularLabel}>
+              <Icon icon="mdi:fire" className={styles.popularIcon} />
+              Popular:
+            </Typography>
+            <Box className={styles.chipsContainer}>
+              {popularSearches.map((search, index) => (
+                <motion.div
+                  key={search}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 + index * 0.08 }}
+                >
+                  <Chip
+                    label={search}
+                    onClick={() => handleQuickSearch(search)}
+                    className={styles.searchChip}
+                    clickable
+                  />
+                </motion.div>
+              ))}
+            </Box>
+          </motion.div>
 
           {/* Trust Badges */}
-          <Box className={styles.trustBadges}>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className={styles.trustBadges}
+          >
             {trustBadges.map((badge, index) => (
               <motion.div
                 key={badge.text}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 + index * 0.1 }}
+                transition={{ delay: 0.7 + index * 0.1 }}
                 className={styles.badge}
+                whileHover={{ y: -3, scale: 1.02 }}
               >
-                <Box className={styles.badgeIcon}>{badge.icon}</Box>
-                <Typography className={styles.badgeText}>
-                  {badge.text}
-                </Typography>
+                <Box className={styles.badgeIconWrapper}>{badge.icon}</Box>
+                <Box className={styles.badgeContent}>
+                  <Typography className={styles.badgeText}>
+                    {badge.text}
+                  </Typography>
+                  <Typography className={styles.badgeSubtext}>
+                    {badge.subtext}
+                  </Typography>
+                </Box>
               </motion.div>
             ))}
-          </Box>
+          </motion.div>
         </motion.div>
 
         {/* Slide Indicators */}
@@ -247,6 +299,9 @@ const HeroSection = () => {
           ease: "easeInOut",
         }}
       />
+
+      {/* Bottom Gradient Fade */}
+      <div className={styles.bottomFade} />
     </Box>
   );
 };

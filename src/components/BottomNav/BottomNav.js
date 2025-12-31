@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import { Home, Info, ShoppingBag, Menu as MenuIcon } from "@mui/icons-material";
-import { motion } from "framer-motion";
+import { Paper, Box } from "@mui/material";
+import { Home, Info, ShoppingBag, Menu as MenuIcon, LocalOffer } from "@mui/icons-material";
+import { motion, AnimatePresence } from "framer-motion";
 import BottomDrawer from "../BottomDrawer/BottomDrawer";
 import { useTheme } from "../../context/ThemeContext";
 import useSound from "../../hooks/useSound";
@@ -15,66 +15,90 @@ const BottomNav = () => {
   const { play } = useSound();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const getActiveTab = () => {
+  const navItems = [
+    { label: "Home", icon: <Home />, path: "/" },
+    { label: "Products", icon: <ShoppingBag />, path: "/products" },
+    { label: "Offers", icon: <LocalOffer />, path: "/special-offers" },
+    { label: "About", icon: <Info />, path: "/about" },
+    { label: "Menu", icon: <MenuIcon />, path: null },
+  ];
+
+  const getActiveIndex = () => {
     const path = location.pathname;
     if (path === "/") return 0;
-    if (path === "/about") return 1;
-    if (path.includes("/products")) return 2;
-    return 3;
+    if (path.includes("/products")) return 1;
+    if (path.includes("/special-offers")) return 2;
+    if (path === "/about") return 3;
+    return -1;
   };
 
-  const handleNavChange = (event, newValue) => {
+  const handleNavClick = (item) => {
     play();
 
-    if (newValue === 3) {
+    if (item.path === null) {
       setDrawerOpen(true);
       return;
     }
 
-    const paths = ["/", "/about", "/products"];
-    navigate(paths[newValue]);
+    navigate(item.path);
   };
+
+  const activeIndex = getActiveIndex();
 
   return (
     <>
-      <Paper className={`mobile-only ${styles.bottomNav} ${isDarkMode ? styles.dark : styles.light}`} elevation={0}>
+      <Paper
+        className={`mobile-only ${styles.bottomNav} ${isDarkMode ? styles.dark : styles.light}`}
+        elevation={0}
+      >
         <motion.div
           initial={{ y: 100 }}
           animate={{ y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className={styles.navContainer}
         >
-          <BottomNavigation
-            value={getActiveTab()}
-            onChange={handleNavChange}
-            className={styles.navigation}
-            showLabels
-          >
-            <BottomNavigationAction
-              label="Home"
-              icon={<Home />}
-              className={styles.navAction}
-            />
-            <BottomNavigationAction
-              label="About"
-              icon={<Info />}
-              className={styles.navAction}
-            />
-            <BottomNavigationAction
-              label="Products"
-              icon={<ShoppingBag />}
-              className={styles.navAction}
-            />
-            <BottomNavigationAction
-              label="Menu"
-              icon={<MenuIcon />}
-              className={styles.navAction}
-            />
-          </BottomNavigation>
+          {/* Navigation Items */}
+          <Box className={styles.navItems}>
+            {navItems.map((item, index) => (
+              <motion.button
+                key={item.label}
+                className={`${styles.navItem} ${activeIndex === index ? styles.active : ""}`}
+                onClick={() => handleNavClick(item)}
+                whileTap={{ scale: 0.9 }}
+              >
+                <motion.div
+                  className={styles.iconWrapper}
+                  animate={activeIndex === index ? { y: -2 } : { y: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {item.icon}
+                </motion.div>
+                <AnimatePresence>
+                  {activeIndex === index && (
+                    <motion.span
+                      className={styles.label}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {item.label}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            ))}
+          </Box>
 
-          <div
+          {/* Active Indicator */}
+          <motion.div
             className={styles.indicator}
-            style={{ left: `${getActiveTab() * 25}%` }}
+            initial={false}
+            animate={{
+              left: activeIndex >= 0 ? `${(activeIndex * 100) / 5}%` : "0%",
+              opacity: activeIndex >= 0 ? 1 : 0,
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
         </motion.div>
       </Paper>

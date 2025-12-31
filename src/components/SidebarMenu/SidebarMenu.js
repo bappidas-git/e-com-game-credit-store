@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Drawer,
   List,
@@ -48,6 +48,7 @@ const menuItems = [
 
 const SidebarMenu = ({ open, onClose }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isDarkMode } = useTheme();
   const { play } = useSound(CLICK_SOUND, 0.3);
 
@@ -58,6 +59,11 @@ const SidebarMenu = ({ open, onClose }) => {
   };
 
   const backgroundImage = isDarkMode ? DARK_SIDEBAR_BG : LIGHT_SIDEBAR_BG;
+
+  const isActive = (path) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <Drawer
@@ -89,7 +95,13 @@ const SidebarMenu = ({ open, onClose }) => {
           {/* Header */}
           <Box className={styles.header}>
             <Box className={styles.logoSection}>
-              <img src={LOGO} alt="KELLS GLOBAL" className={styles.logo} />
+              <Box className={styles.logoWrapper}>
+                <img src={LOGO} alt="KELLS GLOBAL" className={styles.logo} />
+              </Box>
+              <Box className={styles.brandInfo}>
+                <Typography className={styles.brandName}>KELLS GLOBAL</Typography>
+                <Typography className={styles.brandTagline}>Gaming Marketplace</Typography>
+              </Box>
             </Box>
             <IconButton onClick={onClose} className={styles.closeButton}>
               <Close />
@@ -112,7 +124,7 @@ const SidebarMenu = ({ open, onClose }) => {
                   <ListItem disablePadding className={styles.menuItem}>
                     <ListItemButton
                       onClick={() => handleNavigate(item.path)}
-                      className={styles.menuButton}
+                      className={`${styles.menuButton} ${isActive(item.path) ? styles.activeMenuItem : ""}`}
                     >
                       <ListItemIcon className={styles.menuIcon}>
                         {item.icon}
@@ -121,7 +133,7 @@ const SidebarMenu = ({ open, onClose }) => {
                         primary={item.title}
                         className={styles.menuText}
                       />
-                      <Box className={styles.menuIndicator} />
+                      {isActive(item.path) && <Box className={styles.activeIndicator} />}
                     </ListItemButton>
                   </ListItem>
                 </motion.div>
@@ -131,8 +143,16 @@ const SidebarMenu = ({ open, onClose }) => {
 
           {/* Footer */}
           <Box className={styles.footer}>
+            <Box className={styles.footerBadges}>
+              <Box className={styles.footerBadge}>
+                <span>Secure</span>
+              </Box>
+              <Box className={styles.footerBadge}>
+                <span>24/7</span>
+              </Box>
+            </Box>
             <Typography className={styles.footerText}>
-              © 2024 KELLS GLOBAL
+              © {new Date().getFullYear()} KELLS GLOBAL
             </Typography>
             <Typography className={styles.footerSubtext}>
               Your Gaming Marketplace
