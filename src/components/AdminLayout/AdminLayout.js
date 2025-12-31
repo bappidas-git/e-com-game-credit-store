@@ -25,6 +25,8 @@ import { Icon } from "@iconify/react";
 import { useAdmin } from "../../context/AdminContext";
 import { useThemeContext } from "../../context/ThemeContext";
 
+import LOGO from "../../assets/logo.png";
+
 const drawerWidth = 260;
 
 const menuItems = [
@@ -92,31 +94,18 @@ const AdminLayout = () => {
           p: 2,
           display: "flex",
           alignItems: "center",
-          gap: 1.5,
+          justifyContent: "center",
         }}
       >
-        <Box
-          sx={{
-            width: 45,
-            height: 45,
-            borderRadius: 2,
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "0 4px 12px rgba(102, 126, 234, 0.3)",
+        <img
+          src={LOGO}
+          alt="KELLS GLOBAL"
+          style={{
+            height: 50,
+            width: "auto",
+            filter: "drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3))",
           }}
-        >
-          <Icon icon="mdi:gamepad-variant" style={{ fontSize: 24, color: "#fff" }} />
-        </Box>
-        <Box>
-          <Typography variant="h6" fontWeight="bold" sx={{ lineHeight: 1.2 }}>
-            KELLS GLOBAL
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            Admin Panel
-          </Typography>
-        </Box>
+        />
       </Box>
 
       <Divider />

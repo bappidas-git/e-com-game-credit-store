@@ -16,6 +16,8 @@ import useSound from "../../hooks/useSound";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Footer.module.css";
 
+import LOGO from "../../assets/logo.png";
+
 const Footer = () => {
   const navigate = useNavigate();
   const { play } = useSound();
@@ -97,13 +99,7 @@ const Footer = () => {
                 transition={{ duration: 0.5 }}
               >
                 <Box className={styles.logoSection}>
-                  <Icon
-                    icon="ion:game-controller"
-                    className={styles.footerLogo}
-                  />
-                  <Typography variant="h5" className={styles.brandName}>
-                    KELLS GLOBAL
-                  </Typography>
+                  <img src={LOGO} alt="KELLS GLOBAL" className={styles.footerLogo} />
                 </Box>
                 <Typography className={styles.companyDescription}>
                   Your ultimate destination for gaming. Fast, secure, and
