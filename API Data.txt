@@ -1,0 +1,1020 @@
+23838543 - Mobile Legends: Adventure
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/23838543
+
+{
+    "id": "23838543",
+    "name": "Mobile Legends: Adventure",
+    "image_url": "https://cdn.moogold.com/2025/06/mobile-legends-adventure.jpg",
+    "offers": [
+        {
+            "id": "23841659",
+            "name": "Mobile Legends: Adventure - 1499 M-CASH (#23841659)",
+            "price": "1270.25"
+        },
+        {
+            "id": "23841660",
+            "name": "Mobile Legends: Adventure - 1999 M-CASH (#23841660)",
+            "price": "1687.62"
+        },
+        {
+            "id": "23841661",
+            "name": "Mobile Legends: Adventure - 2999 M-CASH (#23841661)",
+            "price": "2504.21"
+        },
+        {
+            "id": "23841663",
+            "name": "Mobile Legends: Adventure - 4999 M-CASH (#23841663)",
+            "price": "4128.32"
+        },
+        {
+            "id": "23841664",
+            "name": "Mobile Legends: Adventure - 9999 M-CASH (#23841664)",
+            "price": "8247.57"
+        },
+        {
+            "id": "23841665",
+            "name": "Mobile Legends: Adventure - 10999 M-CASH (#23841665)",
+            "price": "9072.32"
+        },
+        {
+            "id": "23841666",
+            "name": "Mobile Legends: Adventure - 32999 M-CASH (#23841666)",
+            "price": "27218.78"
+        },
+        {
+            "id": "23841667",
+            "name": "Mobile Legends: Adventure - 65999 M-CASH (#23841667)",
+            "price": "54438.47"
+        }
+    ]
+}
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends-adventure/
+
+****************************************************************************************
+
+5846232 - Mobile Legends (Brazil)
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/5846232
+
+{
+    "id": "5846232",
+    "name": "Mobile Legends (Brazil)",
+    "image_url": "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
+    "offers": [
+        {
+            "id": "15973166",
+            "name": "Mobile Legends (Brazil) - 500 + 65 Diamonds (First Top-Up Bonus) (#15973166)",
+            "price": "722.04"
+        },
+        {
+            "id": "15973169",
+            "name": "Mobile Legends (Brazil) - 250 + 25 Diamonds (First Top-Up Bonus) (#15973169)",
+            "price": "359.61"
+        },
+        {
+            "id": "15973173",
+            "name": "Mobile Legends (Brazil) - 150 + 15 Diamonds (First Top-Up Bonus) (#15973173)",
+            "price": "215.49"
+        },
+        {
+            "id": "15973174",
+            "name": "Mobile Legends (Brazil) - 50 + 5 Diamonds (First Top-Up Bonus) (#15973174)",
+            "price": "71.36"
+        },
+        {
+            "id": "5846336",
+            "name": "Mobile Legends (Brazil) - 78 + 8 Diamonds (#5846336)",
+            "price": "98.95"
+        },
+        {
+            "id": "5846337",
+            "name": "Mobile Legends (Brazil) - 156 + 16 Diamonds (#5846337)",
+            "price": "197.73"
+        },
+        {
+            "id": "5846338",
+            "name": "Mobile Legends (Brazil) - 234 + 23 Diamonds (#5846338)",
+            "price": "295.28"
+        },
+        {
+            "id": "5846339",
+            "name": "Mobile Legends (Brazil) - 625 + 81 Diamonds (#5846339)",
+            "price": "790.94"
+        },
+        {
+            "id": "5846340",
+            "name": "Mobile Legends (Brazil) - 1860 + 335 Diamonds (#5846340)",
+            "price": "2372.81"
+        },
+        {
+            "id": "5846341",
+            "name": "Mobile Legends (Brazil) - 3099 + 589 Diamonds (#5846341)",
+            "price": "3954.68"
+        },
+        {
+            "id": "5846342",
+            "name": "Mobile Legends (Brazil) - 4649 + 883 Diamonds (#5846342)",
+            "price": "5932.02"
+        },
+        {
+            "id": "5846343",
+            "name": "Mobile Legends (Brazil) - 7740 + 1548 Diamonds (#5846343)",
+            "price": "9886.7"
+        },
+        {
+            "id": "5846344",
+            "name": "Mobile Legends (Brazil) - Twilight Pass (#5846344)",
+            "price": "725.02"
+        },
+        {
+            "id": "5846345",
+            "name": "Mobile Legends (Brazil) - Weekly Pass (#5846345)",
+            "price": "126.55"
+        }
+    ]
+}
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends-brazil/
+
+****************************************************************************************
+
+
+6637539 - Mobile Legends (Russia)
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/6637539
+
+{
+    "id": "6637539",
+    "name": "Mobile Legends (Russia)",
+    "image_url": "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
+    "offers": [
+        {
+            "id": "29558515",
+            "name": "Mobile Legends (Russia) - 32 + 3 Diamonds (#29558515)",
+            "price": "57.99"
+        },
+        {
+            "id": "29558516",
+            "name": "Mobile Legends (Russia) - 50 + 5 Diamonds (#29558516)",
+            "price": "90.73"
+        },
+        {
+            "id": "29558518",
+            "name": "Mobile Legends (Russia) - 150 + 15 Diamonds (#29558518)",
+            "price": "271.26"
+        },
+        {
+            "id": "29558522",
+            "name": "Mobile Legends (Russia) - 250 + 25 Diamonds (#29558522)",
+            "price": "451.79"
+        },
+        {
+            "id": "29558524",
+            "name": "Mobile Legends (Russia) - 500 + 65 Diamonds (#29558524)",
+            "price": "910.13"
+        },
+        {
+            "id": "29558525",
+            "name": "Mobile Legends (Russia) - 1000 + 155 Diamonds (#29558525)",
+            "price": "1824.94"
+        },
+        {
+            "id": "29558526",
+            "name": "Mobile Legends (Russia) - 1500 + 265 Diamonds (#29558526)",
+            "price": "2729.45"
+        },
+        {
+            "id": "29558527",
+            "name": "Mobile Legends (Russia) - 2500 + 475 Diamonds (#29558527)",
+            "price": "4554.39"
+        },
+        {
+            "id": "29558528",
+            "name": "Mobile Legends (Russia) - 5000 + 1000 Diamonds (#29558528)",
+            "price": "9097.55"
+        },
+        {
+            "id": "29558531",
+            "name": "Mobile Legends (Russia) - Weekly Pass (#29558531)",
+            "price": "182.4"
+        }
+    ]
+}
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends-russia/
+
+****************************************************************************************
+
+8957883 - Mobile Legends (Philippines)
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/8957883
+
+
+{
+    "id": "8957883",
+    "name": "Mobile Legends (Philippines)",
+    "image_url": "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
+    "offers": [
+        {
+            "id": "19247257",
+            "name": "Mobile Legends (Philippines) - Super Value Pass (#19247257)",
+            "price": "79.37"
+        },
+        {
+            "id": "18208923",
+            "name": "Mobile Legends (Philippines) - 254 + 26 Diamonds (#18208923)",
+            "price": "357.51"
+        },
+        {
+            "id": "18208924",
+            "name": "Mobile Legends (Philippines) - 202 + 22 Diamonds (#18208924)",
+            "price": "286.01"
+        },
+        {
+            "id": "18208925",
+            "name": "Mobile Legends (Philippines) - 153 + 15 Diamonds (#18208925)",
+            "price": "214.51"
+        },
+        {
+            "id": "15973245",
+            "name": "Mobile Legends (Philippines) - 500 + 65 Diamonds (First Top-Up Bonus) (#15973245)",
+            "price": "1046.41"
+        },
+        {
+            "id": "15973252",
+            "name": "Mobile Legends (Philippines) - 250 + 25 Diamonds (First Top-Up Bonus) (#15973252)",
+            "price": "513.99"
+        },
+        {
+            "id": "15973254",
+            "name": "Mobile Legends (Philippines) - 150 + 15 Diamonds (First Top-Up Bonus) (#15973254)",
+            "price": "308.89"
+        },
+        {
+            "id": "15973256",
+            "name": "Mobile Legends (Philippines) - 50 + 5 Diamonds (First Top-Up Bonus) (#15973256)",
+            "price": "104.01"
+        },
+        {
+            "id": "8958889",
+            "name": "Mobile Legends (Philippines) - 10 + 1 Diamonds (#8958889)",
+            "price": "14.78"
+        },
+        {
+            "id": "8958890",
+            "name": "Mobile Legends (Philippines) - 20 + 2 Diamonds (#8958890)",
+            "price": "29.55"
+        },
+        {
+            "id": "8958891",
+            "name": "Mobile Legends (Philippines) - 51 + 5 Diamonds (#8958891)",
+            "price": "73.89"
+        },
+        {
+            "id": "8958892",
+            "name": "Mobile Legends (Philippines) - 102 + 10 Diamonds (#8958892)",
+            "price": "147.77"
+        },
+        {
+            "id": "8958893",
+            "name": "Mobile Legends (Philippines) - 203 + 20 Diamonds (#8958893)",
+            "price": "295.54"
+        },
+        {
+            "id": "8958894",
+            "name": "Mobile Legends (Philippines) - 303 + 33 Diamonds (#8958894)",
+            "price": "443.32"
+        },
+        {
+            "id": "8958895",
+            "name": "Mobile Legends (Philippines) - 504 + 66 Diamonds (#8958895)",
+            "price": "738.86"
+        },
+        {
+            "id": "8958896",
+            "name": "Mobile Legends (Philippines) - 1007 + 156 Diamonds (#8958896)",
+            "price": "1477.72"
+        },
+        {
+            "id": "8958897",
+            "name": "Mobile Legends (Philippines) - 2015 + 383 Diamonds (#8958897)",
+            "price": "2955.44"
+        },
+        {
+            "id": "8958898",
+            "name": "Mobile Legends (Philippines) - 5035 + 1007 Diamonds (#8958898)",
+            "price": "7944.74"
+        },
+        {
+            "id": "8958899",
+            "name": "Mobile Legends (Philippines) - Twilight Pass (#8958899)",
+            "price": "738.86"
+        },
+        {
+            "id": "8958900",
+            "name": "Mobile Legends (Philippines) - Weekly Diamond Pass (#8958900)",
+            "price": "150.95"
+        }
+    ]
+}
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends-philippines/
+
+****************************************************************************************
+
+2362359 - Mobile Legends (Indonesia)
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/2362359
+
+{
+    "id": "2362359",
+    "name": "Mobile Legends (Indonesia)",
+    "image_url": "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
+    "offers": [
+        {
+            "id": "21440796",
+            "name": "Mobile Legends (Indonesia) - 50 + 50 (First Top-Up Bonus) (#21440796)",
+            "price": "85.78"
+        },
+        {
+            "id": "21440798",
+            "name": "Mobile Legends (Indonesia) - 150 + 150 (First Top-Up Bonus) (#21440798)",
+            "price": "256.48"
+        },
+        {
+            "id": "21440799",
+            "name": "Mobile Legends (Indonesia) - 250 + 250 (First Top-Up Bonus) (#21440799)",
+            "price": "427.75"
+        },
+        {
+            "id": "21440801",
+            "name": "Mobile Legends (Indonesia) - 500 + 500 (First Top-Up Bonus) (#21440801)",
+            "price": "860.4"
+        },
+        {
+            "id": "18208604",
+            "name": "Mobile Legends (Indonesia) - 3383 + 643 Diamonds (#18208604)",
+            "price": "6130.41"
+        },
+        {
+            "id": "18208607",
+            "name": "Mobile Legends (Indonesia) - 671 + 87 Diamonds (#18208607)",
+            "price": "1225.65"
+        },
+        {
+            "id": "18208608",
+            "name": "Mobile Legends (Indonesia) - 333 + 33 Diamonds (#18208608)",
+            "price": "612.82"
+        },
+        {
+            "id": "18208609",
+            "name": "Mobile Legends (Indonesia) - 167 + 17 Diamonds (#18208609)",
+            "price": "306.41"
+        },
+        {
+            "id": "18208612",
+            "name": "Mobile Legends (Indonesia) - 75 + 8 Diamonds (#18208612)",
+            "price": "137.95"
+        },
+        {
+            "id": "18208613",
+            "name": "Mobile Legends (Indonesia) - 67 + 7 Diamonds (#18208613)",
+            "price": "123.01"
+        },
+        {
+            "id": "18208614",
+            "name": "Mobile Legends (Indonesia) - 45 Diamonds (#18208614)",
+            "price": "83.31"
+        },
+        {
+            "id": "18208616",
+            "name": "Mobile Legends (Indonesia) - 30 + 3 Diamonds (#18208616)",
+            "price": "552.8"
+        },
+        {
+            "id": "5734962",
+            "name": "Mobile Legends (Indonesia) - 4003 + 827 Diamonds (#5734962)",
+            "price": "6587.69"
+        },
+        {
+            "id": "5734963",
+            "name": "Mobile Legends (Indonesia) - 1708 + 302 Diamonds (#5734963)",
+            "price": "2745.13"
+        },
+        {
+            "id": "5734964",
+            "name": "Mobile Legends (Indonesia) - 774 + 101 Diamonds (#5734964)",
+            "price": "1262.77"
+        },
+        {
+            "id": "5734965",
+            "name": "Mobile Legends (Indonesia) - 503 + 65 Diamonds (#5734965)",
+            "price": "823.84"
+        },
+        {
+            "id": "5734967",
+            "name": "Mobile Legends (Indonesia) - 367 + 41 Diamonds (#5734967)",
+            "price": "604"
+        },
+        {
+            "id": "5734968",
+            "name": "Mobile Legends (Indonesia) - 256 + 40 Diamonds (#5734968)",
+            "price": "439.19"
+        },
+        {
+            "id": "5734969",
+            "name": "Mobile Legends (Indonesia) - 217 + 23 Diamonds (#5734969)",
+            "price": "356.9"
+        },
+        {
+            "id": "5734970",
+            "name": "Mobile Legends (Indonesia) - 154 + 16 Diamonds (#5734970)",
+            "price": "253.11"
+        },
+        {
+            "id": "5738150",
+            "name": "Mobile Legends (Indonesia) - 77 + 8 Diamonds (#5738150)",
+            "price": "126.56"
+        },
+        {
+            "id": "5734972",
+            "name": "Mobile Legends (Indonesia) - 53 + 6 Diamonds (#5734972)",
+            "price": "88.04"
+        },
+        {
+            "id": "5734973",
+            "name": "Mobile Legends (Indonesia) - 40 + 4 Diamonds (#5734973)",
+            "price": "66.04"
+        },
+        {
+            "id": "5734974",
+            "name": "Mobile Legends (Indonesia) - 25 + 3 Diamonds (#5734974)",
+            "price": "44.02"
+        },
+        {
+            "id": "5734975",
+            "name": "Mobile Legends (Indonesia) - 17 + 2 Diamonds (#5734975)",
+            "price": "30.26"
+        },
+        {
+            "id": "2362438",
+            "name": "Mobile Legends (Indonesia) - 5 Diamonds (#2362438)",
+            "price": "8.26"
+        },
+        {
+            "id": "2362439",
+            "name": "Mobile Legends (Indonesia) - 12 Diamonds (#2362439)",
+            "price": "19.26"
+        },
+        {
+            "id": "3817438",
+            "name": "Mobile Legends (Indonesia) - Weekly Pass (#3817438)",
+            "price": "159.21"
+        },
+        {
+            "id": "2363922",
+            "name": "Mobile Legends (Indonesia) - Twilight Pass (#2363922)",
+            "price": "823.84"
+        }
+    ]
+}
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends-indonesia/
+
+****************************************************************************************
+
+4690648 - Mobile Legends (Malaysia)
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/4690648
+
+{
+    "id": "4690648",
+    "name": "Mobile Legends (Malaysia)",
+    "image_url": "https://cdn.moogold.com/2021/05/c9137e7a2879f90e22df9fc5cd3bf85f.jpg",
+    "offers": [
+        {
+            "id": "15973026",
+            "name": "Mobile Legends (Malaysia) - 500 + 65 Diamonds (First Top-Up Bonus) (#15973026)",
+            "price": "1046.41"
+        },
+        {
+            "id": "15973033",
+            "name": "Mobile Legends (Malaysia) - 250 + 25 Diamonds (First Top-Up Bonus) (#15973033)",
+            "price": "513.99"
+        },
+        {
+            "id": "15973035",
+            "name": "Mobile Legends (Malaysia) - 150 + 15 Diamonds (First Top-Up Bonus) (#15973035)",
+            "price": "308.89"
+        },
+        {
+            "id": "15973036",
+            "name": "Mobile Legends (Malaysia) - 50 + 5 Diamonds (First Top-Up Bonus) (#15973036)",
+            "price": "104.01"
+        },
+        {
+            "id": "4690752",
+            "name": "Mobile Legends (Malaysia) - 5 diamonds (#4690752)",
+            "price": "9.73"
+        },
+        {
+            "id": "4690680",
+            "name": "Mobile Legends (Malaysia) - 13 + 1 Diamonds (#4690680)",
+            "price": "22.02"
+        },
+        {
+            "id": "4690681",
+            "name": "Mobile Legends (Malaysia) - 38 + 4 Diamonds (#4690681)",
+            "price": "65.82"
+        },
+        {
+            "id": "4690682",
+            "name": "Mobile Legends (Malaysia) - 64 + 6 Diamonds (#4690682)",
+            "price": "109.4"
+        },
+        {
+            "id": "4690683",
+            "name": "Mobile Legends (Malaysia) - 127 + 13 Diamonds (#4690683)",
+            "price": "218.81"
+        },
+        {
+            "id": "4690685",
+            "name": "Mobile Legends (Malaysia) - 254 + 30 Diamonds (#4690685)",
+            "price": "438.51"
+        },
+        {
+            "id": "4690684",
+            "name": "Mobile Legends (Malaysia) - 317 + 38 Diamonds (#4690684)",
+            "price": "548.59"
+        },
+        {
+            "id": "4690686",
+            "name": "Mobile Legends (Malaysia) - 383 + 46 Diamonds (#4690686)",
+            "price": "657.99"
+        },
+        {
+            "id": "7666305",
+            "name": "Mobile Legends (Malaysia) - 940 + 144 Diamonds (#7666305)",
+            "price": "1640.38"
+        },
+        {
+            "id": "4690688",
+            "name": "Mobile Legends (Malaysia) - 1252 + 194 Diamonds (#4690688)",
+            "price": "2187.62"
+        },
+        {
+            "id": "4690687",
+            "name": "Mobile Legends (Malaysia) - 633 + 83 Diamonds (#4690687)",
+            "price": "1096.95"
+        },
+        {
+            "id": "4690689",
+            "name": "Mobile Legends (Malaysia) - 2501 + 475 Diamonds (#4690689)",
+            "price": "4387.36"
+        },
+        {
+            "id": "4690690",
+            "name": "Mobile Legends (Malaysia) - 6252 + 1250 Diamonds (#4690690)",
+            "price": "10947.74"
+        },
+        {
+            "id": "4690691",
+            "name": "Mobile Legends (Malaysia) - Twilight Pass (#4690691)",
+            "price": "772.79"
+        },
+        {
+            "id": "4690692",
+            "name": "Mobile Legends (Malaysia) - Weekly Pass (#4690692)",
+            "price": "177.93"
+        }
+    ]
+}
+
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends-malaysia/
+
+****************************************************************************************
+
+15145 - Mobile Legends
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/15145
+
+{
+    "id": "15145",
+    "name": "Mobile Legends",
+    "image_url": "https://cdn.moogold.com/2019/11/mobile-legends-bang-bang.jpg",
+    "offers": [
+        {
+            "id": "16402235",
+            "name": "Mobile Legends - Super Value Pass (#16402235)",
+            "price": "75.4"
+        },
+        {
+            "id": "15972915",
+            "name": "Mobile Legends - 500 + 65 Diamonds (First Top-Up Bonus) (#15972915)",
+            "price": "1046.41"
+        },
+        {
+            "id": "15972923",
+            "name": "Mobile Legends - 250 + 25 Diamonds (First Top-Up Bonus) (#15972923)",
+            "price": "513.99"
+        },
+        {
+            "id": "15972925",
+            "name": "Mobile Legends - 150 + 15 Diamonds (First Top-Up Bonus) (#15972925)",
+            "price": "308.89"
+        },
+        {
+            "id": "15972928",
+            "name": "Mobile Legends - 50 + 5 Diamonds (First Top-Up Bonus) (#15972928)",
+            "price": "104.01"
+        },
+        {
+            "id": "7576658",
+            "name": "Mobile Legends - 1084 Diamond (#7576658)",
+            "price": "1743.03"
+        },
+        {
+            "id": "5555341",
+            "name": "Mobile Legends - 7740 Diamonds + 1548 Bonus (#5555341)",
+            "price": "11005.2"
+        },
+        {
+            "id": "5555342",
+            "name": "Mobile Legends - 4649 Diamonds + 883 Bonus (#5555342)",
+            "price": "6625.93"
+        },
+        {
+            "id": "5555343",
+            "name": "Mobile Legends - 3099 Diamonds + 589 Bonus (#5555343)",
+            "price": "4388.32"
+        },
+        {
+            "id": "5555344",
+            "name": "Mobile Legends - 1860 Diamonds + 335 Bonus (#5555344)",
+            "price": "2630.46"
+        },
+        {
+            "id": "5555345",
+            "name": "Mobile Legends - 625 Diamonds + 81 Bonus (#5555345)",
+            "price": "868.97"
+        },
+        {
+            "id": "5555346",
+            "name": "Mobile Legends - 234 Diamonds + 23 Bonus (#5555346)",
+            "price": "319.89"
+        },
+        {
+            "id": "5555347",
+            "name": "Mobile Legends - 156 Diamonds + 16 Bonus (#5555347)",
+            "price": "220.86"
+        },
+        {
+            "id": "5555348",
+            "name": "Mobile Legends - 78 Diamonds + 8 Bonus (#5555348)",
+            "price": "111.34"
+        },
+        {
+            "id": "4700134",
+            "name": "Mobile Legends - 10 + 1 Diamonds (#4700134)",
+            "price": "14.62"
+        },
+        {
+            "id": "4700148",
+            "name": "Mobile Legends - 20 + 2 Diamonds (#4700148)",
+            "price": "29.24"
+        },
+        {
+            "id": "4700149",
+            "name": "Mobile Legends - 51 + 5 Diamonds (#4700149)",
+            "price": "73.09"
+        },
+        {
+            "id": "4700152",
+            "name": "Mobile Legends - 102 + 10 Diamonds (#4700152)",
+            "price": "146.18"
+        },
+        {
+            "id": "4700153",
+            "name": "Mobile Legends - 203 + 20 Diamonds (#4700153)",
+            "price": "292.37"
+        },
+        {
+            "id": "4700155",
+            "name": "Mobile Legends - 303 + 33 Diamonds (#4700155)",
+            "price": "438.55"
+        },
+        {
+            "id": "4700157",
+            "name": "Mobile Legends - 504 + 66 Diamonds (#4700157)",
+            "price": "730.92"
+        },
+        {
+            "id": "4700158",
+            "name": "Mobile Legends - 1007 + 156 Diamonds (#4700158)",
+            "price": "1461.83"
+        },
+        {
+            "id": "4700160",
+            "name": "Mobile Legends - 2015 + 383 Diamonds (#4700160)",
+            "price": "2923.67"
+        },
+        {
+            "id": "4700161",
+            "name": "Mobile Legends - 5035 + 1007 Diamonds (#4700161)",
+            "price": "7309.16"
+        },
+        {
+            "id": "4690759",
+            "name": "Mobile Legends - 14 Diamonds (#4690759)",
+            "price": "23.33"
+        },
+        {
+            "id": "4690772",
+            "name": "Mobile Legends - 42 Diamonds (#4690772)",
+            "price": "69.98"
+        },
+        {
+            "id": "4690774",
+            "name": "Mobile Legends - 70 Diamonds (#4690774)",
+            "price": "116.24"
+        },
+        {
+            "id": "4690775",
+            "name": "Mobile Legends - 140 Diamonds (#4690775)",
+            "price": "232.48"
+        },
+        {
+            "id": "4690776",
+            "name": "Mobile Legends - 284 Diamonds (#4690776)",
+            "price": "466.15"
+        },
+        {
+            "id": "4690777",
+            "name": "Mobile Legends - 355 Diamonds (#4690777)",
+            "price": "582.79"
+        },
+        {
+            "id": "4690778",
+            "name": "Mobile Legends - 429 Diamonds (#4690778)",
+            "price": "699.23"
+        },
+        {
+            "id": "4690779",
+            "name": "Mobile Legends - 716 Diamonds (#4690779)",
+            "price": "1165.58"
+        },
+        {
+            "id": "4690780",
+            "name": "Mobile Legends - 1446 Diamonds (#4690780)",
+            "price": "2324.44"
+        },
+        {
+            "id": "4690781",
+            "name": "Mobile Legends - 2976 Diamonds (#4690781)",
+            "price": "4662.12"
+        },
+        {
+            "id": "4690782",
+            "name": "Mobile Legends - 7502 Diamonds (#4690782)",
+            "price": "11633.25"
+        },
+        {
+            "id": "4690783",
+            "name": "Mobile Legends - Weekly Pass (#4690783)",
+            "price": "137.59"
+        },
+        {
+            "id": "4690786",
+            "name": "Mobile Legends - Twilight Pass (#4690786)",
+            "price": "728.67"
+        },
+        {
+            "id": "578634",
+            "name": "Mobile Legends - 5 Diamonds (#578634)",
+            "price": "9.73"
+        }
+    ]
+}
+
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/mobile-legends/
+
+****************************************************************************************
+
+
+5177311 - Honor of Kings
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/5177311
+
+{
+    "id": "5177311",
+    "name": "Honor of Kings",
+    "image_url": "https://cdn.moogold.com/2023/09/honor-of-kings.jpg",
+    "offers": [
+        {
+            "id": "5177683",
+            "name": "Honor of Kings - 16 Tokens (#5177683)",
+            "price": "17.77"
+        },
+        {
+            "id": "5177684",
+            "name": "Honor of Kings - 80 Tokens (#5177684)",
+            "price": "81.38"
+        },
+        {
+            "id": "5177685",
+            "name": "Honor of Kings - 240 Tokens (#5177685)",
+            "price": "246.01"
+        },
+        {
+            "id": "5177686",
+            "name": "Honor of Kings - 400 Tokens (#5177686)",
+            "price": "410.63"
+        },
+        {
+            "id": "5177688",
+            "name": "Honor of Kings - 560 Tokens (#5177688)",
+            "price": "575.26"
+        },
+        {
+            "id": "5177689",
+            "name": "Honor of Kings - 800 + 30 Tokens (#5177689)",
+            "price": "822.2"
+        },
+        {
+            "id": "5177690",
+            "name": "Honor of Kings - 1200 + 45 Tokens (#5177690)",
+            "price": "1233.77"
+        },
+        {
+            "id": "5177691",
+            "name": "Honor of Kings - 2400 + 108 Tokens (#5177691)",
+            "price": "2468.48"
+        },
+        {
+            "id": "5177694",
+            "name": "Honor of Kings - 4000 + 180 Tokens (#5177694)",
+            "price": "4114.76"
+        },
+        {
+            "id": "5177696",
+            "name": "Honor of Kings - 8000 + 360 Tokens (#5177696)",
+            "price": "8230.45"
+        }
+    ]
+}
+
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/honor-of-kings/
+
+****************************************************************************************
+
+1372021 - PUBG: New State
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/1372021
+
+
+{
+    "id": "1372021",
+    "name": "PUBG: New State",
+    "image_url": "https://cdn.moogold.com/2022/02/PUBG-New-State-Logo.png",
+    "offers": [
+        {
+            "id": "1372032",
+            "name": "PUBG: New State - 300 NC (#1372032)",
+            "price": "91.67"
+        },
+        {
+            "id": "1372033",
+            "name": "PUBG: New State - 1,500 + 80 NC (#1372033)",
+            "price": "458.34"
+        },
+        {
+            "id": "1372034",
+            "name": "PUBG: New State - 3,600 + 250 NC (#1372034)",
+            "price": "1100.01"
+        },
+        {
+            "id": "1372035",
+            "name": "PUBG: New State - 9,300 + 930 NC (#1372035)",
+            "price": "2841.7"
+        },
+        {
+            "id": "1372036",
+            "name": "PUBG: New State - 15,000 + 1,800 NC (#1372036)",
+            "price": "4583.38"
+        },
+        {
+            "id": "1372037",
+            "name": "PUBG: New State - 30,000 + 5,000 NC (#1372037)",
+            "price": "9166.77"
+        }
+    ]
+}
+
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/pubg-new-state/
+
+****************************************************************************************
+
+
+6963 - PUBG Mobile (Global)
+
+API Data - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/6963
+
+
+{
+    "id": "6963",
+    "name": "PUBG Mobile (Global)",
+    "image_url": "https://cdn.moogold.com/2019/08/pubg.jpg",
+    "offers": [
+        {
+            "id": "4085924",
+            "name": "PUBG Mobile (Global) - 60 Unknown Cash (#4085924)",
+            "price": "84.18"
+        },
+        {
+            "id": "4085925",
+            "name": "PUBG Mobile (Global) - 325 Unknown Cash (#4085925)",
+            "price": "420.92"
+        },
+        {
+            "id": "4085927",
+            "name": "PUBG Mobile (Global) - 660 Unknown Cash (#4085927)",
+            "price": "841.85"
+        },
+        {
+            "id": "4085929",
+            "name": "PUBG Mobile (Global) - 1800 Unknown Cash (#4085929)",
+            "price": "2104.62"
+        },
+        {
+            "id": "4085931",
+            "name": "PUBG Mobile (Global) - 3850 Unknown Cash (#4085931)",
+            "price": "4209.23"
+        },
+        {
+            "id": "4085933",
+            "name": "PUBG Mobile (Global) - 8100 Unknown Cash (#4085933)",
+            "price": "8418.46"
+        },
+        {
+            "id": "4085940",
+            "name": "PUBG Mobile (Global) - Elite RP Upgrade Pack (#4085940)",
+            "price": "398970"
+        },
+        {
+            "id": "4085941",
+            "name": "PUBG Mobile (Global) - RP Upgrade Pack (#4085941)",
+            "price": "873.29"
+        }
+    ]
+}
+
+MOOGOLD PRODUCT PAGE URL: https://moogold.com/product/pubg-mobile/
+
+****************************************************************************************
+
+How to call API - 
+
+LOGIN API for Bearer Token - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/login
+
+Payload -
+
+{
+    "email":"dee@dee.com", 
+    "password":"12345678"
+}
+
+** Get the Bearer Token and use it in Authorization in Header for other API Calls
+
+GET PRODUCT DETAILS API - 
+
+https://phplaravel-780646-5827390.cloudwaysapps.com/api/moogold/products/<product id>
+
+****************************************************************************************
