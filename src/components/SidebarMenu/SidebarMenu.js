@@ -112,9 +112,9 @@ const SidebarMenu = ({ open, onClose }) => {
           {/* Header */}
           <Box className={styles.header}>
             <Box className={styles.logoSection}>
-              <img src={LOGO} alt="GameHub" className={styles.logo} />
+              <img src={LOGO} alt="KELLS GLOBAL" className={styles.logo} />
               <Typography variant="h5" className={styles.title}>
-                GameHub
+                KELLS GLOBAL
               </Typography>
             </Box>
             <IconButton onClick={onClose} className={styles.closeButton}>
@@ -158,7 +158,7 @@ const SidebarMenu = ({ open, onClose }) => {
           {/* Footer */}
           <Box className={styles.footer}>
             <Typography className={styles.footerText}>
-              © 2024 GameHub
+              © 2024 KELLS GLOBAL
             </Typography>
             <Typography className={styles.footerSubtext}>
               Your Gaming Marketplace

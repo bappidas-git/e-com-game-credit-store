@@ -1,4 +1,4 @@
-export const APP_NAME = "GameHub";
+export const APP_NAME = "KELLS GLOBAL";
 export const APP_TAGLINE = "Top up your favorite games instantly";
 export const APP_DESCRIPTION =
   "Fast, secure, and reliable game top-ups for all your favorite titles";

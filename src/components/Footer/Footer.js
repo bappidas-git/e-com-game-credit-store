@@ -102,7 +102,7 @@ const Footer = () => {
                     className={styles.footerLogo}
                   />
                   <Typography variant="h5" className={styles.brandName}>
-                    GameHub
+                    KELLS GLOBAL
                   </Typography>
                 </Box>
                 <Typography className={styles.companyDescription}>
@@ -227,7 +227,7 @@ const Footer = () => {
         <Container maxWidth="lg">
           <Box className={styles.bottomContent}>
             <Typography className={styles.copyright}>
-              © {new Date().getFullYear()} GameHub. All rights reserved.
+              © {new Date().getFullYear()} KELLS GLOBAL. All rights reserved.
             </Typography>
             <Box className={styles.paymentSection}>
               <Typography className={styles.paymentTitle}>We Accept</Typography>
