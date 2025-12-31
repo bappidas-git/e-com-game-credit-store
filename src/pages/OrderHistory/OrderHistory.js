@@ -34,6 +34,7 @@ import { useOrder } from "../../context/OrderContext";
 import { useAuth } from "../../context/AuthContext";
 import { formatCurrency } from "../../utils/helpers";
 import AuthModal from "../../components/AuthModal/AuthModal";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./OrderHistory.module.css";
 
 const statusConfig = {
@@ -146,15 +147,11 @@ const OrderHistory = () => {
   return (
     <Box className={styles.orderHistoryPage}>
       <Container maxWidth="lg">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumb items={[{ label: "Order History" }]} />
+
         {/* Header */}
         <Box className={styles.header}>
-          <Button
-            startIcon={<ArrowBack />}
-            onClick={() => navigate(-1)}
-            className={styles.backButton}
-          >
-            Back
-          </Button>
           <Box className={styles.headerContent}>
             <Typography variant="h4" className={styles.pageTitle}>
               <Receipt className={styles.titleIcon} />

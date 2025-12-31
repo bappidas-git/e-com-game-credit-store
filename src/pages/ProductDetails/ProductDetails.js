@@ -36,6 +36,7 @@ import Swal from "sweetalert2";
 import apiService from "../../services/api";
 import { useCart } from "../../context/CartContext";
 import { formatCurrency } from "../../utils/helpers";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./ProductDetails.module.css";
 
 const ProductDetails = () => {
@@ -192,16 +193,13 @@ const ProductDetails = () => {
       transition={{ duration: 0.3 }}
     >
       <Container maxWidth="lg" className={styles.container}>
-        {/* Back Button */}
-        <Box className={styles.backButtonContainer}>
-          <Button
-            startIcon={<ArrowBack />}
-            onClick={handleGoBack}
-            className={styles.backButton}
-          >
-            Back
-          </Button>
-        </Box>
+        {/* Breadcrumb Navigation */}
+        <Breadcrumb
+          items={[
+            { label: "Products", path: "/products" },
+            { label: product?.name || "Product" }
+          ]}
+        />
 
         <Grid container spacing={4}>
           {/* Product Image */}

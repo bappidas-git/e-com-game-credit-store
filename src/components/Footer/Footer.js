@@ -45,6 +45,7 @@ const Footer = () => {
 
   const footerLinks = [
     { title: "Help Center", path: "/help" },
+    { title: "Support", path: "/support" },
     { title: "Privacy Policy", path: "/privacy" },
     { title: "Terms of Service", path: "/terms" },
     { title: "Cookie Policy", path: "/cookies" },
