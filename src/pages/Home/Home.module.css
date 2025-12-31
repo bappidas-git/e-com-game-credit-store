@@ -22,37 +22,24 @@
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(102, 126, 234, 0.05) 50%,
+    rgba(102, 126, 234, 0.03) 50%,
     transparent 100%
   );
 }
 
-.whyChooseSection {
+.ctaSection {
   position: relative;
-  padding: 80px 0;
   z-index: 2;
-  background: linear-gradient(
-    135deg,
-    rgba(118, 75, 162, 0.03) 0%,
-    rgba(102, 126, 234, 0.03) 100%
-  );
 }
 
 .faqSection {
   position: relative;
-  padding: 80px 0;
   z-index: 2;
 }
 
 .newsletterSection {
   position: relative;
-  padding: 80px 0 120px;
   z-index: 2;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(168, 85, 247, 0.05) 100%
-  );
 }
 
 /* Background Animation Elements */
@@ -74,13 +61,13 @@
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(102, 126, 234, 0.3),
+    rgba(102, 126, 234, 0.2),
     transparent
   );
   filter: blur(40px);
   top: 10%;
   right: -100px;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .floatingOrb2 {
@@ -90,13 +77,13 @@
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(236, 72, 153, 0.3),
+    rgba(236, 72, 153, 0.2),
     transparent
   );
   filter: blur(60px);
   bottom: 20%;
   left: -150px;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .floatingOrb3 {
@@ -106,14 +93,14 @@
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(168, 85, 247, 0.3),
+    rgba(168, 85, 247, 0.2),
     transparent
   );
   filter: blur(50px);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 /* Dark Mode */
@@ -121,95 +108,69 @@
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(168, 85, 247, 0.08) 50%,
+    rgba(168, 85, 247, 0.05) 50%,
     transparent 100%
-  );
-}
-
-:global(.dark) .whyChooseSection {
-  background: linear-gradient(
-    135deg,
-    rgba(236, 72, 153, 0.05) 0%,
-    rgba(168, 85, 247, 0.05) 100%
-  );
-}
-
-:global(.dark) .newsletterSection {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(236, 72, 153, 0.08) 100%
   );
 }
 
 :global(.dark) .floatingOrb {
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(168, 85, 247, 0.4),
-    transparent
-  );
-  opacity: 0.7;
-}
-
-:global(.dark) .floatingOrb2 {
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(236, 72, 153, 0.4),
+    rgba(168, 85, 247, 0.3),
     transparent
   );
   opacity: 0.6;
 }
 
-:global(.dark) .floatingOrb3 {
+:global(.dark) .floatingOrb2 {
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(59, 130, 246, 0.4),
+    rgba(236, 72, 153, 0.3),
     transparent
   );
   opacity: 0.5;
 }
 
+:global(.dark) .floatingOrb3 {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(59, 130, 246, 0.3),
+    transparent
+  );
+  opacity: 0.4;
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
-  .featuredSection,
-  .whyChooseSection,
-  .faqSection {
-    padding: 60px 0;
-  }
-
-  .newsletterSection {
-    padding: 60px 0 100px;
+  .featuredSection {
+    padding: 50px 0;
   }
 
   .floatingOrb {
     width: 250px;
     height: 250px;
     right: -80px;
+    opacity: 0.4;
   }
 
   .floatingOrb2 {
     width: 300px;
     height: 300px;
     left: -100px;
+    opacity: 0.35;
   }
 
   .floatingOrb3 {
     width: 200px;
     height: 200px;
+    opacity: 0.3;
   }
 }
 
 /* Tablet Styles */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .featuredSection,
-  .whyChooseSection,
-  .faqSection,
-  .newsletterSection {
-    padding: 70px 0;
-  }
-
-  .newsletterSection {
-    padding-bottom: 110px;
+  .featuredSection {
+    padding: 60px 0;
   }
 }
 

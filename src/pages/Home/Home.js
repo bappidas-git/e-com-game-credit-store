@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Container, Box } from "@mui/material";
+import { Container } from "@mui/material";
 import HeroSection from "../../components/HeroSection/HeroSection";
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts";
-// import WhyChooseUs from "../../components/WhyChooseUs/WhyChooseUs";
-// import FAQ from "../../components/FAQ/FAQ";
-// import Newsletter from "../../components/Newsletter/Newsletter";
+import FAQ from "../../components/FAQ/FAQ";
+import CTASection from "../../components/CTASection/CTASection";
+import Newsletter from "../../components/Newsletter/Newsletter";
 import apiService from "../../services/api";
 import styles from "./Home.module.css";
 
@@ -21,10 +21,9 @@ const Home = () => {
     try {
       setIsLoading(true);
       const products = await apiService.products.getFeatured();
-      setFeaturedProducts(products.slice(0, 10)); // Get first 10 featured products
+      setFeaturedProducts(products.slice(0, 10));
     } catch (error) {
       console.error("Error loading featured products:", error);
-      // Fallback to dummy data if API fails
       setFeaturedProducts([
         {
           id: "4690774",
@@ -130,7 +129,8 @@ const Home = () => {
         <Container maxWidth="xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <FeaturedProducts
@@ -141,44 +141,41 @@ const Home = () => {
         </Container>
       </section>
 
-      {/* Why Choose Us Section */}
-      {/* <section className={styles.whyChooseSection}>
-        <Container maxWidth="xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-          >
-            <WhyChooseUs />
-          </motion.div>
-        </Container>
-      </section> */}
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <CTASection />
+        </motion.div>
+      </section>
 
       {/* FAQ Section */}
-      {/* <section className={styles.faqSection}>
-        <Container maxWidth="xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            <FAQ />
-          </motion.div>
-        </Container>
-      </section> */}
+      <section className={styles.faqSection}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <FAQ />
+        </motion.div>
+      </section>
 
       {/* Newsletter Section */}
-      {/* <section className={styles.newsletterSection}>
-        <Container maxWidth="xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-          >
-            <Newsletter />
-          </motion.div>
-        </Container>
-      </section> */}
+      <section className={styles.newsletterSection}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <Newsletter />
+        </motion.div>
+      </section>
 
       {/* Animated Background Elements */}
       <div className={styles.backgroundElements}>
