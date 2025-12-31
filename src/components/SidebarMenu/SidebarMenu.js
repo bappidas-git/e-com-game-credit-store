@@ -17,15 +17,13 @@ import {
   Home,
   Info,
   ShoppingBag,
-  CardGiftcard,
-  CreditCard,
-  SportsEsports,
   Support,
   LocalOffer,
-  TrendingUp,
-  PhoneAndroid,
+  Policy,
+  Gavel,
+  Cookie,
+  AttachMoney,
 } from "@mui/icons-material";
-import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import useSound from "../../hooks/useSound";
@@ -40,33 +38,12 @@ const menuItems = [
   { title: "Home", path: "/", icon: <Home /> },
   { title: "About Us", path: "/about", icon: <Info /> },
   { title: "All Products", path: "/products", icon: <ShoppingBag /> },
-  {
-    title: "Game Top-Up",
-    path: "/top-up",
-    icon: <Icon icon="mdi:gamepad-variant" width={24} />,
-  },
-  { title: "Gift Cards", path: "/gift-cards", icon: <CardGiftcard /> },
-  {
-    title: "Mobile Games",
-    path: "/products?category=mobile-game",
-    icon: <PhoneAndroid />,
-  },
-  {
-    title: "PC Games",
-    path: "/products?category=pc-game",
-    icon: <Icon icon="mdi:desktop-classic" width={24} />,
-  },
-  {
-    title: "Trending",
-    path: "/products?filter=trending",
-    icon: <TrendingUp />,
-  },
-  {
-    title: "Special Offers",
-    path: "/products?filter=discount",
-    icon: <LocalOffer />,
-  },
+  { title: "Special Offers", path: "/special-offers", icon: <LocalOffer /> },
   { title: "Support", path: "/support", icon: <Support /> },
+  { title: "Privacy Policy", path: "/privacy", icon: <Policy /> },
+  { title: "Refund Policy", path: "/refund", icon: <AttachMoney /> },
+  { title: "Terms of Service", path: "/terms", icon: <Gavel /> },
+  { title: "Cookie Policy", path: "/cookies", icon: <Cookie /> },
 ];
 
 const SidebarMenu = ({ open, onClose }) => {
