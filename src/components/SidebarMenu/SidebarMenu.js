@@ -113,9 +113,6 @@ const SidebarMenu = ({ open, onClose }) => {
           <Box className={styles.header}>
             <Box className={styles.logoSection}>
               <img src={LOGO} alt="KELLS GLOBAL" className={styles.logo} />
-              <Typography variant="h5" className={styles.title}>
-                KELLS GLOBAL
-              </Typography>
             </Box>
             <IconButton onClick={onClose} className={styles.closeButton}>
               <Close />

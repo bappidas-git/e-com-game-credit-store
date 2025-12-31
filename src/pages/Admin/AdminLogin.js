@@ -15,6 +15,8 @@ import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { useAdmin } from "../../context/AdminContext";
 
+import LOGO from "../../assets/logo.png";
+
 const AdminLogin = () => {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAdmin();
@@ -95,35 +97,23 @@ const AdminLogin = () => {
           <Box sx={{ textAlign: "center", mb: 4 }}>
             <Box
               sx={{
-                width: 70,
-                height: 70,
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 mx: "auto",
                 mb: 2,
-                boxShadow: "0 8px 32px rgba(102, 126, 234, 0.3)",
               }}
             >
-              <Icon
-                icon="mdi:shield-account"
-                style={{ fontSize: 36, color: "#fff" }}
+              <img
+                src={LOGO}
+                alt="KELLS GLOBAL"
+                style={{
+                  height: 70,
+                  width: "auto",
+                  filter: "drop-shadow(0 4px 16px rgba(102, 126, 234, 0.3))",
+                }}
               />
             </Box>
-            <Typography
-              variant="h5"
-              fontWeight="bold"
-              sx={{
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Admin Panel
-            </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               Sign in to manage your store
             </Typography>
