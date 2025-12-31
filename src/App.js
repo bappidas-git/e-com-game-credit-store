@@ -36,6 +36,8 @@ import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy/CookiePolicy";
 import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
 import Support from "./pages/Support/Support";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import SpecialOffers from "./pages/SpecialOffers/SpecialOffers";
 
 // Admin Pages
 import AdminLogin from "./pages/Admin/AdminLogin";
@@ -88,6 +90,8 @@ function App() {
                               <Route path="/cookies" element={<CookiePolicy />} />
                               <Route path="/refund" element={<RefundPolicy />} />
                               <Route path="/support" element={<Support />} />
+                              <Route path="/about" element={<AboutUs />} />
+                              <Route path="/special-offers" element={<SpecialOffers />} />
                               <Route path="*" element={<Navigate to="/" replace />} />
                             </Routes>
                           </AnimatePresence>
