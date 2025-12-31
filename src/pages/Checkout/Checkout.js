@@ -42,6 +42,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useOrder } from "../../context/OrderContext";
 import { formatCurrency } from "../../utils/helpers";
 import AuthModal from "../../components/AuthModal/AuthModal";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./Checkout.module.css";
 
 const steps = ["Cart Review", "Contact Details", "Payment"];
@@ -701,15 +702,11 @@ const Checkout = () => {
   return (
     <Box className={styles.checkoutPage}>
       <Container maxWidth="lg">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumb items={[{ label: "Checkout" }]} />
+
         {/* Header */}
         <Box className={styles.header}>
-          <Button
-            startIcon={<ArrowBack />}
-            onClick={() => navigate(-1)}
-            className={styles.backButton}
-          >
-            Back
-          </Button>
           <Typography variant="h4" className={styles.pageTitle}>
             Checkout
           </Typography>
