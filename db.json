@@ -1327,6 +1327,149 @@
           "currency": "INR"
         }
       ]
+    },
+    {
+      "id": "32262674",
+      "moogoldId": "32262674",
+      "name": "Call of Duty®: Mobile (IN)",
+      "slug": "call-of-duty-mobile-in",
+      "shortDescription": "Top Up for Call of Duty®: Mobile (IN)",
+      "description": "",
+      "category": "mobile-game",
+      "platform": "Mobile",
+      "region": "Global",
+      "image": "https://cdn.moogold.com/2025/11/Call-of-duty-India.png",
+      "rating": 4.5,
+      "totalReviews": 0,
+      "featured": true,
+      "trending": false,
+      "hot": false,
+      "instantDelivery": true,
+      "deliveryTime": "Instant - 5 Minutes",
+      "requiredInfo": [
+        "User ID",
+        "Zone ID"
+      ],
+      "howToTopUp": [],
+      "howToFindPlayerId": [],
+      "tags": [],
+      "developer": "",
+      "currency": "Diamonds",
+      "pricingConfig": {
+        "marginType": "fixed",
+        "marginValue": 50,
+        "baseCurrency": "INR"
+      },
+      "offers": [
+        {
+          "id": "32263237",
+          "offerId": "32263237",
+          "name": "80 + 8 CP",
+          "basePrice": 100.84,
+          "margin": 50,
+          "sellingPrice": 151.26,
+          "originalPrice": 166.39,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263238",
+          "offerId": "32263238",
+          "name": "400 + 60 CP",
+          "basePrice": 406.6,
+          "margin": 50,
+          "sellingPrice": 609.9,
+          "originalPrice": 670.89,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263239",
+          "offerId": "32263239",
+          "name": "800 + 160 CP",
+          "basePrice": 814,
+          "margin": 50,
+          "sellingPrice": 1221,
+          "originalPrice": 1343.1,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263240",
+          "offerId": "32263240",
+          "name": "2000 + 600 CP",
+          "basePrice": 2036.2,
+          "margin": 50,
+          "sellingPrice": 3054.3,
+          "originalPrice": 3359.73,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263241",
+          "offerId": "32263241",
+          "name": "4000 + 1400 CP",
+          "basePrice": 4073.2,
+          "margin": 50,
+          "sellingPrice": 6109.8,
+          "originalPrice": 6720.78,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263242",
+          "offerId": "32263242",
+          "name": "8000 + 3200 CP",
+          "basePrice": 10083.15,
+          "margin": 50,
+          "sellingPrice": 15124.72,
+          "originalPrice": 16637.2,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263243",
+          "offerId": "32263243",
+          "name": "16000 + 6400 CP",
+          "basePrice": 20368.99,
+          "margin": 50,
+          "sellingPrice": 30553.49,
+          "originalPrice": 33608.83,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263244",
+          "offerId": "32263244",
+          "name": "24000 + 9600 CP",
+          "basePrice": 30553.99,
+          "margin": 50,
+          "sellingPrice": 45830.99,
+          "originalPrice": 50414.08,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        },
+        {
+          "id": "32263246",
+          "offerId": "32263246",
+          "name": "40000 + 16000 CP",
+          "basePrice": 50923.99,
+          "margin": 50,
+          "sellingPrice": 76385.99,
+          "originalPrice": 84024.58,
+          "discount": 9,
+          "popular": false,
+          "currency": "INR"
+        }
+      ]
     }
   ],
   "categories": [

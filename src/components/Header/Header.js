@@ -27,6 +27,7 @@ import CartDrawer from "../CartDrawer/CartDrawer";
 import SidebarMenu from "../SidebarMenu/SidebarMenu";
 import AuthModal from "../AuthModal/AuthModal";
 import styles from "./Header.module.css";
+import LOGO from "../../assets/logo.png";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -99,11 +100,7 @@ const Header = () => {
             transition={{ duration: 0.5 }}
           >
             <Link to="/" className={styles.logoLink}>
-              <img
-                src="https://ik.imagekit.io/assamdigital/logo.png?updatedAt=1763099071124"
-                alt="Gaming Store"
-                className={styles.logo}
-              />
+              <img src={LOGO} alt="KELLS GLOBAL" className={styles.logo} />
               <span className={styles.logoText}>GameHub</span>
             </Link>
           </motion.div>
