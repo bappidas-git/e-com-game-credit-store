@@ -44,6 +44,7 @@ import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProducts from "./pages/Admin/AdminProducts";
 import AdminOrders from "./pages/Admin/AdminOrders";
+import AdminLeads from "./pages/Admin/AdminLeads";
 import AdminSync from "./pages/Admin/AdminSync";
 
 // Styles
@@ -66,6 +67,7 @@ function App() {
                     <Route path="dashboard" element={<AdminDashboard />} />
                     <Route path="products" element={<AdminProducts />} />
                     <Route path="orders" element={<AdminOrders />} />
+                    <Route path="leads" element={<AdminLeads />} />
                     <Route path="sync" element={<AdminSync />} />
                   </Route>
 
