@@ -8,6 +8,16 @@
       "lastName": "Doe"
     }
   ],
+  "admins": [
+    {
+      "id": 1,
+      "email": "admin@gamehub.com",
+      "password": "admin123",
+      "firstName": "Admin",
+      "lastName": "User",
+      "role": "admin"
+    }
+  ],
   "products": [
     {
       "id": "23838543",
