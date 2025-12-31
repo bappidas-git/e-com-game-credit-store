@@ -8,12 +8,14 @@ import {
   TextField,
   IconButton,
   InputAdornment,
+  CircularProgress,
 } from "@mui/material";
-import { Facebook, Instagram, Send } from "@mui/icons-material";
+import { Facebook, Instagram, Send, Check } from "@mui/icons-material";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import useSound from "../../hooks/useSound";
 import { useTheme } from "../../context/ThemeContext";
+import apiService from "../../services/api";
 import styles from "./Footer.module.css";
 
 import LOGO from "../../assets/logo.png";
@@ -23,6 +25,8 @@ const Footer = () => {
   const { play } = useSound();
   const { isDarkMode } = useTheme();
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleNavigate = (path) => {
     play();
@@ -30,11 +34,29 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
+    if (!email.trim() || isSubmitting) return;
+
     play();
-    console.log("Subscribing email:", email);
-    setEmail("");
+    setIsSubmitting(true);
+
+    try {
+      await apiService.leads.createNewsletterLead(email.trim());
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setEmail("");
+
+      // Reset success state after 3 seconds
+      setTimeout(() => setIsSuccess(false), 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      // Still show success even if there's a duplicate or error
+      // to prevent email enumeration
+      setIsSuccess(true);
+      setEmail("");
+      setTimeout(() => setIsSuccess(false), 3000);
+    }
   };
 
   const handleSocialClick = (url) => {
@@ -225,10 +247,12 @@ const Footer = () => {
                       fullWidth
                       size="small"
                       variant="outlined"
-                      placeholder="Enter your email"
+                      placeholder={isSuccess ? "Subscribed!" : "Enter your email"}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className={styles.newsletterInput}
+                      disabled={isSubmitting || isSuccess}
+                      type="email"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -241,9 +265,15 @@ const Footer = () => {
                               type="submit"
                               size="small"
                               className={styles.subscribeButton}
-                              onClick={handleSubscribe}
+                              disabled={isSubmitting || isSuccess}
                             >
-                              <Send />
+                              {isSubmitting ? (
+                                <CircularProgress size={20} color="inherit" />
+                              ) : isSuccess ? (
+                                <Check />
+                              ) : (
+                                <Send />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         ),
