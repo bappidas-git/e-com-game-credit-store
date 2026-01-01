@@ -601,7 +601,7 @@ const Products = () => {
 
                         <Box className={styles.priceSection}>
                           <Typography variant="h6" className={styles.price}>
-                            From {formatCurrency(getProductMinPrice(product), "INR")}
+                            From {formatCurrency(getProductMinPrice(product).sellingPrice, "INR")}
                           </Typography>
                           <IconButton size="small" className={styles.cartIcon}>
                             <ShoppingCart />
