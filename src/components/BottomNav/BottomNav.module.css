@@ -125,27 +125,20 @@
 .indicator {
   position: absolute;
   bottom: 4px;
-  width: calc(100% / 5);
-  height: 3px;
-  pointer-events: none;
-}
-
-.indicator::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 40px;
   height: 3px;
   border-radius: 2px;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
-.light .indicator::before {
+.light .indicator {
   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
 }
 
-.dark .indicator::before {
+.dark .indicator {
   background: linear-gradient(90deg, #a855f7 0%, #ec4899 100%);
   box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
 }
@@ -222,7 +215,7 @@
     font-size: 0.65rem;
   }
 
-  .indicator::before {
+  .indicator {
     width: 32px;
   }
 }
@@ -271,7 +264,7 @@
     font-size: 0.75rem;
   }
 
-  .indicator::before {
+  .indicator {
     width: 48px;
     height: 4px;
   }

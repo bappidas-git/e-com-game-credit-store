@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Paper, Box } from "@mui/material";
 import {
@@ -20,23 +20,56 @@ const BottomNav = () => {
   const { isDarkMode } = useTheme();
   const { play } = useSound();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, opacity: 0 });
+  const navItemsRef = useRef([]);
+  const containerRef = useRef(null);
 
+  // Menu items matching Sidebar order: Home, About, Products, Offers, Menu
   const navItems = [
     { label: "Home", icon: <Home />, path: "/" },
+    { label: "About", icon: <Info />, path: "/about" },
     { label: "Products", icon: <ShoppingBag />, path: "/products" },
     { label: "Offers", icon: <LocalOffer />, path: "/special-offers" },
-    { label: "About", icon: <Info />, path: "/about" },
     { label: "Menu", icon: <MenuIcon />, path: null },
   ];
 
   const getActiveIndex = () => {
     const path = location.pathname;
     if (path === "/") return 0;
-    if (path.includes("/products")) return 1;
-    if (path.includes("/special-offers")) return 2;
-    if (path === "/about") return 3;
+    if (path === "/about") return 1;
+    if (path.includes("/products")) return 2;
+    if (path.includes("/special-offers")) return 3;
     return -1;
   };
+
+  const activeIndex = getActiveIndex();
+
+  // Calculate indicator position based on actual DOM element positions
+  const updateIndicatorPosition = useCallback(() => {
+    if (activeIndex < 0 || !containerRef.current || !navItemsRef.current[activeIndex]) {
+      setIndicatorStyle({ left: 0, opacity: 0 });
+      return;
+    }
+
+    const container = containerRef.current;
+    const activeItem = navItemsRef.current[activeIndex];
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = activeItem.getBoundingClientRect();
+
+    // Calculate center of the active item relative to container
+    const itemCenter = itemRect.left + itemRect.width / 2 - containerRect.left;
+
+    setIndicatorStyle({
+      left: itemCenter,
+      opacity: 1,
+    });
+  }, [activeIndex]);
+
+  useEffect(() => {
+    updateIndicatorPosition();
+    window.addEventListener("resize", updateIndicatorPosition);
+    return () => window.removeEventListener("resize", updateIndicatorPosition);
+  }, [updateIndicatorPosition]);
 
   const handleNavClick = (item) => {
     play();
@@ -48,8 +81,6 @@ const BottomNav = () => {
 
     navigate(item.path);
   };
-
-  const activeIndex = getActiveIndex();
 
   return (
     <>
@@ -64,12 +95,14 @@ const BottomNav = () => {
           animate={{ y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className={styles.navContainer}
+          ref={containerRef}
         >
           {/* Navigation Items */}
           <Box className={styles.navItems}>
             {navItems.map((item, index) => (
               <motion.button
                 key={item.label}
+                ref={(el) => (navItemsRef.current[index] = el)}
                 className={`${styles.navItem} ${
                   activeIndex === index ? styles.active : ""
                 }`}
@@ -100,13 +133,13 @@ const BottomNav = () => {
             ))}
           </Box>
 
-          {/* Active Indicator */}
+          {/* Active Indicator - positioned at center of active item */}
           <motion.div
             className={styles.indicator}
             initial={false}
             animate={{
-              left: activeIndex >= 0 ? `${(activeIndex * 100) / 5}%` : "0%",
-              opacity: activeIndex >= 0 ? 1 : 0,
+              x: indicatorStyle.left,
+              opacity: indicatorStyle.opacity,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
