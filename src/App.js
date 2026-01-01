@@ -30,6 +30,7 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Checkout from "./pages/Checkout/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation/OrderConfirmation";
 import OrderHistory from "./pages/OrderHistory/OrderHistory";
+import Profile from "./pages/Profile/Profile";
 import HelpCenter from "./pages/HelpCenter/HelpCenter";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
@@ -86,6 +87,7 @@ function App() {
                               <Route path="/checkout" element={<Checkout />} />
                               <Route path="/order-confirmation/:orderNumber" element={<OrderConfirmation />} />
                               <Route path="/orders" element={<OrderHistory />} />
+                              <Route path="/profile" element={<Profile />} />
                               <Route path="/help" element={<HelpCenter />} />
                               <Route path="/privacy" element={<PrivacyPolicy />} />
                               <Route path="/terms" element={<TermsOfService />} />

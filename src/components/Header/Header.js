@@ -198,12 +198,6 @@ const Header = () => {
           Order History
         </MenuItem>
         <MenuItem
-          onClick={() => handleMenuItemClick("/wishlist")}
-          className={styles.menuItem}
-        >
-          Wish List
-        </MenuItem>
-        <MenuItem
           onClick={() => handleMenuItemClick("/support")}
           className={styles.menuItem}
         >
