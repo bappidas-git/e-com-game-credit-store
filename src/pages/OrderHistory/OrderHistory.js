@@ -412,6 +412,7 @@ const OrderHistory = () => {
                             variant="text"
                             size="small"
                             color="primary"
+                            onClick={() => navigate("/support")}
                           >
                             Need Help?
                           </Button>

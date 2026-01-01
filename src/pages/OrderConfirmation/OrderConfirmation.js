@@ -394,6 +394,7 @@ const OrderConfirmation = () => {
                     size="small"
                     color="primary"
                     className={styles.supportLink}
+                    onClick={() => navigate("/support")}
                   >
                     Contact Support
                   </Button>
