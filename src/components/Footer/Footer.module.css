@@ -86,8 +86,8 @@
 }
 
 .footerLogo {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -207,14 +207,25 @@
 
 .linkIcon {
   font-size: 16px;
-  opacity: 0;
-  transform: translateX(-8px);
+  opacity: 1;
+  transform: translateX(0);
   transition: all 0.3s ease;
 }
 
-.footerLink:hover .linkIcon {
-  opacity: 1;
-  transform: translateX(0);
+.footer[data-theme="light"] .linkIcon {
+  color: #64748b;
+}
+
+.footer[data-theme="dark"] .linkIcon {
+  color: #94a3b8;
+}
+
+.footer[data-theme="light"] .footerLink:hover .linkIcon {
+  color: #667eea;
+}
+
+.footer[data-theme="dark"] .footerLink:hover .linkIcon {
+  color: #a855f7;
 }
 
 .footer[data-theme="light"] .footerLink:hover {
@@ -422,13 +433,18 @@
 }
 
 .paymentIcon {
-  font-size: 28px;
+  font-size: 24px;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.8;
+  opacity: 0.9;
   transition: all 0.3s ease;
+}
+
+.paymentIcon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .paymentIcon:hover {

@@ -108,11 +108,11 @@ const Footer = () => {
   ];
 
   const paymentMethods = [
-    { icon: "logos:visa", name: "Visa" },
-    { icon: "logos:mastercard", name: "Mastercard" },
-    { icon: "logos:paypal", name: "PayPal" },
-    { icon: "simple-icons:googlepay", name: "Google Pay" },
-    { icon: "simple-icons:applepay", name: "Apple Pay" },
+    { icon: "fontisto:visa", name: "Visa" },
+    { icon: "fontisto:mastercard", name: "Mastercard" },
+    { icon: "fontisto:paypal", name: "PayPal" },
+    { icon: "fontisto:google-wallet", name: "Google Pay" },
+    { icon: "fontisto:apple-pay", name: "Apple Pay" },
   ];
 
   return (
@@ -133,13 +133,7 @@ const Footer = () => {
                 transition={{ duration: 0.5 }}
               >
                 <Box className={styles.logoSection}>
-                  <Box className={styles.logoWrapper}>
-                    <img src={LOGO} alt="KELLS GLOBAL" className={styles.footerLogo} />
-                  </Box>
-                  <Box className={styles.brandInfo}>
-                    <Typography className={styles.brandName}>KELLS GLOBAL</Typography>
-                    <Typography className={styles.brandTagline}>Your Gaming Marketplace</Typography>
-                  </Box>
+                  <img src={LOGO} alt="KELLS GLOBAL" className={styles.footerLogo} />
                 </Box>
                 <Typography className={styles.companyDescription}>
                   Your ultimate destination for gaming. Fast, secure, and
