@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import useSound from "../../hooks/useSound";
 import { useTheme } from "../../context/ThemeContext";
+import SearchModal from "../SearchModal/SearchModal";
 import styles from "./HeroSection.module.css";
 
 import HERO_BG_1 from "../../assets/hero-1.jpg";
@@ -26,6 +27,7 @@ const HeroSection = () => {
   const { isDarkMode } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const slides = [
     {
@@ -72,17 +74,25 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      play();
-      navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
-    }
+  const handleSearchClick = () => {
+    play();
+    setIsSearchModalOpen(true);
+  };
+
+  const handleSearchInputFocus = () => {
+    play();
+    setIsSearchModalOpen(true);
   };
 
   const handleQuickSearch = (query) => {
     play();
     setSearchQuery(query);
-    navigate(`/products?search=${encodeURIComponent(query)}`);
+    setIsSearchModalOpen(true);
+  };
+
+  const handleCloseSearchModal = () => {
+    setIsSearchModalOpen(false);
+    setSearchQuery("");
   };
 
   return (
@@ -118,143 +128,149 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
           className={styles.contentInner}
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className={styles.heroBadge}
-          >
-            <Icon icon="mdi:lightning-bolt" className={styles.badgeIcon} />
-            <span>Trusted by 50,000+ Gamers</span>
-          </motion.div>
-
-          {/* Title */}
-          <Typography variant="h1" className={styles.title}>
-            <motion.span
-              key={`title-${currentSlide}`}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className={styles.titleMain}
+          {/* Glassmorphism Container */}
+          <Box className={styles.glassContainer}>
+            {/* Badge */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className={styles.heroBadge}
             >
-              {slides[currentSlide].title}
-            </motion.span>
-            <motion.span
-              key={`subtitle-${currentSlide}`}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className={styles.titleGradient}
-            >
-              {slides[currentSlide].subtitle}
-            </motion.span>
-          </Typography>
+              <Icon icon="mdi:lightning-bolt" className={styles.badgeIcon} />
+              <span>Trusted by 50,000+ Gamers</span>
+            </motion.div>
 
-          {/* Description */}
-          <Typography variant="h6" className={styles.description}>
-            <motion.span
-              key={`desc-${currentSlide}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              {slides[currentSlide].description}
-            </motion.span>
-          </Typography>
-
-          {/* Search Bar */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className={styles.searchContainer}
-          >
-            <Box className={styles.searchWrapper}>
-              <TextField
-                fullWidth
-                placeholder="Search for Free Fire, PUBG, Mobile Legends..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                className={styles.searchInput}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search className={styles.searchIcon} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Button
-                variant="contained"
-                onClick={handleSearch}
-                className={styles.searchButton}
-              >
-                <span className={styles.searchButtonText}>Search</span>
-                <Icon icon="mdi:arrow-right" className={styles.searchButtonIcon} />
-              </Button>
-            </Box>
-          </motion.div>
-
-          {/* Popular Searches */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className={styles.popularSearches}
-          >
-            <Typography className={styles.popularLabel}>
-              <Icon icon="mdi:fire" className={styles.popularIcon} />
-              Popular:
-            </Typography>
-            <Box className={styles.chipsContainer}>
-              {popularSearches.map((search, index) => (
-                <motion.div
-                  key={search}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + index * 0.08 }}
-                >
-                  <Chip
-                    label={search}
-                    onClick={() => handleQuickSearch(search)}
-                    className={styles.searchChip}
-                    clickable
-                  />
-                </motion.div>
-              ))}
-            </Box>
-          </motion.div>
-
-          {/* Trust Badges */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className={styles.trustBadges}
-          >
-            {trustBadges.map((badge, index) => (
-              <motion.div
-                key={badge.text}
+            {/* Title */}
+            <Typography variant="h1" className={styles.title}>
+              <motion.span
+                key={`title-${currentSlide}`}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
-                className={styles.badge}
-                whileHover={{ y: -3, scale: 1.02 }}
+                transition={{ duration: 0.5 }}
+                className={styles.titleMain}
               >
-                <Box className={styles.badgeIconWrapper}>{badge.icon}</Box>
-                <Box className={styles.badgeContent}>
-                  <Typography className={styles.badgeText}>
-                    {badge.text}
-                  </Typography>
-                  <Typography className={styles.badgeSubtext}>
-                    {badge.subtext}
-                  </Typography>
-                </Box>
-              </motion.div>
-            ))}
-          </motion.div>
+                {slides[currentSlide].title}
+              </motion.span>
+              <motion.span
+                key={`subtitle-${currentSlide}`}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className={styles.titleGradient}
+              >
+                {slides[currentSlide].subtitle}
+              </motion.span>
+            </Typography>
+
+            {/* Description */}
+            <Typography variant="h6" className={styles.description}>
+              <motion.span
+                key={`desc-${currentSlide}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                {slides[currentSlide].description}
+              </motion.span>
+            </Typography>
+
+            {/* Search Bar */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className={styles.searchContainer}
+            >
+              <Box
+                className={styles.searchWrapper}
+                onClick={handleSearchInputFocus}
+              >
+                <TextField
+                  fullWidth
+                  placeholder="Search for Free Fire, PUBG, Mobile Legends..."
+                  value={searchQuery}
+                  onFocus={handleSearchInputFocus}
+                  readOnly
+                  className={styles.searchInput}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Search className={styles.searchIcon} />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleSearchClick}
+                  className={styles.searchButton}
+                >
+                  <span className={styles.searchButtonText}>Search</span>
+                  <Icon icon="mdi:arrow-right" className={styles.searchButtonIcon} />
+                </Button>
+              </Box>
+            </motion.div>
+
+            {/* Popular Searches */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className={styles.popularSearches}
+            >
+              <Typography className={styles.popularLabel}>
+                <Icon icon="mdi:fire" className={styles.popularIcon} />
+                Popular:
+              </Typography>
+              <Box className={styles.chipsContainer}>
+                {popularSearches.map((search, index) => (
+                  <motion.div
+                    key={search}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.08 }}
+                  >
+                    <Chip
+                      label={search}
+                      onClick={() => handleQuickSearch(search)}
+                      className={styles.searchChip}
+                      clickable
+                    />
+                  </motion.div>
+                ))}
+              </Box>
+            </motion.div>
+
+            {/* Trust Badges */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              className={styles.trustBadges}
+            >
+              {trustBadges.map((badge, index) => (
+                <motion.div
+                  key={badge.text}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.7 + index * 0.1 }}
+                  className={styles.badge}
+                  whileHover={{ y: -3, scale: 1.02 }}
+                >
+                  <Box className={styles.badgeIconWrapper}>{badge.icon}</Box>
+                  <Box className={styles.badgeContent}>
+                    <Typography className={styles.badgeText}>
+                      {badge.text}
+                    </Typography>
+                    <Typography className={styles.badgeSubtext}>
+                      {badge.subtext}
+                    </Typography>
+                  </Box>
+                </motion.div>
+              ))}
+            </motion.div>
+          </Box>
         </motion.div>
 
         {/* Slide Indicators */}
@@ -302,6 +318,13 @@ const HeroSection = () => {
 
       {/* Bottom Gradient Fade */}
       <div className={styles.bottomFade} />
+
+      {/* Search Modal */}
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={handleCloseSearchModal}
+        initialQuery={searchQuery}
+      />
     </Box>
   );
 };
