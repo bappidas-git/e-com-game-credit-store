@@ -1596,6 +1596,28 @@
       "quantity": 1,
       "cartItemId": 1766659565345,
       "userId": 1
+    },
+    {
+      "id": "32262674-32263238",
+      "productId": "32262674",
+      "offerId": "32263238",
+      "name": "Call of Duty®: Mobile (IN) - 400 + 60 CP",
+      "image": "https://cdn.moogold.com/2025/11/Call-of-duty-India.png",
+      "platform": "Mobile",
+      "region": "Global",
+      "price": 609.9,
+      "originalPrice": 670.89,
+      "discount": 9,
+      "currency": "INR",
+      "offerName": "400 + 60 CP",
+      "requiredInfo": {
+        "User ID": "1234567890111",
+        "Zone ID": "INDIA"
+      },
+      "deliveryTime": "Instant - 5 Minutes",
+      "quantity": 1,
+      "cartItemId": 1767246346105,
+      "userId": 1
     }
   ],
   "orders": [
@@ -1900,6 +1922,51 @@
       "createdAt": "2025-12-25T10:35:35.903Z",
       "updatedAt": "2025-12-25T10:35:35.911Z",
       "id": 5
+    },
+    {
+      "items": [
+        {
+          "id": "32262674-32263238",
+          "productId": "32262674",
+          "offerId": "32263238",
+          "name": "Call of Duty®: Mobile (IN) - 400 + 60 CP",
+          "offerName": "400 + 60 CP",
+          "image": "https://cdn.moogold.com/2025/11/Call-of-duty-India.png",
+          "platform": "Mobile",
+          "region": "Global",
+          "price": 609.9,
+          "originalPrice": 670.89,
+          "discount": 9,
+          "currency": "INR",
+          "quantity": 1,
+          "requiredInfo": {
+            "User ID": "1234567890111",
+            "Zone ID": "INDIA"
+          },
+          "deliveryTime": "Instant - 5 Minutes"
+        }
+      ],
+      "subtotal": 609.9,
+      "tax": 48.792,
+      "total": 658.692,
+      "paymentMethod": "upi",
+      "contactInfo": {
+        "email": "user@mail.com",
+        "phone": "1122334455",
+        "firstName": "Jhon",
+        "lastName": "Doe"
+      },
+      "paymentDetails": {
+        "method": "upi",
+        "last4": null,
+        "upiId": "bappi@okhdfc"
+      },
+      "userId": 1,
+      "orderNumber": "GH-MJV0VQYJ-DKY3",
+      "status": "completed",
+      "createdAt": "2026-01-01T05:46:47.227Z",
+      "updatedAt": "2026-01-01T05:46:47.227Z",
+      "id": 6
     }
   ],
   "wishlist": [],
