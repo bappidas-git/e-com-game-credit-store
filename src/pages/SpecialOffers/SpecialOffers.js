@@ -148,11 +148,11 @@ const SpecialOffers = () => {
             </Box>
             <Box className={styles.priceSection}>
               <Typography variant="h6" className={styles.price}>
-                {formatCurrency(minPrice)}
+                {formatCurrency(minPrice.sellingPrice, minPrice.currency)}
               </Typography>
               {maxDiscount > 0 && (
                 <Typography variant="body2" className={styles.originalPrice}>
-                  {formatCurrency(minPrice / (1 - maxDiscount / 100))}
+                  {formatCurrency(minPrice.originalPrice, minPrice.currency)}
                 </Typography>
               )}
             </Box>
