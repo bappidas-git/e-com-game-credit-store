@@ -618,8 +618,8 @@
   }
 
   .footerLogo {
-    width: 32px;
-    height: 32px;
+    width: 75%;
+    height: auto;
   }
 
   .brandName {

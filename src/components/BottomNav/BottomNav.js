@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Paper, Box } from "@mui/material";
-import { Home, Info, ShoppingBag, Menu as MenuIcon, LocalOffer } from "@mui/icons-material";
+import {
+  Home,
+  Info,
+  ShoppingBag,
+  Menu as MenuIcon,
+  LocalOffer,
+} from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import BottomDrawer from "../BottomDrawer/BottomDrawer";
 import { useTheme } from "../../context/ThemeContext";
@@ -48,7 +54,9 @@ const BottomNav = () => {
   return (
     <>
       <Paper
-        className={`mobile-only ${styles.bottomNav} ${isDarkMode ? styles.dark : styles.light}`}
+        className={`mobile-only ${styles.bottomNav} ${
+          isDarkMode ? styles.dark : styles.light
+        }`}
         elevation={0}
       >
         <motion.div
@@ -62,7 +70,9 @@ const BottomNav = () => {
             {navItems.map((item, index) => (
               <motion.button
                 key={item.label}
-                className={`${styles.navItem} ${activeIndex === index ? styles.active : ""}`}
+                className={`${styles.navItem} ${
+                  activeIndex === index ? styles.active : ""
+                }`}
                 onClick={() => handleNavClick(item)}
                 whileTap={{ scale: 0.9 }}
               >

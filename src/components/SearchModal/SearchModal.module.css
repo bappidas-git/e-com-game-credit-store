@@ -1,7 +1,7 @@
 /* Modal Overlay */
 .modalOverlay {
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -103,7 +103,9 @@
   color: #ffffff;
 }
 
-.modalOverlay[data-theme="dark"] .searchInput :global(.MuiInputBase-input)::placeholder {
+.modalOverlay[data-theme="dark"]
+  .searchInput
+  :global(.MuiInputBase-input)::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -111,7 +113,9 @@
   color: #1e293b;
 }
 
-.modalOverlay[data-theme="light"] .searchInput :global(.MuiInputBase-input)::placeholder {
+.modalOverlay[data-theme="light"]
+  .searchInput
+  :global(.MuiInputBase-input)::placeholder {
   color: #94a3b8;
 }
 
