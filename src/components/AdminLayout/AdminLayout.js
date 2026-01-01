@@ -106,7 +106,7 @@ const AdminLayout = () => {
           src={LOGO}
           alt="KELLS GLOBAL"
           style={{
-            height: 50,
+            height: 32,
             width: "auto",
             filter: "drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3))",
           }}
@@ -224,7 +224,11 @@ const AdminLayout = () => {
           {/* Theme Toggle */}
           <Tooltip title={mode === "dark" ? "Light Mode" : "Dark Mode"}>
             <IconButton onClick={toggleTheme} sx={{ color: "text.primary" }}>
-              <Icon icon={mode === "dark" ? "mdi:weather-sunny" : "mdi:weather-night"} />
+              <Icon
+                icon={
+                  mode === "dark" ? "mdi:weather-sunny" : "mdi:weather-night"
+                }
+              />
             </IconButton>
           </Tooltip>
 
