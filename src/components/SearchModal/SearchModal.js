@@ -74,7 +74,59 @@ const SearchModal = ({ isOpen, onClose, initialQuery = "" }) => {
     setSearchQuery(initialQuery);
   }, [initialQuery]);
 
-  // Generate suggestions based on query
+  // Calculate relevance score for a product based on search query
+  const calculateRelevance = useCallback((product, lowerQuery) => {
+    let score = 0;
+    const nameLower = product.name.toLowerCase();
+
+    // Exact match in name gets highest score
+    if (nameLower === lowerQuery) {
+      score += 100;
+    }
+    // Name starts with query gets high score
+    else if (nameLower.startsWith(lowerQuery)) {
+      score += 80;
+    }
+    // Word in name starts with query
+    else if (nameLower.split(/\s+/).some(word => word.startsWith(lowerQuery))) {
+      score += 60;
+    }
+    // Name contains query
+    else if (nameLower.includes(lowerQuery)) {
+      score += 40;
+    }
+
+    // Tag exact match
+    if (product.tags?.some(tag => tag.toLowerCase() === lowerQuery)) {
+      score += 30;
+    }
+    // Tag starts with query
+    else if (product.tags?.some(tag => tag.toLowerCase().startsWith(lowerQuery))) {
+      score += 20;
+    }
+    // Tag contains query
+    else if (product.tags?.some(tag => tag.toLowerCase().includes(lowerQuery))) {
+      score += 10;
+    }
+
+    // Category match
+    if (product.category?.toLowerCase().includes(lowerQuery)) {
+      score += 15;
+    }
+
+    // Description match
+    if (product.shortDescription?.toLowerCase().includes(lowerQuery)) {
+      score += 5;
+    }
+
+    // Boost popular/trending products
+    if (product.trending) score += 3;
+    if (product.hot) score += 2;
+
+    return score;
+  }, []);
+
+  // Generate suggestions based on query with relevance scoring
   const generateSuggestions = useCallback(
     (query) => {
       if (!query.trim() || allProducts.length === 0) {
@@ -82,20 +134,21 @@ const SearchModal = ({ isOpen, onClose, initialQuery = "" }) => {
         return;
       }
 
-      const lowerQuery = query.toLowerCase();
-      const matchedProducts = allProducts
-        .filter(
-          (product) =>
-            product.name.toLowerCase().includes(lowerQuery) ||
-            product.shortDescription?.toLowerCase().includes(lowerQuery) ||
-            product.category?.toLowerCase().includes(lowerQuery) ||
-            product.tags?.some((tag) => tag.toLowerCase().includes(lowerQuery))
-        )
+      const lowerQuery = query.toLowerCase().trim();
+
+      // Score and filter products
+      const scoredProducts = allProducts
+        .map(product => ({
+          ...product,
+          relevanceScore: calculateRelevance(product, lowerQuery)
+        }))
+        .filter(product => product.relevanceScore > 0)
+        .sort((a, b) => b.relevanceScore - a.relevanceScore)
         .slice(0, 8);
 
-      setSuggestions(matchedProducts);
+      setSuggestions(scoredProducts);
     },
-    [allProducts]
+    [allProducts, calculateRelevance]
   );
 
   // Debounced search for auto-suggestions
@@ -115,7 +168,7 @@ const SearchModal = ({ isOpen, onClose, initialQuery = "" }) => {
     };
   }, [searchQuery, generateSuggestions]);
 
-  // Perform full search
+  // Perform full search with relevance scoring
   const performSearch = useCallback(
     (query) => {
       if (!query.trim()) {
@@ -125,22 +178,26 @@ const SearchModal = ({ isOpen, onClose, initialQuery = "" }) => {
       }
 
       setIsLoading(true);
-      const lowerQuery = query.toLowerCase();
+      const lowerQuery = query.toLowerCase().trim();
 
-      const results = allProducts.filter(
-        (product) =>
-          product.name.toLowerCase().includes(lowerQuery) ||
-          product.shortDescription?.toLowerCase().includes(lowerQuery) ||
-          product.category?.toLowerCase().includes(lowerQuery) ||
-          product.region?.toLowerCase().includes(lowerQuery) ||
-          product.tags?.some((tag) => tag.toLowerCase().includes(lowerQuery))
-      );
+      // Score and filter products, including region in search
+      const results = allProducts
+        .map(product => {
+          let score = calculateRelevance(product, lowerQuery);
+          // Additional check for region
+          if (product.region?.toLowerCase().includes(lowerQuery)) {
+            score += 10;
+          }
+          return { ...product, relevanceScore: score };
+        })
+        .filter(product => product.relevanceScore > 0)
+        .sort((a, b) => b.relevanceScore - a.relevanceScore);
 
       setSearchResults(results);
       setShowResults(true);
       setIsLoading(false);
     },
-    [allProducts]
+    [allProducts, calculateRelevance]
   );
 
   const handleSearch = () => {
@@ -162,7 +219,7 @@ const SearchModal = ({ isOpen, onClose, initialQuery = "" }) => {
   const handleSuggestionClick = (product) => {
     play();
     onClose();
-    navigate(`/product/${product.id}`);
+    navigate(`/products/${product.id}`);
   };
 
   const handleQuickSearch = (query) => {
@@ -174,7 +231,7 @@ const SearchModal = ({ isOpen, onClose, initialQuery = "" }) => {
   const handleViewProduct = (product) => {
     play();
     onClose();
-    navigate(`/product/${product.id}`);
+    navigate(`/products/${product.id}`);
   };
 
   const handleViewAllResults = () => {
