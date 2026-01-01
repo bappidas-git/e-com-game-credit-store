@@ -50,7 +50,7 @@ const Products = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
   const [selectedPlatform, setSelectedPlatform] = useState("all");
   const [sortBy, setSortBy] = useState(searchParams.get("filter") || "default");
@@ -218,14 +218,17 @@ const Products = () => {
   const filteredAndSortedProducts = useMemo(() => {
     let result = [...products];
 
-    // Search filter
+    // Search filter - improved to search across more fields including category and tags
     if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+      const query = searchQuery.toLowerCase().trim();
       result = result.filter(
         (product) =>
           product.name.toLowerCase().includes(query) ||
           product.shortDescription?.toLowerCase().includes(query) ||
-          product.region?.toLowerCase().includes(query)
+          product.region?.toLowerCase().includes(query) ||
+          product.category?.toLowerCase().includes(query) ||
+          product.platform?.toLowerCase().includes(query) ||
+          product.tags?.some((tag) => tag.toLowerCase().includes(query))
       );
     }
 
@@ -304,6 +307,17 @@ const Products = () => {
         break;
     }
     setSearchParams(searchParams);
+  };
+
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+    const newParams = new URLSearchParams(searchParams);
+    if (value.trim()) {
+      newParams.set("search", value);
+    } else {
+      newParams.delete("search");
+    }
+    setSearchParams(newParams);
   };
 
   const clearFilters = () => {
@@ -424,7 +438,7 @@ const Products = () => {
             size="small"
             placeholder="Search products..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className={styles.searchInput}
             InputProps={{
               startAdornment: (
