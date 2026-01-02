@@ -32,6 +32,7 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
+import apiService from "../../services/api";
 
 const AdminOrders = () => {
   const theme = useTheme();
@@ -58,10 +59,10 @@ const AdminOrders = () => {
   const loadOrders = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3001/orders");
-      const data = await response.json();
+      const data = await apiService.admin.getOrders();
       // Sort by date descending
-      const sorted = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const orders = data || [];
+      const sorted = orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setOrders(sorted);
       setFilteredOrders(sorted);
       setLoading(false);
