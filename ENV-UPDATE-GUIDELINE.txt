@@ -1,0 +1,355 @@
+================================================================================
+                    KELLS GLOBAL - API CONFIGURATION GUIDE
+================================================================================
+                How to Switch Between JSON Server and Cloudways API
+================================================================================
+
+This guide explains how to configure your local development environment to use
+either JSON Server (mock API for offline development) or Cloudways API
+(production API for integration testing).
+
+================================================================================
+                            TABLE OF CONTENTS
+================================================================================
+1. Quick Start
+2. Understanding the Two Modes
+3. Configuration Steps
+4. Running the Application
+5. Testing Each Mode
+6. Troubleshooting
+7. API Endpoints Reference
+
+================================================================================
+                            1. QUICK START
+================================================================================
+
+OPTION A: Use Cloudways API (Production Testing)
+-------------------------------------------------
+1. Open the .env file in the project root
+2. Set these values:
+
+   REACT_APP_API_URL=https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+   REACT_APP_USE_MOCK_API=false
+
+3. Restart the development server:
+   npm start
+
+OPTION B: Use JSON Server (Offline Development)
+------------------------------------------------
+1. Open the .env file in the project root
+2. Set these values:
+
+   REACT_APP_API_URL=http://localhost:3001
+   REACT_APP_USE_MOCK_API=true
+
+3. Start both servers:
+   npm run dev
+   (This runs both React app and JSON Server concurrently)
+
+================================================================================
+                    2. UNDERSTANDING THE TWO MODES
+================================================================================
+
+JSON SERVER MODE (Mock API)
+---------------------------
+- URL: http://localhost:3001
+- Data Source: db.json file in project root
+- Use Case: Offline development, quick prototyping, no internet required
+- Data Persistence: Changes saved to db.json file locally
+- Authentication: Simulated (any matching email/password in db.json works)
+
+CLOUDWAYS API MODE (Production)
+-------------------------------
+- URL: https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+- Data Source: MySQL database on Cloudways server
+- Use Case: Integration testing, production-like environment
+- Data Persistence: Changes saved to production database
+- Authentication: Real JWT token-based authentication
+
+================================================================================
+                        3. CONFIGURATION STEPS
+================================================================================
+
+STEP 1: Locate the .env File
+-----------------------------
+The .env file is in the project root directory:
+/home/user/e-com-game-credit-store/.env
+
+If it doesn't exist, copy from .env.example:
+cp .env.example .env
+
+STEP 2: Configure Environment Variables
+----------------------------------------
+
+For CLOUDWAYS API (Recommended for visual testing with production data):
+------------------------------------------------------------------------
+# API Configuration
+REACT_APP_API_URL=https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+REACT_APP_USE_MOCK_API=false
+
+# App Information
+REACT_APP_NAME=KELLS GLOBAL
+REACT_APP_VERSION=1.0.0
+
+# Feature Flags
+REACT_APP_ENABLE_ANALYTICS=false
+
+# Build Configuration
+GENERATE_SOURCEMAP=true
+
+
+For JSON SERVER (Offline development):
+--------------------------------------
+# API Configuration
+REACT_APP_API_URL=http://localhost:3001
+REACT_APP_USE_MOCK_API=true
+
+# App Information
+REACT_APP_NAME=KELLS GLOBAL
+REACT_APP_VERSION=1.0.0
+
+# Feature Flags
+REACT_APP_ENABLE_ANALYTICS=false
+
+# Build Configuration
+GENERATE_SOURCEMAP=true
+
+STEP 3: Restart the Development Server
+--------------------------------------
+IMPORTANT: After changing .env values, you MUST restart the dev server!
+
+Press Ctrl+C to stop the current server, then run:
+- For Cloudways API: npm start
+- For JSON Server: npm run dev
+
+================================================================================
+                    4. RUNNING THE APPLICATION
+================================================================================
+
+WITH CLOUDWAYS API:
+-------------------
+1. Ensure .env has REACT_APP_USE_MOCK_API=false
+2. Run: npm start
+3. Open: http://localhost:3000
+
+WITH JSON SERVER:
+-----------------
+1. Ensure .env has REACT_APP_USE_MOCK_API=true
+2. Run: npm run dev
+   (This starts both React app on port 3000 and JSON Server on port 3001)
+3. Open: http://localhost:3000
+
+AVAILABLE NPM SCRIPTS:
+----------------------
+npm start       - Start React app only (uses .env settings)
+npm run server  - Start JSON Server only on port 3001
+npm run dev     - Start both React app and JSON Server (for mock mode)
+npm run build   - Build for production
+
+================================================================================
+                        5. TESTING EACH MODE
+================================================================================
+
+HOW TO VERIFY WHICH MODE IS ACTIVE:
+-----------------------------------
+1. Open your browser's developer console (F12)
+2. Look for the API Configuration log on page load:
+
+   === API Configuration ===
+   Mode: JSON Server (Mock) or Cloudways API (Production)
+   Base URL: http://localhost:3001 or https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+   MOOGOLD API: https://phplaravel-780646-5827390.cloudwaysapps.com/api
+   =========================
+
+3. Navigate to Admin > Sync Products to see the API mode indicator
+
+TESTING USER REGISTRATION:
+--------------------------
+With Cloudways API:
+- Go to: http://localhost:3000/signup
+- Fill in the registration form
+- User is created in Cloudways MySQL database
+- Login with the registered credentials
+
+With JSON Server:
+- Go to: http://localhost:3000/signup
+- Fill in the registration form
+- User is added to db.json file
+- Login with the registered credentials
+
+TESTING PRODUCT FETCH AND SAVE:
+-------------------------------
+With Cloudways API:
+1. Login as admin: admin@gamehub.com / admin123
+2. Go to Admin > Sync Products
+3. The page shows "Cloudways API (Production)" indicator
+4. Enter a MOOGOLD Product ID (e.g., 15145)
+5. Click "Fetch Product"
+6. Fill in metadata and click "Add to Database"
+7. Product is saved to Cloudways MySQL database
+
+With JSON Server:
+1. Login as admin: admin@gamehub.com / admin123
+2. Go to Admin > Sync Products
+3. The page shows "JSON Server (Mock)" indicator
+4. Enter a MOOGOLD Product ID (e.g., 15145)
+5. Click "Fetch Product"
+6. Fill in metadata and click "Add to Database"
+7. Product is saved to local db.json file
+
+================================================================================
+                        6. TROUBLESHOOTING
+================================================================================
+
+PROBLEM: Changes to .env are not taking effect
+SOLUTION: Restart the development server (npm start or npm run dev)
+
+PROBLEM: "Failed to load products" error
+SOLUTION:
+- For JSON Server mode: Make sure JSON Server is running (npm run dev)
+- For Cloudways mode: Check internet connection and CORS settings
+
+PROBLEM: Registration not working with Cloudways API
+SOLUTION:
+- Ensure REACT_APP_USE_MOCK_API=false in .env
+- Check browser console for error details
+- Verify Cloudways API is accessible
+
+PROBLEM: Product sync fails
+SOLUTION:
+- MOOGOLD Product fetch always uses Cloudways API (for product data)
+- Saving can go to either JSON Server or Cloudways based on your .env
+- Check the API mode indicator on the Sync Products page
+
+PROBLEM: JSON Server not starting
+SOLUTION:
+- Run: npm run server (to start JSON Server only)
+- Check if port 3001 is available
+- Verify db.json exists in project root
+
+PROBLEM: CORS errors with Cloudways API
+SOLUTION:
+- This is a server-side configuration issue
+- Contact the backend team to whitelist localhost:3000
+
+================================================================================
+                    7. API ENDPOINTS REFERENCE
+================================================================================
+
+AUTHENTICATION ENDPOINTS:
+-------------------------
+POST /auth/login          - User login
+POST /auth/register       - User registration
+POST /auth/logout         - User logout
+GET  /auth/user           - Get current user profile
+PUT  /auth/user           - Update user profile
+PUT  /auth/password       - Change password
+
+PRODUCT ENDPOINTS:
+------------------
+GET  /products            - Get all products
+GET  /products/:id        - Get product by ID
+GET  /products/slug/:slug - Get product by slug
+GET  /products/featured   - Get featured products
+GET  /products/trending   - Get trending products
+GET  /products/hot        - Get hot products
+GET  /products/category/:slug - Get products by category
+
+CATEGORY ENDPOINTS:
+-------------------
+GET  /categories          - Get all categories
+GET  /categories/:slug    - Get category by slug
+
+CART ENDPOINTS:
+---------------
+GET  /cart                - Get user's cart
+POST /cart                - Add item to cart
+PATCH /cart/:id           - Update cart item
+DELETE /cart/:id          - Remove item from cart
+
+ORDER ENDPOINTS:
+----------------
+POST /orders              - Create new order
+GET  /orders              - Get user's orders
+GET  /orders/:id          - Get order by ID
+
+WISHLIST ENDPOINTS:
+-------------------
+GET  /wishlist            - Get user's wishlist
+POST /wishlist            - Add item to wishlist
+DELETE /wishlist/:id      - Remove from wishlist
+
+ADMIN ENDPOINTS:
+----------------
+POST /admin/auth/login    - Admin login
+POST /admin/auth/logout   - Admin logout
+GET  /admin/products      - Get all products (admin)
+POST /admin/products      - Create product
+PUT  /admin/products/:id  - Update product
+DELETE /admin/products/:id - Delete product
+GET  /admin/orders        - Get all orders
+PATCH /admin/orders/:id   - Update order status
+GET  /admin/leads         - Get all leads
+PATCH /admin/leads/:id    - Update lead
+
+MOOGOLD ENDPOINTS (Always uses Cloudways):
+------------------------------------------
+POST /api/login           - Get MOOGOLD API token
+GET  /api/moogold/products/:id - Fetch product from MOOGOLD
+
+================================================================================
+                            FILE LOCATIONS
+================================================================================
+
+Configuration Files:
+- .env                  - Main environment configuration (edit this!)
+- .env.example          - Template for development
+- .env.production       - Production build configuration
+- src/services/baseURL.js - API URL logic and constants
+
+Key Service Files:
+- src/services/api.js   - All API endpoint definitions
+- src/context/AuthContext.js - User authentication
+- src/context/AdminContext.js - Admin & MOOGOLD integration
+- src/pages/Admin/AdminSync.js - Product sync page
+
+Mock Data:
+- db.json               - JSON Server database file
+
+================================================================================
+                        DEMO CREDENTIALS
+================================================================================
+
+User Account (for testing shopping):
+- Email: user@mail.com
+- Password: 112233
+
+Admin Account (for admin panel):
+- Email: admin@gamehub.com
+- Password: admin123
+
+MOOGOLD API (embedded in code):
+- Email: dee@dee.com
+- Password: 12345678
+
+================================================================================
+                            SUMMARY
+================================================================================
+
+1. To use Cloudways API (recommended for visual testing):
+   - Set REACT_APP_USE_MOCK_API=false in .env
+   - Run: npm start
+
+2. To use JSON Server (for offline development):
+   - Set REACT_APP_USE_MOCK_API=true in .env
+   - Run: npm run dev
+
+3. ALWAYS restart the dev server after changing .env!
+
+4. Check the browser console for API mode confirmation
+
+5. The Admin > Sync Products page shows which API is active
+
+================================================================================
+                        END OF GUIDE
+================================================================================
