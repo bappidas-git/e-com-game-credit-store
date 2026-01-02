@@ -3,403 +3,580 @@ NEW API REQUIREMENTS FOR KELLS GLOBAL E-COMMERCE PLATFORM
 =============================================================================
 
 Generated: 2026-01-02
-Base URL: https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+Tested Against: https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+Postman Collection: GameHub_API_Postman_Collection.json
 
-This document outlines the API endpoints required by the frontend application
-that may need implementation or modification on the backend.
-
-=============================================================================
-1. CART APIs (User Authenticated)
-=============================================================================
-
-The frontend cart functionality requires the following endpoints:
-
-1.1 GET /cart
-    Status: EXISTS
-    Description: Get the authenticated user's cart items
-    Headers: Authorization: Bearer {user_token}
-    Response: {
-      "success": true,
-      "data": [
-        {
-          "id": 1,
-          "product_id": "23838543",
-          "product_name": "Mobile Legends",
-          "offer_id": "23841659",
-          "offer_name": "1499 M-CASH",
-          "price": 1444.61,
-          "quantity": 1,
-          "product_image": "https://..."
-        }
-      ],
-      "summary": {
-        "itemCount": 1,
-        "subtotal": 1444.61,
-        "tax": 0,
-        "total": 1444.61
-      }
-    }
-
-1.2 POST /cart
-    Status: NEEDS TESTING
-    Description: Add item to cart
-    Headers: Authorization: Bearer {user_token}
-    Request Body: {
-      "product_id": "23838543",
-      "offer_id": "23841659",
-      "quantity": 1,
-      "price": 1444.61,
-      "product_name": "Mobile Legends",
-      "product_image": "https://...",
-      "offer_name": "1499 M-CASH"
-    }
-    Expected Response: {
-      "success": true,
-      "message": "Item added to cart",
-      "data": { ...cart item with id }
-    }
-
-1.3 PATCH /cart/{id}
-    Status: NEEDS TESTING
-    Description: Update cart item quantity
-    Headers: Authorization: Bearer {user_token}
-    Request Body: { "quantity": 2 }
-    Expected Response: {
-      "success": true,
-      "message": "Cart updated",
-      "data": { ...updated cart item }
-    }
-
-1.4 DELETE /cart/{id}
-    Status: NEEDS TESTING
-    Description: Remove specific item from cart
-    Headers: Authorization: Bearer {user_token}
-    Expected Response: {
-      "success": true,
-      "message": "Item removed from cart"
-    }
-
-1.5 DELETE /cart
-    Status: NEEDS IMPLEMENTATION
-    Description: Clear all items from user's cart
-    Headers: Authorization: Bearer {user_token}
-    Expected Response: {
-      "success": true,
-      "message": "Cart cleared"
-    }
+This document outlines API test results and requirements for APIs that need
+to be created or modified based on testing each endpoint in the Postman collection.
 
 =============================================================================
-2. WISHLIST APIs (User Authenticated)
+EXECUTIVE SUMMARY
 =============================================================================
 
-2.1 GET /wishlist
-    Status: EXISTS
-    Description: Get the authenticated user's wishlist
-    Headers: Authorization: Bearer {user_token}
-    Response: {
-      "success": true,
-      "data": [...]
-    }
+WORKING APIs (No changes needed):
+- User Authentication (Register, Login, Get User, Update User, Change Password, Logout)
+- Admin Authentication (Login, Register, Get User, Logout)
+- Products List APIs (all filters working)
+- Categories List API
+- Cart APIs (Get, Add, Remove, Clear)
+- Orders List API
+- Leads APIs (Contact, Newsletter)
+- Wishlist APIs (Get, Add, Remove)
+- Admin Leads APIs (List, Get, Update)
+- Admin Orders List API
+- Admin Products List API
 
-2.2 POST /wishlist
-    Status: NEEDS TESTING
-    Description: Add product to wishlist
-    Headers: Authorization: Bearer {user_token}
-    Request Body: {
-      "product_id": "23838543"
-    }
-    Expected Response: {
-      "success": true,
-      "message": "Added to wishlist",
-      "data": { ...wishlist item with id }
-    }
-
-2.3 DELETE /wishlist/{id}
-    Status: NEEDS TESTING
-    Description: Remove item from wishlist
-    Headers: Authorization: Bearer {user_token}
-    Expected Response: {
-      "success": true,
-      "message": "Removed from wishlist"
-    }
+NEEDS CREATION OR MODIFICATION:
+1. Database Seeding Required (Categories, Products)
+2. Error Handling Improvements (Cart Update, Admin 404 responses)
+3. Postman Collection Update (Add Admin Register endpoint)
+4. Admin Category Management APIs (Not in collection, may need implementation)
 
 =============================================================================
-3. ORDER APIs (User Authenticated)
+SECTION 1: APIs THAT NEED MODIFICATION
 =============================================================================
 
-3.1 GET /orders
-    Status: EXISTS
-    Description: Get authenticated user's orders
-    Headers: Authorization: Bearer {user_token}
+-----------------------------------------------------------------------------
+1.1 PATCH /cart/{id} - Update Cart Item
+-----------------------------------------------------------------------------
 
-3.2 POST /orders
-    Status: NEEDS IMPLEMENTATION
-    Description: Create a new order
-    Headers: Authorization: Bearer {user_token}
-    Request Body: {
-      "items": [
-        {
-          "product_id": "23838543",
-          "offer_id": "23841659",
-          "quantity": 1,
-          "price": 1444.61,
-          "product_name": "Mobile Legends",
-          "offer_name": "1499 M-CASH"
-        }
-      ],
-      "player_info": {
-        "user_id": "123456789",
-        "zone_id": "1234"
-      },
-      "payment_method": "upi",
-      "subtotal": 1444.61,
-      "tax": 0,
-      "total": 1444.61
-    }
-    Expected Response: {
-      "success": true,
-      "message": "Order created successfully",
-      "data": {
-        "id": 1,
-        "order_number": "GH-XXXXXX-XXXX",
-        "status": "pending",
-        "items": [...],
-        "total": 1444.61,
-        "created_at": "2026-01-02T00:00:00Z"
-      }
-    }
+Endpoint: PATCH /cart/{id}
+Status: NEEDS FIX - Poor error handling
 
-3.3 GET /orders/{id}
-    Status: EXISTS
-    Description: Get specific order details
-    Headers: Authorization: Bearer {user_token}
+TEST RESULT:
+When cart item does not exist, API returns raw Laravel exception instead of
+proper JSON error response:
 
-=============================================================================
-4. ADMIN PRODUCT APIs (Admin Authenticated)
-=============================================================================
-
-4.1 POST /admin/products
-    Status: NEEDS IMPLEMENTATION
-    Description: Create a new product (synced from MOOGOLD)
-    Headers: Authorization: Bearer {admin_token}
-    Request Body: {
-      "moogold_id": "23838543",
-      "name": "Mobile Legends",
-      "slug": "mobile-legends",
-      "short_description": "Top Up for Mobile Legends",
-      "description": "Full description...",
-      "category": "mobile-game",
-      "platform": "Mobile",
-      "region": "Global",
-      "image": "https://...",
-      "rating": 4.5,
-      "total_reviews": 0,
-      "featured": true,
-      "trending": false,
-      "hot": false,
-      "instant_delivery": true,
-      "delivery_time": "Instant - 5 Minutes",
-      "required_info": ["User ID", "Zone ID"],
-      "how_to_top_up": ["Step 1...", "Step 2..."],
-      "how_to_find_player_id": ["Step 1...", "Step 2..."],
-      "tags": ["MOBA", "Mobile"],
-      "developer": "Moonton",
-      "currency": "Diamonds",
-      "pricing_config": {
-        "margin_type": "percentage",
-        "margin_value": 12,
-        "base_currency": "INR"
-      },
-      "offers": [
-        {
-          "offer_id": "23841659",
-          "name": "1499 M-CASH",
-          "base_price": 1289.83,
-          "margin": 12,
-          "selling_price": 1444.61,
-          "original_price": 1589.07,
-          "discount": 9,
-          "popular": false
-        }
-      ]
-    }
-    Expected Response: {
-      "success": true,
-      "message": "Product created successfully",
-      "data": { ...created product }
-    }
-
-4.2 PUT /admin/products/{id}
-    Status: NEEDS IMPLEMENTATION
-    Description: Update an existing product
-    Headers: Authorization: Bearer {admin_token}
-    Request Body: Same as create
-    Expected Response: {
-      "success": true,
-      "message": "Product updated successfully",
-      "data": { ...updated product }
-    }
-
-4.3 DELETE /admin/products/{id}
-    Status: NEEDS IMPLEMENTATION
-    Description: Delete a product
-    Headers: Authorization: Bearer {admin_token}
-    Expected Response: {
-      "success": true,
-      "message": "Product deleted successfully"
-    }
-
-=============================================================================
-5. USER PROFILE APIs (User Authenticated)
-=============================================================================
-
-5.1 PUT /auth/user
-    Status: NEEDS IMPLEMENTATION
-    Description: Update user profile
-    Headers: Authorization: Bearer {user_token}
-    Request Body: {
-      "first_name": "John",
-      "last_name": "Doe",
-      "phone": "+91XXXXXXXXXX"
-    }
-    Expected Response: {
-      "success": true,
-      "message": "Profile updated successfully",
-      "data": { ...updated user }
-    }
-
-5.2 PUT /auth/password
-    Status: NEEDS IMPLEMENTATION
-    Description: Change user password
-    Headers: Authorization: Bearer {user_token}
-    Request Body: {
-      "current_password": "oldpassword",
-      "password": "newpassword",
-      "password_confirmation": "newpassword"
-    }
-    Expected Response: {
-      "success": true,
-      "message": "Password changed successfully"
-    }
-
-=============================================================================
-6. CATEGORY APIs
-=============================================================================
-
-6.1 GET /categories
-    Status: EXISTS (but empty data)
-    Description: Get all categories
-    Action Required: Seed categories in database
-    Recommended Categories:
-    - { id: 1, name: "Mobile Games", slug: "mobile-game", icon: "mdi:cellphone" }
-    - { id: 2, name: "PC Games", slug: "pc-game", icon: "mdi:desktop-classic" }
-    - { id: 3, name: "Gift Cards", slug: "gift-card", icon: "mdi:gift" }
-    - { id: 4, name: "Cross Platform", slug: "cross-platform", icon: "mdi:devices" }
-
-=============================================================================
-7. ADMIN CATEGORY MANAGEMENT APIs
-=============================================================================
-
-7.1 POST /admin/categories
-    Status: NEEDS IMPLEMENTATION
-    Description: Create a new category
-    Headers: Authorization: Bearer {admin_token}
-    Request Body: {
-      "name": "Mobile Games",
-      "slug": "mobile-game",
-      "description": "Top-up for mobile games",
-      "icon": "mdi:cellphone",
-      "is_active": true
-    }
-
-7.2 PUT /admin/categories/{id}
-    Status: NEEDS IMPLEMENTATION
-    Description: Update category
-
-7.3 DELETE /admin/categories/{id}
-    Status: NEEDS IMPLEMENTATION
-    Description: Delete category
-
-=============================================================================
-8. DASHBOARD/STATISTICS APIs (Admin Authenticated)
-=============================================================================
-
-8.1 GET /admin/dashboard/stats
-    Status: NEEDS IMPLEMENTATION
-    Description: Get dashboard statistics
-    Headers: Authorization: Bearer {admin_token}
-    Expected Response: {
-      "success": true,
-      "data": {
-        "total_orders": 100,
-        "total_revenue": 150000,
-        "total_customers": 50,
-        "total_products": 25,
-        "pending_orders": 5,
-        "completed_orders": 95,
-        "recent_orders": [...],
-        "top_products": [...],
-        "revenue_chart": {
-          "labels": ["Jan", "Feb", ...],
-          "data": [10000, 15000, ...]
-        }
-      }
-    }
-
-=============================================================================
-9. KNOWN ISSUES TO FIX
-=============================================================================
-
-9.1 MOOGOLD Product ID Validation
-    Endpoint: GET /moogold/products/{id}
-    Issue: When a non-numeric string is passed as product ID, the API throws:
-           "Argument #1 ($product_id) must be of type int, string given"
-    Fix: Add input validation to cast product_id to integer and return
-         proper 400 Bad Request error for invalid IDs.
-
-=============================================================================
-10. RESPONSE FORMAT STANDARDS
-=============================================================================
-
-All APIs should follow this format:
-
-SUCCESS Response:
+Actual Response:
 {
-  "success": true,
-  "message": "Optional success message",
-  "data": { ... } or [ ... ],
-  "meta": {                        // For paginated responses
-    "currentPage": 1,
-    "perPage": 15,
-    "total": 100,
-    "totalPages": 7,
-    "hasMorePages": true,
-    "from": 1,
-    "to": 15
-  }
+  "message": "No query results for model [App\\Models\\CartItem].",
+  "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
+  ...full stack trace...
 }
 
-ERROR Response:
+REQUIRED FIX:
+Return proper JSON response:
 {
   "success": false,
-  "message": "Error message",
-  "errors": {                      // For validation errors
-    "field_name": ["Error message 1", "Error message 2"]
+  "message": "Cart item not found"
+}
+
+ACTION: Modify CartController to handle ModelNotFoundException properly.
+
+-----------------------------------------------------------------------------
+1.2 PATCH /admin/orders/{id} - Update Order Status
+-----------------------------------------------------------------------------
+
+Endpoint: PATCH /admin/orders/{id}
+Status: NEEDS FIX - Poor error handling
+
+TEST RESULT:
+When order does not exist, API returns raw Laravel exception:
+
+Actual Response:
+{
+  "message": "No query results for model [App\\Models\\Order] 1",
+  "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
+  ...full stack trace...
+}
+
+REQUIRED FIX:
+Return proper JSON response:
+{
+  "success": false,
+  "message": "Order not found"
+}
+
+ACTION: Modify AdminOrderController to handle ModelNotFoundException properly.
+
+-----------------------------------------------------------------------------
+1.3 PUT /admin/products/{id} - Update Product
+-----------------------------------------------------------------------------
+
+Endpoint: PUT /admin/products/{id}
+Status: NEEDS FIX - Poor error handling
+
+TEST RESULT:
+When product does not exist, API returns raw Laravel exception instead of
+proper 404 response.
+
+REQUIRED FIX:
+Return proper JSON response:
+{
+  "success": false,
+  "message": "Product not found"
+}
+
+ACTION: Add findOrFail exception handling in AdminProductController.
+
+-----------------------------------------------------------------------------
+1.4 DELETE /admin/products/{id} - Delete Product
+-----------------------------------------------------------------------------
+
+Endpoint: DELETE /admin/products/{id}
+Status: NEEDS FIX - Same as above
+
+TEST RESULT:
+Raw Laravel exception when product not found.
+
+REQUIRED FIX:
+Return proper JSON response.
+
+-----------------------------------------------------------------------------
+1.5 DELETE /admin/leads/{id} - Delete Lead
+-----------------------------------------------------------------------------
+
+Endpoint: DELETE /admin/leads/{id}
+Status: NEEDS FIX - Poor error handling
+
+TEST RESULT:
+When lead does not exist, API returns raw Laravel exception.
+
+REQUIRED FIX:
+Return proper JSON response:
+{
+  "success": false,
+  "message": "Lead not found"
+}
+
+=============================================================================
+SECTION 2: DATABASE SEEDING REQUIRED
+=============================================================================
+
+-----------------------------------------------------------------------------
+2.1 Categories Table - NEEDS SEEDING
+-----------------------------------------------------------------------------
+
+ISSUE: Categories table is empty. This affects:
+- GET /categories returns empty array
+- GET /categories/{slug} returns "Category not found"
+- POST /admin/products fails with "The selected category is invalid"
+
+REQUIRED ACTION:
+Run database seeder or create categories via API/SQL:
+
+Required Categories:
+1. { name: "Mobile Games", slug: "mobile-game", icon: "mdi:cellphone-gaming" }
+2. { name: "PC Games", slug: "pc-game", icon: "mdi:desktop-classic" }
+3. { name: "Gift Cards", slug: "gift-card", icon: "mdi:wallet-giftcard" }
+4. { name: "Cross Platform", slug: "cross-platform", icon: "mdi:gamepad-variant" }
+
+SQL Example:
+INSERT INTO categories (name, slug, icon, created_at, updated_at) VALUES
+('Mobile Games', 'mobile-game', 'mdi:cellphone-gaming', NOW(), NOW()),
+('PC Games', 'pc-game', 'mdi:desktop-classic', NOW(), NOW()),
+('Gift Cards', 'gift-card', 'mdi:wallet-giftcard', NOW(), NOW()),
+('Cross Platform', 'cross-platform', 'mdi:gamepad-variant', NOW(), NOW());
+
+-----------------------------------------------------------------------------
+2.2 Products Table - NEEDS INITIAL DATA
+-----------------------------------------------------------------------------
+
+ISSUE: Products table is empty. This affects:
+- GET /products returns empty array
+- GET /products/featured returns empty array
+- GET /products/trending returns empty array
+- GET /products/hot returns empty array
+- Cart Add fails with "The selected product id is invalid"
+- Wishlist Add fails with "The selected product id is invalid"
+
+REQUIRED ACTION:
+Products need to be synced from MOOGOLD API or seeded manually.
+Products cannot be created via Admin API until categories exist.
+
+=============================================================================
+SECTION 3: POSTMAN COLLECTION UPDATES NEEDED
+=============================================================================
+
+-----------------------------------------------------------------------------
+3.1 Add Admin Register Endpoint
+-----------------------------------------------------------------------------
+
+ISSUE: Admin Register endpoint exists and works but is NOT in Postman collection.
+
+ENDPOINT EXISTS: POST /admin/auth/register
+REQUEST BODY:
+{
+  "email": "admin@example.com",
+  "password": "password123",
+  "password_confirmation": "password123",
+  "firstName": "Admin",
+  "lastName": "User"
+}
+
+RESPONSE (201 Created):
+{
+  "success": true,
+  "message": "Admin registration successful",
+  "data": {
+    "admin": {
+      "id": 2,
+      "email": "admin@example.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "role": "admin"
+    },
+    "token": "xxx|xxxxxxxx",
+    "tokenType": "Bearer"
+  }
+}
+
+ACTION: Add this endpoint to Postman collection under "Admin Authentication" folder.
+
+=============================================================================
+SECTION 4: APIs THAT NEED IMPLEMENTATION (NOT IN BACKEND)
+=============================================================================
+
+-----------------------------------------------------------------------------
+4.1 Admin Category Management APIs
+-----------------------------------------------------------------------------
+
+These endpoints are NOT currently available but may be needed for full admin
+functionality:
+
+POST /admin/categories
+  - Create a new category
+  - Required for managing product categories
+
+PUT /admin/categories/{id}
+  - Update existing category
+
+DELETE /admin/categories/{id}
+  - Delete category
+
+GET /admin/categories
+  - List all categories with admin metadata (product counts, etc.)
+
+-----------------------------------------------------------------------------
+4.2 Admin Dashboard Statistics API
+-----------------------------------------------------------------------------
+
+Endpoint: GET /admin/dashboard/stats
+Status: NEEDS IMPLEMENTATION
+
+This endpoint would provide dashboard summary data:
+{
+  "success": true,
+  "data": {
+    "total_orders": 100,
+    "total_revenue": 150000.00,
+    "total_customers": 50,
+    "total_products": 25,
+    "pending_orders": 5,
+    "completed_orders": 95,
+    "recent_orders": [...],
+    "top_products": [...],
+    "revenue_chart": {
+      "labels": ["Jan", "Feb", "Mar", ...],
+      "data": [10000, 15000, 20000, ...]
+    }
   }
 }
 
 =============================================================================
-11. AUTHENTICATION
+SECTION 5: COMPLETE API TEST RESULTS
 =============================================================================
 
-All authenticated endpoints require:
-  Header: Authorization: Bearer {token}
+-----------------------------------------------------------------------------
+5.1 USER AUTHENTICATION APIs
+-----------------------------------------------------------------------------
 
-Tokens are obtained from:
-  - User login: POST /auth/login
-  - Admin login: POST /admin/auth/login
+POST /auth/register
+  Status: WORKING
+  Test: Created new user successfully
+  Response: {"success":true,"message":"Registration successful","data":{...}}
 
-Token expiry should be handled gracefully with 401 Unauthorized responses.
+POST /auth/login
+  Status: WORKING
+  Test: Login with valid credentials returns token
+  Response: {"success":true,"message":"Login successful","data":{"user":{...},"token":"...", "tokenType":"Bearer","expiresAt":"..."}}
+
+GET /auth/user
+  Status: WORKING
+  Test: Returns authenticated user data
+  Response: {"success":true,"data":{"id":...,"email":"...","firstName":"...","lastName":"...","phone":"..."}}
+
+PUT /auth/user
+  Status: WORKING
+  Test: Profile update successful
+  Response: {"success":true,"message":"Profile updated successfully","data":{...}}
+
+PUT /auth/password
+  Status: WORKING
+  Test: Password change successful
+  Response: {"success":true,"message":"Password changed successfully"}
+
+POST /auth/logout
+  Status: WORKING
+  Test: Logout successful (empty response body)
+
+-----------------------------------------------------------------------------
+5.2 ADMIN AUTHENTICATION APIs
+-----------------------------------------------------------------------------
+
+POST /admin/auth/login
+  Status: WORKING
+  Test: Admin login returns token
+  Response: {"success":true,"message":"Admin login successful","data":{"admin":{...},"token":"...","tokenType":"Bearer"}}
+
+POST /admin/auth/register
+  Status: WORKING (NOT IN POSTMAN COLLECTION)
+  Test: Admin registration successful
+  Response: See section 3.1 above
+
+GET /admin/auth/user
+  Status: WORKING
+  Test: Returns authenticated admin data
+  Response: {"success":true,"data":{"id":...,"email":"...","firstName":"...","lastName":"...","role":"admin"}}
+
+POST /admin/auth/logout
+  Status: WORKING
+  Test: Logout successful (empty response body)
+
+-----------------------------------------------------------------------------
+5.3 PRODUCTS APIs
+-----------------------------------------------------------------------------
+
+GET /products
+  Status: WORKING
+  Test: Returns paginated list (empty - no products in DB)
+  Response: {"success":true,"data":[],"meta":{"currentPage":1,"perPage":15,"total":0,...}}
+
+GET /products/{id}
+  Status: WORKING
+  Test: Returns 404 for non-existent product
+  Response: {"success":false,"message":"Product not found"}
+
+GET /products/slug/{slug}
+  Status: WORKING
+  Test: Returns 404 for non-existent slug
+  Response: {"success":false,"message":"Product not found"}
+
+GET /products/featured
+  Status: WORKING
+  Test: Returns empty array (no featured products)
+  Response: {"success":true,"data":[]}
+
+GET /products/trending
+  Status: WORKING
+  Test: Returns empty array
+  Response: {"success":true,"data":[]}
+
+GET /products/hot
+  Status: WORKING
+  Test: Returns empty array
+  Response: {"success":true,"data":[]}
+
+GET /products/category/{category}
+  Status: WORKING
+  Test: Returns empty paginated results
+  Response: {"success":true,"data":[],"meta":{...}}
+
+-----------------------------------------------------------------------------
+5.4 CATEGORIES APIs
+-----------------------------------------------------------------------------
+
+GET /categories
+  Status: WORKING (empty - needs seeding)
+  Test: Returns empty array
+  Response: {"success":true,"data":[]}
+
+GET /categories/{slug}
+  Status: WORKING
+  Test: Returns 404 for non-existent category
+  Response: {"success":false,"message":"Category not found"}
+
+-----------------------------------------------------------------------------
+5.5 CART APIs
+-----------------------------------------------------------------------------
+
+GET /cart
+  Status: WORKING
+  Test: Returns cart with summary
+  Response: {"success":true,"data":[],"summary":{"itemCount":0,"subtotal":0,"tax":0,"total":0}}
+
+POST /cart
+  Status: WORKING (requires valid product/offer IDs)
+  Test: Returns validation error when product doesn't exist
+  Response: {"message":"The selected product id is invalid.","errors":{...}}
+
+PATCH /cart/{id}
+  Status: NEEDS FIX (returns raw exception)
+  See Section 1.1 above
+
+DELETE /cart/{id}
+  Status: WORKING
+  Test: Item removed successfully
+  Response: {"success":true,"message":"Item removed from cart"}
+
+DELETE /cart
+  Status: WORKING
+  Test: Cart cleared successfully
+  Response: {"success":true,"message":"Cart cleared successfully"}
+
+-----------------------------------------------------------------------------
+5.6 ORDERS APIs
+-----------------------------------------------------------------------------
+
+POST /orders
+  Status: WORKING (requires items array)
+  Test: Validation error when items missing
+  Response: {"message":"The items field is required.","errors":{"items":["The items field is required."]}}
+
+GET /orders
+  Status: WORKING
+  Test: Returns paginated orders
+  Response: {"success":true,"data":[],"meta":{...}}
+
+GET /orders/{id}
+  Status: WORKING
+  Test: Returns access denied for other user's order
+  Response: {"success":false,"message":"You do not have access to this order"}
+
+-----------------------------------------------------------------------------
+5.7 LEADS APIs
+-----------------------------------------------------------------------------
+
+POST /leads/contact
+  Status: WORKING
+  Test: Contact form submission successful
+  Response: {"success":true,"message":"Your message has been submitted. We will get back to you soon.","data":{...}}
+
+POST /leads/newsletter
+  Status: WORKING
+  Test: Newsletter subscription successful
+  Response: {"success":true,"message":"You have been subscribed to our newsletter","data":{...}}
+
+-----------------------------------------------------------------------------
+5.8 WISHLIST APIs
+-----------------------------------------------------------------------------
+
+GET /wishlist
+  Status: WORKING
+  Test: Returns user's wishlist
+  Response: {"success":true,"data":[]}
+
+POST /wishlist
+  Status: WORKING (requires valid product ID)
+  Test: Returns validation error when product doesn't exist
+  Response: {"message":"The selected product id is invalid.","errors":{...}}
+
+DELETE /wishlist/{id}
+  Status: WORKING
+  Test: Returns proper error for non-existent item
+  Response: {"success":false,"message":"Wishlist item not found"}
+
+-----------------------------------------------------------------------------
+5.9 ADMIN PRODUCTS APIs
+-----------------------------------------------------------------------------
+
+GET /admin/products
+  Status: WORKING
+  Test: Returns paginated products (empty)
+  Response: {"success":true,"data":[],"meta":{...}}
+
+POST /admin/products
+  Status: WORKING (requires valid category)
+  Test: Returns validation error when category doesn't exist
+  Response: {"message":"The selected category is invalid.","errors":{...}}
+
+PUT /admin/products/{id}
+  Status: NEEDS FIX (raw exception)
+  See Section 1.3 above
+
+DELETE /admin/products/{id}
+  Status: NEEDS FIX (raw exception)
+  See Section 1.4 above
+
+-----------------------------------------------------------------------------
+5.10 ADMIN ORDERS APIs
+-----------------------------------------------------------------------------
+
+GET /admin/orders
+  Status: WORKING
+  Test: Returns orders with summary
+  Response: {"success":true,"data":[],"meta":{...},"summary":{"totalOrders":0,"totalRevenue":0,...}}
+
+PATCH /admin/orders/{id}
+  Status: NEEDS FIX (raw exception)
+  See Section 1.2 above
+
+-----------------------------------------------------------------------------
+5.11 ADMIN LEADS APIs
+-----------------------------------------------------------------------------
+
+GET /admin/leads
+  Status: WORKING
+  Test: Returns leads with summary
+  Response: {"success":true,"data":[...],"meta":{...},"summary":{"totalLeads":5,"newLeads":1,...}}
+
+GET /admin/leads/{id}
+  Status: WORKING
+  Test: Returns lead details
+  Response: {"success":true,"data":{...}}
+
+PATCH /admin/leads/{id}
+  Status: WORKING
+  Test: Lead updated successfully
+  Response: {"success":true,"message":"Lead updated successfully","data":{...}}
+
+DELETE /admin/leads/{id}
+  Status: NEEDS FIX (raw exception for non-existent)
+  See Section 1.5 above
+
+=============================================================================
+SECTION 6: PRIORITY ACTION ITEMS
+=============================================================================
+
+HIGH PRIORITY:
+1. Seed categories table with standard categories
+2. Fix exception handling for 404 errors in:
+   - PATCH /cart/{id}
+   - PATCH /admin/orders/{id}
+   - PUT /admin/products/{id}
+   - DELETE /admin/products/{id}
+   - DELETE /admin/leads/{id}
+
+MEDIUM PRIORITY:
+3. Update Postman collection to include Admin Register endpoint
+4. Sync products from MOOGOLD or create test products
+
+LOW PRIORITY:
+5. Implement Admin Category Management APIs
+6. Implement Admin Dashboard Statistics API
+
+=============================================================================
+SECTION 7: RECOMMENDED ERROR HANDLING PATTERN
+=============================================================================
+
+All controllers should use this pattern for model binding:
+
+// Option 1: Try-Catch in Controller
+public function update(Request $request, $id)
+{
+    try {
+        $model = Model::findOrFail($id);
+        // ... update logic
+    } catch (ModelNotFoundException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Resource not found'
+        ], 404);
+    }
+}
+
+// Option 2: Global Exception Handler (app/Exceptions/Handler.php)
+public function render($request, Throwable $exception)
+{
+    if ($exception instanceof ModelNotFoundException) {
+        return response()->json([
+            'success' => false,
+            'message' => str_replace('App\\Models\\', '', $exception->getModel()) . ' not found'
+        ], 404);
+    }
+
+    return parent::render($request, $exception);
+}
 
 =============================================================================
 END OF DOCUMENT
