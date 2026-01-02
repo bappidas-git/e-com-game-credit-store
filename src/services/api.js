@@ -31,10 +31,20 @@ const api = axios.create({
 // =============================================================================
 api.interceptors.request.use(
   (config) => {
-    // Add user token if available
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Determine which token to use based on the request URL
+    // Admin endpoints use adminToken, user endpoints use token
+    const isAdminRequest = config.url && config.url.includes("/admin/");
+
+    if (isAdminRequest) {
+      const adminToken = sessionStorage.getItem("adminToken");
+      if (adminToken) {
+        config.headers.Authorization = `Bearer ${adminToken}`;
+      }
+    } else {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },

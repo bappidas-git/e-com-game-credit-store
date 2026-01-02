@@ -35,7 +35,6 @@ import {
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { useAdmin } from "../../context/AdminContext";
-import { getApiModeName, IS_MOCK_API } from "../../services/baseURL";
 import Swal from "sweetalert2";
 
 const AdminSync = () => {
@@ -95,7 +94,7 @@ const AdminSync = () => {
       console.error("Error loading existing products:", error);
       setSnackbar({
         open: true,
-        message: `Failed to load products from ${getApiModeName()}`,
+        message: "Failed to load products from database",
         severity: "error",
       });
     } finally {
@@ -214,7 +213,7 @@ const AdminSync = () => {
       if (existingProduct) {
         const result = await Swal.fire({
           title: "Product Already Exists",
-          text: `Do you want to update the existing product? (Using ${getApiModeName()})`,
+          text: "Do you want to update the existing product?",
           icon: "question",
           showCancelButton: true,
           confirmButtonText: "Yes, Update",
@@ -261,14 +260,14 @@ const AdminSync = () => {
         offers: processedOffers,
       };
 
-      // Save to database using the API service (works with both JSON Server and Cloudways)
+      // Save to database using the API service
       await saveProductToDatabase(completeProduct, existingProduct?.id);
 
       setSnackbar({
         open: true,
         message: existingProduct
-          ? `Product updated successfully in ${getApiModeName()}!`
-          : `Product added successfully to ${getApiModeName()}!`,
+          ? "Product updated successfully!"
+          : "Product added successfully!",
         severity: "success",
       });
       setAddDialogOpen(false);
@@ -305,7 +304,7 @@ const AdminSync = () => {
       console.error("Error adding product:", error);
       setSnackbar({
         open: true,
-        message: `Failed to add product to ${getApiModeName()}. ${error.message || ""}`,
+        message: `Failed to add product. ${error.message || "Please try again."}`,
         severity: "error",
       });
     }
@@ -336,30 +335,14 @@ const AdminSync = () => {
   return (
     <Box>
       {/* Page Header */}
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 1 }}>
-        <Box>
-          <Typography variant="h5" fontWeight="bold" gutterBottom>
-            Sync Products from MOOGOLD
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Fetch products from MOOGOLD API and add them to your store with custom metadata
-          </Typography>
-        </Box>
-        <Chip
-          icon={<Icon icon={IS_MOCK_API ? "mdi:server" : "mdi:cloud"} />}
-          label={getApiModeName()}
-          color={IS_MOCK_API ? "warning" : "success"}
-          variant="outlined"
-          sx={{ fontWeight: "bold" }}
-        />
-      </Box>
-      <Alert severity="info" sx={{ mb: 3 }}>
-        <Typography variant="body2">
-          <strong>Current Mode:</strong> {getApiModeName()} - Products will be saved to{" "}
-          {IS_MOCK_API ? "local JSON Server (db.json)" : "Cloudways MySQL Database"}.
-          To switch modes, update your <code>.env</code> file and restart the dev server.
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          Sync Products from MOOGOLD
         </Typography>
-      </Alert>
+        <Typography variant="body2" color="text.secondary">
+          Fetch products from MOOGOLD API and add them to your store with custom metadata
+        </Typography>
+      </Box>
 
       {/* Fetch Product Section */}
       <Paper
@@ -570,7 +553,7 @@ const AdminSync = () => {
           </Box>
         ) : existingProducts.length === 0 ? (
           <Alert severity="info">
-            No products found in {getApiModeName()}. Use the sync tool above to add products.
+            No products found in the database. Use the sync tool above to add products.
           </Alert>
         ) : (
         <Grid container spacing={2}>
@@ -619,25 +602,14 @@ const AdminSync = () => {
         }}
       >
         <DialogTitle>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Icon icon="mdi:plus-circle" />
-              Add Product to Store
-            </Box>
-            <Chip
-              size="small"
-              icon={<Icon icon={IS_MOCK_API ? "mdi:server" : "mdi:cloud"} />}
-              label={IS_MOCK_API ? "JSON Server" : "Cloudways API"}
-              color={IS_MOCK_API ? "warning" : "success"}
-              variant="outlined"
-            />
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Icon icon="mdi:plus-circle" />
+            Add Product to Store
           </Box>
         </DialogTitle>
         <DialogContent dividers>
           <Alert severity="info" sx={{ mb: 3 }}>
             Fill in the additional metadata for this product. The offers and base prices are fetched from MOOGOLD.
-            <br />
-            <strong>Saving to:</strong> {IS_MOCK_API ? "Local JSON Server (db.json)" : "Cloudways MySQL Database"}
           </Alert>
 
           <Grid container spacing={2}>
