@@ -15,6 +15,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { OrderProvider } from "./context/OrderContext";
 import { AdminProvider } from "./context/AdminContext";
+import { WishlistProvider } from "./context/WishlistContext";
 
 // Components
 import Header from "./components/Header/Header";
@@ -39,6 +40,7 @@ import RefundPolicy from "./pages/RefundPolicy/RefundPolicy";
 import Support from "./pages/Support/Support";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import SpecialOffers from "./pages/SpecialOffers/SpecialOffers";
+import Wishlist from "./pages/Wishlist/Wishlist";
 
 // Admin Pages
 import AdminLogin from "./pages/Admin/AdminLogin";
@@ -56,9 +58,10 @@ function App() {
     <ThemeContextProvider>
       <AuthProvider>
         <AdminProvider>
-          <CartProvider>
-            <OrderProvider>
-              <Router>
+          <WishlistProvider>
+            <CartProvider>
+              <OrderProvider>
+                <Router>
                 <ScrollToTop />
                 <CssBaseline />
                 <Routes>
@@ -96,6 +99,7 @@ function App() {
                               <Route path="/support" element={<Support />} />
                               <Route path="/about" element={<AboutUs />} />
                               <Route path="/special-offers" element={<SpecialOffers />} />
+                              <Route path="/wishlist" element={<Wishlist />} />
                               <Route path="*" element={<Navigate to="/" replace />} />
                             </Routes>
                           </AnimatePresence>
@@ -107,8 +111,9 @@ function App() {
                   />
                 </Routes>
               </Router>
-            </OrderProvider>
-          </CartProvider>
+              </OrderProvider>
+            </CartProvider>
+          </WishlistProvider>
         </AdminProvider>
       </AuthProvider>
     </ThemeContextProvider>
