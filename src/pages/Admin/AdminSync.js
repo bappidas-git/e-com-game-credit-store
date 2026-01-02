@@ -35,13 +35,20 @@ import {
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { useAdmin } from "../../context/AdminContext";
+import { getApiModeName, IS_MOCK_API } from "../../services/baseURL";
 import Swal from "sweetalert2";
 
 const AdminSync = () => {
-  const { fetchMoogoldProduct } = useAdmin();
+  const {
+    fetchMoogoldProduct,
+    saveProductToDatabase,
+    getProductsFromDatabase,
+    checkProductExists
+  } = useAdmin();
 
   const [productId, setProductId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingProducts, setLoadingProducts] = useState(false);
   const [fetchedProduct, setFetchedProduct] = useState(null);
   const [existingProducts, setExistingProducts] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
@@ -80,12 +87,19 @@ const AdminSync = () => {
   }, []);
 
   const loadExistingProducts = async () => {
+    setLoadingProducts(true);
     try {
-      const response = await fetch("http://localhost:3001/products");
-      const data = await response.json();
-      setExistingProducts(data);
+      const data = await getProductsFromDatabase();
+      setExistingProducts(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error loading existing products:", error);
+      setSnackbar({
+        open: true,
+        message: `Failed to load products from ${getApiModeName()}`,
+        severity: "error",
+      });
+    } finally {
+      setLoadingProducts(false);
     }
   };
 
@@ -196,11 +210,11 @@ const AdminSync = () => {
   const handleAddToDatabase = async () => {
     try {
       // Check if product already exists
-      const existingProduct = existingProducts.find((p) => p.moogoldId === fetchedProduct.id);
+      const existingProduct = await checkProductExists(fetchedProduct.id);
       if (existingProduct) {
         const result = await Swal.fire({
           title: "Product Already Exists",
-          text: "Do you want to update the existing product?",
+          text: `Do you want to update the existing product? (Using ${getApiModeName()})`,
           icon: "question",
           showCancelButton: true,
           confirmButtonText: "Yes, Update",
@@ -247,71 +261,51 @@ const AdminSync = () => {
         offers: processedOffers,
       };
 
-      let response;
-      if (existingProduct) {
-        // Update existing product
-        response = await fetch(`http://localhost:3001/products/${existingProduct.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(completeProduct),
-        });
-      } else {
-        // Create new product
-        response = await fetch("http://localhost:3001/products", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(completeProduct),
-        });
-      }
+      // Save to database using the API service (works with both JSON Server and Cloudways)
+      await saveProductToDatabase(completeProduct, existingProduct?.id);
 
-      if (response.ok) {
-        setSnackbar({
-          open: true,
-          message: existingProduct ? "Product updated successfully!" : "Product added successfully!",
-          severity: "success",
-        });
-        setAddDialogOpen(false);
-        setFetchedProduct(null);
-        setProductId("");
-        loadExistingProducts();
+      setSnackbar({
+        open: true,
+        message: existingProduct
+          ? `Product updated successfully in ${getApiModeName()}!`
+          : `Product added successfully to ${getApiModeName()}!`,
+        severity: "success",
+      });
+      setAddDialogOpen(false);
+      setFetchedProduct(null);
+      setProductId("");
+      loadExistingProducts();
 
-        // Reset metadata
-        setMetadata({
-          slug: "",
-          shortDescription: "",
-          description: "",
-          category: "mobile-game",
-          platform: "Mobile",
-          region: "Global",
-          rating: 4.5,
-          totalReviews: 0,
-          featured: false,
-          trending: false,
-          hot: false,
-          instantDelivery: true,
-          deliveryTime: "Instant - 5 Minutes",
-          developer: "",
-          currency: "Diamonds",
-          tags: "",
-          requiredInfo: "User ID, Zone ID",
-          howToTopUp: "",
-          howToFindPlayerId: "",
-          marginType: "percentage",
-          marginValue: 12,
-          baseCurrency: "INR",
-        });
-      } else {
-        throw new Error("Failed to save product");
-      }
+      // Reset metadata
+      setMetadata({
+        slug: "",
+        shortDescription: "",
+        description: "",
+        category: "mobile-game",
+        platform: "Mobile",
+        region: "Global",
+        rating: 4.5,
+        totalReviews: 0,
+        featured: false,
+        trending: false,
+        hot: false,
+        instantDelivery: true,
+        deliveryTime: "Instant - 5 Minutes",
+        developer: "",
+        currency: "Diamonds",
+        tags: "",
+        requiredInfo: "User ID, Zone ID",
+        howToTopUp: "",
+        howToFindPlayerId: "",
+        marginType: "percentage",
+        marginValue: 12,
+        baseCurrency: "INR",
+      });
     } catch (error) {
       console.error("Error adding product:", error);
       setSnackbar({
         open: true,
-        message: "Failed to add product to database",
+        message: `Failed to add product to ${getApiModeName()}. ${error.message || ""}`,
         severity: "error",
       });
     }
@@ -342,12 +336,30 @@ const AdminSync = () => {
   return (
     <Box>
       {/* Page Header */}
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
-        Sync Products from MOOGOLD
-      </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Fetch products from MOOGOLD API and add them to your store with custom metadata
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 1 }}>
+        <Box>
+          <Typography variant="h5" fontWeight="bold" gutterBottom>
+            Sync Products from MOOGOLD
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Fetch products from MOOGOLD API and add them to your store with custom metadata
+          </Typography>
+        </Box>
+        <Chip
+          icon={<Icon icon={IS_MOCK_API ? "mdi:server" : "mdi:cloud"} />}
+          label={getApiModeName()}
+          color={IS_MOCK_API ? "warning" : "success"}
+          variant="outlined"
+          sx={{ fontWeight: "bold" }}
+        />
+      </Box>
+      <Alert severity="info" sx={{ mb: 3 }}>
+        <Typography variant="body2">
+          <strong>Current Mode:</strong> {getApiModeName()} - Products will be saved to{" "}
+          {IS_MOCK_API ? "local JSON Server (db.json)" : "Cloudways MySQL Database"}.
+          To switch modes, update your <code>.env</code> file and restart the dev server.
+        </Typography>
+      </Alert>
 
       {/* Fetch Product Section */}
       <Paper
@@ -539,9 +551,28 @@ const AdminSync = () => {
           borderColor: "divider",
         }}
       >
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-          Products in Database ({existingProducts.length})
-        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+          <Typography variant="subtitle1" fontWeight="bold">
+            Products in Database ({existingProducts.length})
+          </Typography>
+          <Button
+            size="small"
+            startIcon={loadingProducts ? <CircularProgress size={16} /> : <Icon icon="mdi:refresh" />}
+            onClick={loadExistingProducts}
+            disabled={loadingProducts}
+          >
+            Refresh
+          </Button>
+        </Box>
+        {loadingProducts ? (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+            <CircularProgress />
+          </Box>
+        ) : existingProducts.length === 0 ? (
+          <Alert severity="info">
+            No products found in {getApiModeName()}. Use the sync tool above to add products.
+          </Alert>
+        ) : (
         <Grid container spacing={2}>
           {existingProducts.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
@@ -574,6 +605,7 @@ const AdminSync = () => {
             </Grid>
           ))}
         </Grid>
+        )}
       </Paper>
 
       {/* Add to Database Dialog */}
@@ -587,14 +619,25 @@ const AdminSync = () => {
         }}
       >
         <DialogTitle>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Icon icon="mdi:plus-circle" />
-            Add Product to Store
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Icon icon="mdi:plus-circle" />
+              Add Product to Store
+            </Box>
+            <Chip
+              size="small"
+              icon={<Icon icon={IS_MOCK_API ? "mdi:server" : "mdi:cloud"} />}
+              label={IS_MOCK_API ? "JSON Server" : "Cloudways API"}
+              color={IS_MOCK_API ? "warning" : "success"}
+              variant="outlined"
+            />
           </Box>
         </DialogTitle>
         <DialogContent dividers>
           <Alert severity="info" sx={{ mb: 3 }}>
             Fill in the additional metadata for this product. The offers and base prices are fetched from MOOGOLD.
+            <br />
+            <strong>Saving to:</strong> {IS_MOCK_API ? "Local JSON Server (db.json)" : "Cloudways MySQL Database"}
           </Alert>
 
           <Grid container spacing={2}>

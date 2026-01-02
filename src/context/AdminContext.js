@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
+import { MOOGOLD_API_BASE } from "../services/baseURL";
+import apiService from "../services/api";
 
 const AdminContext = createContext();
 
@@ -11,8 +13,7 @@ export const useAdmin = () => {
   return context;
 };
 
-// MOOGOLD API Configuration
-const MOOGOLD_API_BASE = "https://phplaravel-780646-5827390.cloudwaysapps.com/api";
+// MOOGOLD API Credentials (for product sync)
 const MOOGOLD_CREDENTIALS = {
   email: "dee@dee.com",
   password: "12345678"
@@ -210,6 +211,43 @@ export const AdminProvider = ({ children }) => {
     }
   };
 
+  // Save product to database (works with both JSON Server and Cloudways API)
+  const saveProductToDatabase = async (productData, existingProductId = null) => {
+    try {
+      if (existingProductId) {
+        // Update existing product
+        return await apiService.admin.updateProduct(existingProductId, productData);
+      } else {
+        // Create new product
+        return await apiService.admin.createProduct(productData);
+      }
+    } catch (error) {
+      console.error("Save product error:", error);
+      throw error;
+    }
+  };
+
+  // Get all products from database
+  const getProductsFromDatabase = async () => {
+    try {
+      return await apiService.admin.getProducts();
+    } catch (error) {
+      console.error("Get products error:", error);
+      throw error;
+    }
+  };
+
+  // Check if product exists by MOOGOLD ID
+  const checkProductExists = async (moogoldId) => {
+    try {
+      const products = await apiService.admin.getProducts();
+      return products.find((p) => p.moogoldId === moogoldId || p.id === moogoldId);
+    } catch (error) {
+      console.error("Check product error:", error);
+      return null;
+    }
+  };
+
   const value = {
     admin,
     isLoading,
@@ -219,6 +257,9 @@ export const AdminProvider = ({ children }) => {
     moogoldToken,
     getMoogoldToken,
     fetchMoogoldProduct,
+    saveProductToDatabase,
+    getProductsFromDatabase,
+    checkProductExists,
   };
 
   return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>;
