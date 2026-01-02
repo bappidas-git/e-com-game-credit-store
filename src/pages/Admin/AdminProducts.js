@@ -37,6 +37,7 @@ import {
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
+import apiService from "../../services/api";
 
 const AdminProducts = () => {
   const theme = useTheme();
@@ -67,10 +68,9 @@ const AdminProducts = () => {
   const loadProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3001/products");
-      const data = await response.json();
-      setProducts(data);
-      setFilteredProducts(data);
+      const data = await apiService.admin.getProducts();
+      setProducts(data || []);
+      setFilteredProducts(data || []);
       setLoading(false);
     } catch (error) {
       console.error("Error loading products:", error);
@@ -195,25 +195,14 @@ const AdminProducts = () => {
         });
       }
 
-      const response = await fetch(`http://localhost:3001/products/${selectedProduct.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedProduct),
+      await apiService.admin.updateProduct(selectedProduct.id, updatedProduct);
+      setSnackbar({
+        open: true,
+        message: "Product updated successfully!",
+        severity: "success",
       });
-
-      if (response.ok) {
-        setSnackbar({
-          open: true,
-          message: "Product updated successfully!",
-          severity: "success",
-        });
-        setEditDialogOpen(false);
-        loadProducts();
-      } else {
-        throw new Error("Failed to update product");
-      }
+      setEditDialogOpen(false);
+      loadProducts();
     } catch (error) {
       console.error("Error saving product:", error);
       setSnackbar({
@@ -239,20 +228,13 @@ const AdminProducts = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3001/products/${product.id}`, {
-          method: "DELETE",
+        await apiService.admin.deleteProduct(product.id);
+        setSnackbar({
+          open: true,
+          message: "Product deleted successfully!",
+          severity: "success",
         });
-
-        if (response.ok) {
-          setSnackbar({
-            open: true,
-            message: "Product deleted successfully!",
-            severity: "success",
-          });
-          loadProducts();
-        } else {
-          throw new Error("Failed to delete product");
-        }
+        loadProducts();
       } catch (error) {
         console.error("Error deleting product:", error);
         setSnackbar({
