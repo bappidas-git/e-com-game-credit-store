@@ -34,10 +34,13 @@ import {
   LocalOffer,
   ShoppingCart,
   Visibility,
+  Favorite,
+  FavoriteBorder,
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import apiService from "../../services/api";
 import { formatCurrency, getProductMinPrice, getProductMaxDiscount } from "../../utils/helpers";
+import { useWishlist } from "../../context/WishlistContext";
 import useSound from "../../hooks/useSound";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./Products.module.css";
@@ -46,6 +49,7 @@ const Products = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { play } = useSound();
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const [products, setProducts] = useState([]);
@@ -279,6 +283,12 @@ const Products = () => {
   const handleProductClick = (productId) => {
     play();
     navigate(`/products/${productId}`);
+  };
+
+  const handleWishlistToggle = (e, product) => {
+    e.stopPropagation();
+    play();
+    toggleWishlist(product);
   };
 
   const handleFilterChange = (type, value) => {
@@ -520,6 +530,19 @@ const Products = () => {
                       className={styles.productCard}
                       onClick={() => handleProductClick(product.id)}
                     >
+                      {/* Wishlist Button */}
+                      <IconButton
+                        className={styles.wishlistButton}
+                        onClick={(e) => handleWishlistToggle(e, product)}
+                        aria-label={isInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
+                      >
+                        {isInWishlist(product.id) ? (
+                          <Favorite className={styles.wishlistIconActive} />
+                        ) : (
+                          <FavoriteBorder className={styles.wishlistIcon} />
+                        )}
+                      </IconButton>
+
                       {/* Badges */}
                       <Box className={styles.badges}>
                         {product.hot && (

@@ -30,11 +30,14 @@ import {
   Info,
   TrendingUp,
   Whatshot,
+  Favorite,
+  FavoriteBorder,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import apiService from "../../services/api";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 import { formatCurrency } from "../../utils/helpers";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import styles from "./ProductDetails.module.css";
@@ -43,6 +46,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -206,6 +210,18 @@ const ProductDetails = () => {
           <Grid item xs={12} md={5}>
             <Card className={styles.imageCard}>
               <Box className={styles.imageContainer}>
+                {/* Wishlist Button */}
+                <IconButton
+                  className={styles.wishlistButton}
+                  onClick={() => toggleWishlist(product)}
+                  aria-label={isInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
+                >
+                  {isInWishlist(product.id) ? (
+                    <Favorite className={styles.wishlistIconActive} />
+                  ) : (
+                    <FavoriteBorder className={styles.wishlistIcon} />
+                  )}
+                </IconButton>
                 {/* Badges */}
                 <Box className={styles.badges}>
                   {product.hot && (

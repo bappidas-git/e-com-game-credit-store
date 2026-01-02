@@ -23,6 +23,7 @@ import {
   Gavel,
   Cookie,
   AttachMoney,
+  Favorite,
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
@@ -38,6 +39,7 @@ const menuItems = [
   { title: "Home", path: "/", icon: <Home /> },
   { title: "About Us", path: "/about", icon: <Info /> },
   { title: "All Products", path: "/products", icon: <ShoppingBag /> },
+  { title: "Wishlist", path: "/wishlist", icon: <Favorite /> },
   { title: "Special Offers", path: "/special-offers", icon: <LocalOffer /> },
   { title: "Support", path: "/support", icon: <Support /> },
   { title: "Privacy Policy", path: "/privacy", icon: <Policy /> },

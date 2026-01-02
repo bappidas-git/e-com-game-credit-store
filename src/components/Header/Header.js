@@ -18,11 +18,13 @@ import {
   ShoppingCart,
   Menu as MenuIcon,
   AccountCircle,
+  Favorite,
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 import CartDrawer from "../CartDrawer/CartDrawer";
 import SidebarMenu from "../SidebarMenu/SidebarMenu";
 import AuthModal from "../AuthModal/AuthModal";
@@ -34,6 +36,7 @@ const Header = () => {
   const { isDarkMode, toggleTheme, theme } = useTheme();
   const { user, logout } = useAuth();
   const { getCartItemCount, toggleCart } = useCart();
+  const { getWishlistCount } = useWishlist();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -83,6 +86,11 @@ const Header = () => {
     toggleCart();
   };
 
+  const handleWishlistClick = () => {
+    playClickSound();
+    navigate("/wishlist");
+  };
+
   const handleMenuClick = () => {
     playClickSound();
     setSidebarOpen(true);
@@ -114,6 +122,23 @@ const Header = () => {
                 className={styles.iconButton}
               >
                 {isDarkMode ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </motion.div>
+
+            {/* Wishlist Icon */}
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <IconButton
+                onClick={handleWishlistClick}
+                color="inherit"
+                className={styles.iconButton}
+              >
+                <Badge
+                  badgeContent={getWishlistCount()}
+                  color="secondary"
+                  className={styles.badge}
+                >
+                  <Favorite />
+                </Badge>
               </IconButton>
             </motion.div>
 
@@ -196,6 +221,12 @@ const Header = () => {
           className={styles.menuItem}
         >
           Order History
+        </MenuItem>
+        <MenuItem
+          onClick={() => handleMenuItemClick("/wishlist")}
+          className={styles.menuItem}
+        >
+          Wishlist
         </MenuItem>
         <MenuItem
           onClick={() => handleMenuItemClick("/support")}

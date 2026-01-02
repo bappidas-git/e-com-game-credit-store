@@ -13,8 +13,8 @@
 //
 // =============================================================================
 
-// Production API URL (Update this when deploying)
-const PRODUCTION_URL = "https://your-cloudways-domain.com/api/v1";
+// Production API URL (Cloudways Laravel Backend)
+const PRODUCTION_URL = "https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1";
 
 // Development/Mock API URL (JSON Server)
 const MOCK_API_URL = "http://localhost:3001";
