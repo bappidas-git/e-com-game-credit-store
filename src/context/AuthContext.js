@@ -34,49 +34,16 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      // Check hardcoded credentials first (for demo)
-      if (
-        credentials.email === "user@mail.com" &&
-        credentials.password === "112233"
-      ) {
-        const userData = {
-          id: 1,
-          email: "user@mail.com",
-          firstName: "Jhon",
-          lastName: "Doe",
-        };
-
-        // Store in session
-        sessionStorage.setItem("user", JSON.stringify(userData));
-        sessionStorage.setItem("token", "demo-token-123");
-        setUser(userData);
-
-        // Show success notification
-        Swal.fire({
-          icon: "success",
-          title: `Welcome ${userData.firstName} ${userData.lastName}`,
-          text: "You have successfully logged in",
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        });
-
-        return { success: true, user: userData };
-      }
-
-      // Try API login
+      // Use the real API for user login
       const userData = await apiService.auth.login(credentials);
 
       if (userData) {
         sessionStorage.setItem("user", JSON.stringify(userData));
-        sessionStorage.setItem("token", `token-${userData.id}`);
         setUser(userData);
 
         Swal.fire({
           icon: "success",
-          title: `Welcome ${userData.firstName} ${userData.lastName}`,
+          title: `Welcome ${userData.firstName || ""} ${userData.lastName || ""}`.trim() || "Welcome",
           text: "You have successfully logged in",
           toast: true,
           position: "bottom-end",
@@ -102,17 +69,23 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Login error:", error);
 
+      // Extract error message from API response
+      let errorMessage = "An error occurred during login. Please try again.";
+      if (error.response && error.response.data && error.response.data.message) {
+        errorMessage = error.response.data.message;
+      }
+
       Swal.fire({
         icon: "error",
         title: "Login Error",
-        text: "An error occurred during login. Please try again.",
+        text: errorMessage,
         toast: true,
         position: "bottom-end",
         showConfirmButton: false,
         timer: 3000,
       });
 
-      return { success: false, error: error.message };
+      return { success: false, error: errorMessage };
     }
   };
 

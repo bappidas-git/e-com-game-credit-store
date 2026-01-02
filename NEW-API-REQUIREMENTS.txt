@@ -1,0 +1,406 @@
+=============================================================================
+NEW API REQUIREMENTS FOR KELLS GLOBAL E-COMMERCE PLATFORM
+=============================================================================
+
+Generated: 2026-01-02
+Base URL: https://phplaravel-780646-5827390.cloudwaysapps.com/api/v1
+
+This document outlines the API endpoints required by the frontend application
+that may need implementation or modification on the backend.
+
+=============================================================================
+1. CART APIs (User Authenticated)
+=============================================================================
+
+The frontend cart functionality requires the following endpoints:
+
+1.1 GET /cart
+    Status: EXISTS
+    Description: Get the authenticated user's cart items
+    Headers: Authorization: Bearer {user_token}
+    Response: {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "product_id": "23838543",
+          "product_name": "Mobile Legends",
+          "offer_id": "23841659",
+          "offer_name": "1499 M-CASH",
+          "price": 1444.61,
+          "quantity": 1,
+          "product_image": "https://..."
+        }
+      ],
+      "summary": {
+        "itemCount": 1,
+        "subtotal": 1444.61,
+        "tax": 0,
+        "total": 1444.61
+      }
+    }
+
+1.2 POST /cart
+    Status: NEEDS TESTING
+    Description: Add item to cart
+    Headers: Authorization: Bearer {user_token}
+    Request Body: {
+      "product_id": "23838543",
+      "offer_id": "23841659",
+      "quantity": 1,
+      "price": 1444.61,
+      "product_name": "Mobile Legends",
+      "product_image": "https://...",
+      "offer_name": "1499 M-CASH"
+    }
+    Expected Response: {
+      "success": true,
+      "message": "Item added to cart",
+      "data": { ...cart item with id }
+    }
+
+1.3 PATCH /cart/{id}
+    Status: NEEDS TESTING
+    Description: Update cart item quantity
+    Headers: Authorization: Bearer {user_token}
+    Request Body: { "quantity": 2 }
+    Expected Response: {
+      "success": true,
+      "message": "Cart updated",
+      "data": { ...updated cart item }
+    }
+
+1.4 DELETE /cart/{id}
+    Status: NEEDS TESTING
+    Description: Remove specific item from cart
+    Headers: Authorization: Bearer {user_token}
+    Expected Response: {
+      "success": true,
+      "message": "Item removed from cart"
+    }
+
+1.5 DELETE /cart
+    Status: NEEDS IMPLEMENTATION
+    Description: Clear all items from user's cart
+    Headers: Authorization: Bearer {user_token}
+    Expected Response: {
+      "success": true,
+      "message": "Cart cleared"
+    }
+
+=============================================================================
+2. WISHLIST APIs (User Authenticated)
+=============================================================================
+
+2.1 GET /wishlist
+    Status: EXISTS
+    Description: Get the authenticated user's wishlist
+    Headers: Authorization: Bearer {user_token}
+    Response: {
+      "success": true,
+      "data": [...]
+    }
+
+2.2 POST /wishlist
+    Status: NEEDS TESTING
+    Description: Add product to wishlist
+    Headers: Authorization: Bearer {user_token}
+    Request Body: {
+      "product_id": "23838543"
+    }
+    Expected Response: {
+      "success": true,
+      "message": "Added to wishlist",
+      "data": { ...wishlist item with id }
+    }
+
+2.3 DELETE /wishlist/{id}
+    Status: NEEDS TESTING
+    Description: Remove item from wishlist
+    Headers: Authorization: Bearer {user_token}
+    Expected Response: {
+      "success": true,
+      "message": "Removed from wishlist"
+    }
+
+=============================================================================
+3. ORDER APIs (User Authenticated)
+=============================================================================
+
+3.1 GET /orders
+    Status: EXISTS
+    Description: Get authenticated user's orders
+    Headers: Authorization: Bearer {user_token}
+
+3.2 POST /orders
+    Status: NEEDS IMPLEMENTATION
+    Description: Create a new order
+    Headers: Authorization: Bearer {user_token}
+    Request Body: {
+      "items": [
+        {
+          "product_id": "23838543",
+          "offer_id": "23841659",
+          "quantity": 1,
+          "price": 1444.61,
+          "product_name": "Mobile Legends",
+          "offer_name": "1499 M-CASH"
+        }
+      ],
+      "player_info": {
+        "user_id": "123456789",
+        "zone_id": "1234"
+      },
+      "payment_method": "upi",
+      "subtotal": 1444.61,
+      "tax": 0,
+      "total": 1444.61
+    }
+    Expected Response: {
+      "success": true,
+      "message": "Order created successfully",
+      "data": {
+        "id": 1,
+        "order_number": "GH-XXXXXX-XXXX",
+        "status": "pending",
+        "items": [...],
+        "total": 1444.61,
+        "created_at": "2026-01-02T00:00:00Z"
+      }
+    }
+
+3.3 GET /orders/{id}
+    Status: EXISTS
+    Description: Get specific order details
+    Headers: Authorization: Bearer {user_token}
+
+=============================================================================
+4. ADMIN PRODUCT APIs (Admin Authenticated)
+=============================================================================
+
+4.1 POST /admin/products
+    Status: NEEDS IMPLEMENTATION
+    Description: Create a new product (synced from MOOGOLD)
+    Headers: Authorization: Bearer {admin_token}
+    Request Body: {
+      "moogold_id": "23838543",
+      "name": "Mobile Legends",
+      "slug": "mobile-legends",
+      "short_description": "Top Up for Mobile Legends",
+      "description": "Full description...",
+      "category": "mobile-game",
+      "platform": "Mobile",
+      "region": "Global",
+      "image": "https://...",
+      "rating": 4.5,
+      "total_reviews": 0,
+      "featured": true,
+      "trending": false,
+      "hot": false,
+      "instant_delivery": true,
+      "delivery_time": "Instant - 5 Minutes",
+      "required_info": ["User ID", "Zone ID"],
+      "how_to_top_up": ["Step 1...", "Step 2..."],
+      "how_to_find_player_id": ["Step 1...", "Step 2..."],
+      "tags": ["MOBA", "Mobile"],
+      "developer": "Moonton",
+      "currency": "Diamonds",
+      "pricing_config": {
+        "margin_type": "percentage",
+        "margin_value": 12,
+        "base_currency": "INR"
+      },
+      "offers": [
+        {
+          "offer_id": "23841659",
+          "name": "1499 M-CASH",
+          "base_price": 1289.83,
+          "margin": 12,
+          "selling_price": 1444.61,
+          "original_price": 1589.07,
+          "discount": 9,
+          "popular": false
+        }
+      ]
+    }
+    Expected Response: {
+      "success": true,
+      "message": "Product created successfully",
+      "data": { ...created product }
+    }
+
+4.2 PUT /admin/products/{id}
+    Status: NEEDS IMPLEMENTATION
+    Description: Update an existing product
+    Headers: Authorization: Bearer {admin_token}
+    Request Body: Same as create
+    Expected Response: {
+      "success": true,
+      "message": "Product updated successfully",
+      "data": { ...updated product }
+    }
+
+4.3 DELETE /admin/products/{id}
+    Status: NEEDS IMPLEMENTATION
+    Description: Delete a product
+    Headers: Authorization: Bearer {admin_token}
+    Expected Response: {
+      "success": true,
+      "message": "Product deleted successfully"
+    }
+
+=============================================================================
+5. USER PROFILE APIs (User Authenticated)
+=============================================================================
+
+5.1 PUT /auth/user
+    Status: NEEDS IMPLEMENTATION
+    Description: Update user profile
+    Headers: Authorization: Bearer {user_token}
+    Request Body: {
+      "first_name": "John",
+      "last_name": "Doe",
+      "phone": "+91XXXXXXXXXX"
+    }
+    Expected Response: {
+      "success": true,
+      "message": "Profile updated successfully",
+      "data": { ...updated user }
+    }
+
+5.2 PUT /auth/password
+    Status: NEEDS IMPLEMENTATION
+    Description: Change user password
+    Headers: Authorization: Bearer {user_token}
+    Request Body: {
+      "current_password": "oldpassword",
+      "password": "newpassword",
+      "password_confirmation": "newpassword"
+    }
+    Expected Response: {
+      "success": true,
+      "message": "Password changed successfully"
+    }
+
+=============================================================================
+6. CATEGORY APIs
+=============================================================================
+
+6.1 GET /categories
+    Status: EXISTS (but empty data)
+    Description: Get all categories
+    Action Required: Seed categories in database
+    Recommended Categories:
+    - { id: 1, name: "Mobile Games", slug: "mobile-game", icon: "mdi:cellphone" }
+    - { id: 2, name: "PC Games", slug: "pc-game", icon: "mdi:desktop-classic" }
+    - { id: 3, name: "Gift Cards", slug: "gift-card", icon: "mdi:gift" }
+    - { id: 4, name: "Cross Platform", slug: "cross-platform", icon: "mdi:devices" }
+
+=============================================================================
+7. ADMIN CATEGORY MANAGEMENT APIs
+=============================================================================
+
+7.1 POST /admin/categories
+    Status: NEEDS IMPLEMENTATION
+    Description: Create a new category
+    Headers: Authorization: Bearer {admin_token}
+    Request Body: {
+      "name": "Mobile Games",
+      "slug": "mobile-game",
+      "description": "Top-up for mobile games",
+      "icon": "mdi:cellphone",
+      "is_active": true
+    }
+
+7.2 PUT /admin/categories/{id}
+    Status: NEEDS IMPLEMENTATION
+    Description: Update category
+
+7.3 DELETE /admin/categories/{id}
+    Status: NEEDS IMPLEMENTATION
+    Description: Delete category
+
+=============================================================================
+8. DASHBOARD/STATISTICS APIs (Admin Authenticated)
+=============================================================================
+
+8.1 GET /admin/dashboard/stats
+    Status: NEEDS IMPLEMENTATION
+    Description: Get dashboard statistics
+    Headers: Authorization: Bearer {admin_token}
+    Expected Response: {
+      "success": true,
+      "data": {
+        "total_orders": 100,
+        "total_revenue": 150000,
+        "total_customers": 50,
+        "total_products": 25,
+        "pending_orders": 5,
+        "completed_orders": 95,
+        "recent_orders": [...],
+        "top_products": [...],
+        "revenue_chart": {
+          "labels": ["Jan", "Feb", ...],
+          "data": [10000, 15000, ...]
+        }
+      }
+    }
+
+=============================================================================
+9. KNOWN ISSUES TO FIX
+=============================================================================
+
+9.1 MOOGOLD Product ID Validation
+    Endpoint: GET /moogold/products/{id}
+    Issue: When a non-numeric string is passed as product ID, the API throws:
+           "Argument #1 ($product_id) must be of type int, string given"
+    Fix: Add input validation to cast product_id to integer and return
+         proper 400 Bad Request error for invalid IDs.
+
+=============================================================================
+10. RESPONSE FORMAT STANDARDS
+=============================================================================
+
+All APIs should follow this format:
+
+SUCCESS Response:
+{
+  "success": true,
+  "message": "Optional success message",
+  "data": { ... } or [ ... ],
+  "meta": {                        // For paginated responses
+    "currentPage": 1,
+    "perPage": 15,
+    "total": 100,
+    "totalPages": 7,
+    "hasMorePages": true,
+    "from": 1,
+    "to": 15
+  }
+}
+
+ERROR Response:
+{
+  "success": false,
+  "message": "Error message",
+  "errors": {                      // For validation errors
+    "field_name": ["Error message 1", "Error message 2"]
+  }
+}
+
+=============================================================================
+11. AUTHENTICATION
+=============================================================================
+
+All authenticated endpoints require:
+  Header: Authorization: Bearer {token}
+
+Tokens are obtained from:
+  - User login: POST /auth/login
+  - Admin login: POST /admin/auth/login
+
+Token expiry should be handled gracefully with 401 Unauthorized responses.
+
+=============================================================================
+END OF DOCUMENT
+=============================================================================

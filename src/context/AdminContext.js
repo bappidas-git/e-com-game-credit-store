@@ -13,34 +13,22 @@ export const useAdmin = () => {
   return context;
 };
 
-// MOOGOLD API Credentials (for product sync)
-const MOOGOLD_CREDENTIALS = {
-  email: "dee@dee.com",
-  password: "12345678"
-};
-
 export const AdminProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [moogoldToken, setMoogoldToken] = useState(null);
 
   useEffect(() => {
     // Check for existing admin session on mount
     const storedAdmin = sessionStorage.getItem("admin");
     const adminToken = sessionStorage.getItem("adminToken");
-    const storedMoogoldToken = sessionStorage.getItem("moogoldToken");
 
     if (storedAdmin && adminToken) {
       try {
         setAdmin(JSON.parse(storedAdmin));
-        if (storedMoogoldToken) {
-          setMoogoldToken(storedMoogoldToken);
-        }
       } catch (error) {
         console.error("Error parsing stored admin:", error);
         sessionStorage.removeItem("admin");
         sessionStorage.removeItem("adminToken");
-        sessionStorage.removeItem("moogoldToken");
       }
     }
     setIsLoading(false);
@@ -48,40 +36,18 @@ export const AdminProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      // Admin credentials - hardcoded for demo
-      const adminCredentials = [
-        {
-          id: 1,
-          email: "admin@gamehub.com",
-          password: "admin123",
-          firstName: "Admin",
-          lastName: "User",
-          role: "admin"
-        }
-      ];
+      // Use the real Cloudways API for admin login
+      const adminData = await apiService.admin.login(credentials);
 
-      const foundAdmin = adminCredentials.find(
-        (a) => a.email === credentials.email && a.password === credentials.password
-      );
-
-      if (foundAdmin) {
-        const adminData = {
-          id: foundAdmin.id,
-          email: foundAdmin.email,
-          firstName: foundAdmin.firstName,
-          lastName: foundAdmin.lastName,
-          role: foundAdmin.role
-        };
-
+      if (adminData) {
         // Store in session
         sessionStorage.setItem("admin", JSON.stringify(adminData));
-        sessionStorage.setItem("adminToken", `admin-token-${Date.now()}`);
         setAdmin(adminData);
 
         // Show success notification
         Swal.fire({
           icon: "success",
-          title: `Welcome Admin`,
+          title: `Welcome ${adminData.firstName || "Admin"}`,
           text: "You have successfully logged in",
           toast: true,
           position: "bottom-end",
@@ -107,26 +73,30 @@ export const AdminProvider = ({ children }) => {
     } catch (error) {
       console.error("Admin login error:", error);
 
+      // Extract error message from API response
+      let errorMessage = "An error occurred during login. Please try again.";
+      if (error.response && error.response.data && error.response.data.message) {
+        errorMessage = error.response.data.message;
+      }
+
       Swal.fire({
         icon: "error",
         title: "Login Error",
-        text: "An error occurred during login. Please try again.",
+        text: errorMessage,
         toast: true,
         position: "bottom-end",
         showConfirmButton: false,
         timer: 3000,
       });
 
-      return { success: false, error: error.message };
+      return { success: false, error: errorMessage };
     }
   };
 
   const logout = () => {
     sessionStorage.removeItem("admin");
     sessionStorage.removeItem("adminToken");
-    sessionStorage.removeItem("moogoldToken");
     setAdmin(null);
-    setMoogoldToken(null);
 
     Swal.fire({
       icon: "info",
@@ -140,68 +110,31 @@ export const AdminProvider = ({ children }) => {
     });
   };
 
-  // Get MOOGOLD API token
-  const getMoogoldToken = async () => {
-    try {
-      const response = await fetch(`${MOOGOLD_API_BASE}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(MOOGOLD_CREDENTIALS),
-      });
-
-      const data = await response.json();
-
-      if (data.token) {
-        setMoogoldToken(data.token);
-        sessionStorage.setItem("moogoldToken", data.token);
-        return data.token;
-      }
-
-      throw new Error("Failed to get MOOGOLD token");
-    } catch (error) {
-      console.error("MOOGOLD login error:", error);
-      throw error;
-    }
-  };
-
-  // Fetch product from MOOGOLD API
+  // Fetch product from MOOGOLD API using admin token
   const fetchMoogoldProduct = async (productId) => {
     try {
-      let token = moogoldToken;
+      // Get the admin token from session storage
+      const adminToken = sessionStorage.getItem("adminToken");
 
-      if (!token) {
-        token = await getMoogoldToken();
+      if (!adminToken) {
+        throw new Error("Admin authentication required. Please log in again.");
       }
 
-      const response = await fetch(`${MOOGOLD_API_BASE}/moogold/products/${productId}`, {
+      const response = await fetch(`${MOOGOLD_API_BASE}/v1/moogold/products/${productId}`, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer ${adminToken}`,
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
       });
 
       if (!response.ok) {
-        // Token might be expired, try to refresh
         if (response.status === 401) {
-          token = await getMoogoldToken();
-          const retryResponse = await fetch(`${MOOGOLD_API_BASE}/moogold/products/${productId}`, {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          });
-
-          if (!retryResponse.ok) {
-            throw new Error("Failed to fetch product from MOOGOLD");
-          }
-
-          return await retryResponse.json();
+          throw new Error("Authentication expired. Please log in again.");
         }
-        throw new Error("Failed to fetch product from MOOGOLD");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "Failed to fetch product from MOOGOLD");
       }
 
       return await response.json();
@@ -254,8 +187,6 @@ export const AdminProvider = ({ children }) => {
     isAuthenticated: !!admin,
     login,
     logout,
-    moogoldToken,
-    getMoogoldToken,
     fetchMoogoldProduct,
     saveProductToDatabase,
     getProductsFromDatabase,

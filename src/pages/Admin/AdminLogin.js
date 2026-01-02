@@ -209,34 +209,6 @@ const AdminLogin = () => {
             </Button>
           </form>
 
-          {/* Demo Credentials Info */}
-          <Box
-            sx={{
-              mt: 3,
-              p: 2,
-              borderRadius: 2,
-              bgcolor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(102, 126, 234, 0.1)"
-                  : "rgba(102, 126, 234, 0.08)",
-              border: "1px dashed",
-              borderColor: "primary.main",
-            }}
-          >
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ display: "block", mb: 1, fontWeight: 600 }}
-            >
-              Demo Credentials:
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              Email: admin@gamehub.com
-              <br />
-              Password: admin123
-            </Typography>
-          </Box>
-
           {/* Back to Store */}
           <Box sx={{ textAlign: "center", mt: 3 }}>
             <Button
