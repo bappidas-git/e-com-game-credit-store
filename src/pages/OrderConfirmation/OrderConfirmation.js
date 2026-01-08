@@ -210,11 +210,11 @@ const OrderConfirmation = () => {
                     {order.items.map((item, index) => (
                       <Box key={index} className={styles.orderItem}>
                         <Box className={styles.itemImage}>
-                          <img src={item.image} alt={item.name} />
+                          <img src={item.image} alt={item.productName} />
                         </Box>
                         <Box className={styles.itemDetails}>
                           <Typography className={styles.itemName}>
-                            {item.name}
+                            {item.productName}
                           </Typography>
                           <Typography className={styles.itemOffer}>
                             {item.offerName}
@@ -290,11 +290,11 @@ const OrderConfirmation = () => {
                     </Typography>
                     <Box className={styles.contactRow}>
                       <Email fontSize="small" />
-                      <Typography>{order.contactInfo.email}</Typography>
+                      <Typography>{order.contactEmail}</Typography>
                     </Box>
                     <Box className={styles.contactRow}>
                       <Phone fontSize="small" />
-                      <Typography>{order.contactInfo.phone}</Typography>
+                      <Typography>{order.contactPhone}</Typography>
                     </Box>
                   </Box>
                 </CardContent>
