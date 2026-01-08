@@ -35,6 +35,7 @@ import {
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { useAdmin } from "../../context/AdminContext";
+import apiService from "../../services/api";
 import Swal from "sweetalert2";
 
 const AdminSync = () => {
@@ -50,6 +51,7 @@ const AdminSync = () => {
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [fetchedProduct, setFetchedProduct] = useState(null);
   const [existingProducts, setExistingProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   // Product metadata form
@@ -57,7 +59,7 @@ const AdminSync = () => {
     slug: "",
     shortDescription: "",
     description: "",
-    category: "mobile-game",
+    category: "",
     platform: "Mobile",
     region: "Global",
     rating: 4.5,
@@ -83,7 +85,28 @@ const AdminSync = () => {
 
   useEffect(() => {
     loadExistingProducts();
+    loadCategories();
   }, []);
+
+  // Set default category when categories are loaded
+  useEffect(() => {
+    if (categories.length > 0 && !metadata.category) {
+      setMetadata((prev) => ({
+        ...prev,
+        category: categories[0].slug,
+      }));
+    }
+  }, [categories]);
+
+  const loadCategories = async () => {
+    try {
+      const data = await apiService.categories.getAll();
+      const categoryList = Array.isArray(data) ? data : [];
+      setCategories(categoryList);
+    } catch (error) {
+      console.error("Error loading categories:", error);
+    }
+  };
 
   const loadExistingProducts = async () => {
     setLoadingProducts(true);
@@ -280,7 +303,7 @@ const AdminSync = () => {
         slug: "",
         shortDescription: "",
         description: "",
-        category: "mobile-game",
+        category: categories.length > 0 ? categories[0].slug : "",
         platform: "Mobile",
         region: "Global",
         rating: 4.5,
@@ -662,10 +685,17 @@ const AdminSync = () => {
                   label="Category"
                   onChange={(e) => handleMetadataChange("category", e.target.value)}
                 >
-                  <MenuItem value="mobile-game">Mobile Game</MenuItem>
-                  <MenuItem value="pc-game">PC Game</MenuItem>
-                  <MenuItem value="gift-card">Gift Card</MenuItem>
-                  <MenuItem value="cross-platform">Cross Platform</MenuItem>
+                  {categories.length > 0 ? (
+                    categories.map((cat) => (
+                      <MenuItem key={cat.id} value={cat.slug}>
+                        {cat.name}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem value="" disabled>
+                      No categories available
+                    </MenuItem>
+                  )}
                 </Select>
               </FormControl>
             </Grid>
