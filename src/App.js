@@ -49,6 +49,7 @@ import AdminProducts from "./pages/Admin/AdminProducts";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import AdminLeads from "./pages/Admin/AdminLeads";
 import AdminSync from "./pages/Admin/AdminSync";
+import AdminSettings from "./pages/Admin/AdminSettings";
 
 // Styles
 import "./App.css";
@@ -73,6 +74,7 @@ function App() {
                     <Route path="orders" element={<AdminOrders />} />
                     <Route path="leads" element={<AdminLeads />} />
                     <Route path="sync" element={<AdminSync />} />
+                    <Route path="settings" element={<AdminSettings />} />
                   </Route>
 
                   {/* Public Routes */}
