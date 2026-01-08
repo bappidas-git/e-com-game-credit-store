@@ -14,22 +14,23 @@ export const getProductMinPrice = (product) => {
 
   // If product has offers array, get the minimum selling price
   if (product.offers && product.offers.length > 0) {
+    // Use parseFloat for numeric comparison since API returns string values
     const minOffer = product.offers.reduce((min, offer) =>
-      offer.sellingPrice < min.sellingPrice ? offer : min
+      parseFloat(offer.sellingPrice) < parseFloat(min.sellingPrice) ? offer : min
     , product.offers[0]);
     return {
-      sellingPrice: minOffer.sellingPrice,
-      originalPrice: minOffer.originalPrice,
-      discount: minOffer.discount || 0,
+      sellingPrice: parseFloat(minOffer.sellingPrice) || 0,
+      originalPrice: parseFloat(minOffer.originalPrice) || 0,
+      discount: parseFloat(minOffer.discount) || 0,
       currency: minOffer.currency || "INR"
     };
   }
 
   // Fallback to old structure
   return {
-    sellingPrice: product.price || product.sellingPrice || 0,
-    originalPrice: product.originalPrice || product.price || 0,
-    discount: product.discount || 0,
+    sellingPrice: parseFloat(product.price) || parseFloat(product.sellingPrice) || 0,
+    originalPrice: parseFloat(product.originalPrice) || parseFloat(product.price) || 0,
+    discount: parseFloat(product.discount) || 0,
     currency: product.currency || "INR"
   };
 };
@@ -39,10 +40,10 @@ export const getProductMaxDiscount = (product) => {
   if (!product) return 0;
 
   if (product.offers && product.offers.length > 0) {
-    return Math.max(...product.offers.map(offer => offer.discount || 0));
+    return Math.max(...product.offers.map(offer => parseFloat(offer.discount) || 0));
   }
 
-  return product.discount || 0;
+  return parseFloat(product.discount) || 0;
 };
 
 export const formatNumber = (num) => {
