@@ -193,7 +193,13 @@ const apiService = {
           const response = await api.post("/users", userData);
           return response.data;
         } else {
-          const response = await api.post("/auth/register", userData);
+          // Transform confirmPassword to password_confirmation for Laravel backend
+          const { confirmPassword, ...rest } = userData;
+          const payload = {
+            ...rest,
+            password_confirmation: confirmPassword,
+          };
+          const response = await api.post("/auth/register", payload);
           return extractData(response);
         }
       } catch (error) {
