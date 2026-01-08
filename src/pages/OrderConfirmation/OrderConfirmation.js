@@ -288,14 +288,22 @@ const OrderConfirmation = () => {
                     <Typography variant="subtitle2" gutterBottom>
                       Contact Information
                     </Typography>
-                    <Box className={styles.contactRow}>
-                      <Email fontSize="small" />
-                      <Typography>{order.contactInfo.email}</Typography>
-                    </Box>
-                    <Box className={styles.contactRow}>
-                      <Phone fontSize="small" />
-                      <Typography>{order.contactInfo.phone}</Typography>
-                    </Box>
+                    {order.contactInfo ? (
+                      <>
+                        <Box className={styles.contactRow}>
+                          <Email fontSize="small" />
+                          <Typography>{order.contactInfo.email}</Typography>
+                        </Box>
+                        <Box className={styles.contactRow}>
+                          <Phone fontSize="small" />
+                          <Typography>{order.contactInfo.phone}</Typography>
+                        </Box>
+                      </>
+                    ) : (
+                      <Typography color="textSecondary">
+                        Contact information not available
+                      </Typography>
+                    )}
                   </Box>
                 </CardContent>
               </Card>
