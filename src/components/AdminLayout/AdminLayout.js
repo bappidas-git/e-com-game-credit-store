@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Outlet, Navigate } from "react-router-dom";
 import {
   Box,
@@ -20,10 +20,14 @@ import {
   useMediaQuery,
   Tooltip,
   Badge,
+  Popover,
+  Chip,
+  CircularProgress,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useAdmin } from "../../context/AdminContext";
 import { useThemeContext } from "../../context/ThemeContext";
+import apiService from "../../services/api";
 
 import LOGO from "../../assets/logo.png";
 
@@ -72,6 +76,102 @@ const AdminLayout = () => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notificationAnchor, setNotificationAnchor] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationLoading, setNotificationLoading] = useState(false);
+
+  // Fetch notifications (new orders and leads)
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadNotifications();
+      // Refresh notifications every 30 seconds
+      const interval = setInterval(loadNotifications, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated]);
+
+  const loadNotifications = async () => {
+    try {
+      setNotificationLoading(true);
+      const notificationItems = [];
+
+      // Fetch new/pending orders
+      try {
+        const orders = await apiService.admin.getOrders();
+        const newOrders = orders.filter(
+          (order) => order.status === "pending" || order.status === "processing"
+        );
+        newOrders.slice(0, 5).forEach((order) => {
+          notificationItems.push({
+            id: `order-${order.id}`,
+            type: "order",
+            title: "New Order",
+            message: `Order #${order.orderNumber?.slice(-8) || order.id} - ${order.contactInfo?.firstName || "Customer"}`,
+            time: order.createdAt,
+            status: order.status,
+            link: "/admin/orders",
+          });
+        });
+      } catch (err) {
+        console.error("Error fetching orders for notifications:", err);
+      }
+
+      // Fetch new leads
+      try {
+        const leads = await apiService.admin.getLeads();
+        const newLeads = leads.filter((lead) => lead.status === "new");
+        newLeads.slice(0, 5).forEach((lead) => {
+          notificationItems.push({
+            id: `lead-${lead.id}`,
+            type: "lead",
+            title: lead.type === "contact" ? "New Contact Request" : "New Newsletter Signup",
+            message: lead.name || lead.email,
+            time: lead.createdAt,
+            status: lead.status,
+            link: "/admin/leads",
+          });
+        });
+      } catch (err) {
+        console.error("Error fetching leads for notifications:", err);
+      }
+
+      // Sort by time (most recent first)
+      notificationItems.sort((a, b) => new Date(b.time) - new Date(a.time));
+      setNotifications(notificationItems);
+    } catch (error) {
+      console.error("Error loading notifications:", error);
+    } finally {
+      setNotificationLoading(false);
+    }
+  };
+
+  const handleNotificationClick = (event) => {
+    setNotificationAnchor(event.currentTarget);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationAnchor(null);
+  };
+
+  const handleNotificationItemClick = (link) => {
+    navigate(link);
+    handleNotificationClose();
+  };
+
+  const formatTimeAgo = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return "Just now";
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffHours < 24) return `${diffHours}h ago`;
+    return `${diffDays}d ago`;
+  };
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
@@ -239,12 +339,223 @@ const AdminLayout = () => {
 
           {/* Notifications */}
           <Tooltip title="Notifications">
-            <IconButton sx={{ color: "text.primary", ml: 1 }}>
-              <Badge badgeContent={3} color="error">
+            <IconButton
+              sx={{ color: "text.primary", ml: 1 }}
+              onClick={handleNotificationClick}
+            >
+              <Badge badgeContent={notifications.length} color="error">
                 <Icon icon="mdi:bell-outline" />
               </Badge>
             </IconButton>
           </Tooltip>
+
+          {/* Notification Popover */}
+          <Popover
+            open={Boolean(notificationAnchor)}
+            anchorEl={notificationAnchor}
+            onClose={handleNotificationClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            PaperProps={{
+              sx: {
+                mt: 1,
+                width: 360,
+                maxHeight: 480,
+                borderRadius: 2,
+                overflow: "hidden",
+              },
+            }}
+          >
+            {/* Header */}
+            <Box
+              sx={{
+                p: 2,
+                borderBottom: "1px solid",
+                borderColor: "divider",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography variant="subtitle1" fontWeight="bold">
+                Notifications
+              </Typography>
+              <Chip
+                label={notifications.length}
+                size="small"
+                color="primary"
+                sx={{ height: 22, fontSize: "0.75rem" }}
+              />
+            </Box>
+
+            {/* Notification List */}
+            <Box sx={{ maxHeight: 380, overflow: "auto" }}>
+              {notificationLoading ? (
+                <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
+                  <CircularProgress size={24} />
+                </Box>
+              ) : notifications.length === 0 ? (
+                <Box sx={{ textAlign: "center", py: 4 }}>
+                  <Icon
+                    icon="mdi:bell-check-outline"
+                    style={{ fontSize: 48, color: "#9e9e9e" }}
+                  />
+                  <Typography color="text.secondary" sx={{ mt: 1 }}>
+                    No new notifications
+                  </Typography>
+                </Box>
+              ) : (
+                notifications.map((notification) => (
+                  <Box
+                    key={notification.id}
+                    onClick={() => handleNotificationItemClick(notification.link)}
+                    sx={{
+                      p: 2,
+                      borderBottom: "1px solid",
+                      borderColor: "divider",
+                      cursor: "pointer",
+                      "&:hover": {
+                        bgcolor:
+                          theme.palette.mode === "dark"
+                            ? "rgba(255, 255, 255, 0.05)"
+                            : "rgba(0, 0, 0, 0.02)",
+                      },
+                    }}
+                  >
+                    <Box sx={{ display: "flex", gap: 1.5 }}>
+                      <Avatar
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          bgcolor:
+                            notification.type === "order"
+                              ? "rgba(76, 175, 80, 0.15)"
+                              : "rgba(33, 150, 243, 0.15)",
+                          color:
+                            notification.type === "order" ? "#4caf50" : "#2196f3",
+                        }}
+                      >
+                        <Icon
+                          icon={
+                            notification.type === "order"
+                              ? "mdi:cart-outline"
+                              : "mdi:account-plus"
+                          }
+                          style={{ fontSize: 20 }}
+                        />
+                      </Avatar>
+                      <Box sx={{ flex: 1, minWidth: 0 }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            mb: 0.25,
+                          }}
+                        >
+                          <Typography variant="body2" fontWeight={600}>
+                            {notification.title}
+                          </Typography>
+                          <Chip
+                            label={notification.status}
+                            size="small"
+                            sx={{
+                              height: 20,
+                              fontSize: "0.65rem",
+                              textTransform: "capitalize",
+                              bgcolor:
+                                notification.status === "pending"
+                                  ? "rgba(255, 152, 0, 0.15)"
+                                  : notification.status === "new"
+                                  ? "rgba(33, 150, 243, 0.15)"
+                                  : "rgba(102, 126, 234, 0.15)",
+                              color:
+                                notification.status === "pending"
+                                  ? "#ff9800"
+                                  : notification.status === "new"
+                                  ? "#2196f3"
+                                  : "#667eea",
+                            }}
+                          />
+                        </Box>
+                        <Typography
+                          variant="caption"
+                          color="text.secondary"
+                          sx={{
+                            display: "block",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {notification.message}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          color="text.disabled"
+                          sx={{ fontSize: "0.7rem" }}
+                        >
+                          {formatTimeAgo(notification.time)}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                ))
+              )}
+            </Box>
+
+            {/* Footer */}
+            {notifications.length > 0 && (
+              <Box
+                sx={{
+                  p: 1.5,
+                  borderTop: "1px solid",
+                  borderColor: "divider",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  variant="caption"
+                  color="primary"
+                  sx={{
+                    cursor: "pointer",
+                    fontWeight: 500,
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                  onClick={() => {
+                    navigate("/admin/orders");
+                    handleNotificationClose();
+                  }}
+                >
+                  View All Orders
+                </Typography>
+                <Typography variant="caption" color="text.disabled" sx={{ mx: 1 }}>
+                  |
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="primary"
+                  sx={{
+                    cursor: "pointer",
+                    fontWeight: 500,
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                  onClick={() => {
+                    navigate("/admin/leads");
+                    handleNotificationClose();
+                  }}
+                >
+                  View All Leads
+                </Typography>
+              </Box>
+            )}
+          </Popover>
 
           {/* User Menu */}
           <IconButton onClick={handleMenuClick} sx={{ ml: 2 }}>
