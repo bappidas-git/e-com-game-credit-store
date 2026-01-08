@@ -434,7 +434,11 @@ const AdminProducts = () => {
                       </TableCell>
                       <TableCell>
                         <Chip
-                          label={`${product.pricingConfig?.marginValue || 0}%`}
+                          label={
+                            product.pricingConfig?.marginType === "fixed"
+                              ? formatCurrency(product.pricingConfig?.marginValue || 0)
+                              : `${product.pricingConfig?.marginValue || 0}%`
+                          }
                           size="small"
                           color="warning"
                           variant="outlined"
