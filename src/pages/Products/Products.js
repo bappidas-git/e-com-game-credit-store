@@ -56,25 +56,9 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
-  const [selectedPlatform, setSelectedPlatform] = useState("all");
   const [sortBy, setSortBy] = useState(searchParams.get("filter") || "default");
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
-
-  const categories = [
-    { value: "all", label: "All Categories" },
-    { value: "mobile-game", label: "Mobile Games" },
-    { value: "pc-game", label: "PC Games" },
-    { value: "gift-cards", label: "Gift Cards" },
-    { value: "subscriptions", label: "Subscriptions" },
-  ];
-
-  const platforms = [
-    { value: "all", label: "All Platforms" },
-    { value: "Mobile", label: "Mobile" },
-    { value: "PC", label: "PC" },
-    { value: "Console", label: "Console" },
-    { value: "Multi-platform", label: "Multi-platform" },
-  ];
+  const [categories, setCategories] = useState([{ value: "all", label: "All Categories" }]);
 
   const sortOptions = [
     { value: "default", label: "Default" },
@@ -88,7 +72,21 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const data = await apiService.categories.getAll();
+      const formattedCategories = [
+        { value: "all", label: "All Categories" },
+        ...data.map((cat) => ({ value: cat.slug, label: cat.name })),
+      ];
+      setCategories(formattedCategories);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -241,11 +239,6 @@ const Products = () => {
       result = result.filter((product) => product.category === selectedCategory);
     }
 
-    // Platform filter
-    if (selectedPlatform !== "all") {
-      result = result.filter((product) => product.platform === selectedPlatform);
-    }
-
     // Sorting
     switch (sortBy) {
       case "trending":
@@ -258,12 +251,12 @@ const Products = () => {
         break;
       case "price-low":
         result = result.sort(
-          (a, b) => (getProductMinPrice(a) || 0) - (getProductMinPrice(b) || 0)
+          (a, b) => (getProductMinPrice(a).sellingPrice || 0) - (getProductMinPrice(b).sellingPrice || 0)
         );
         break;
       case "price-high":
         result = result.sort(
-          (a, b) => (getProductMinPrice(b) || 0) - (getProductMinPrice(a) || 0)
+          (a, b) => (getProductMinPrice(b).sellingPrice || 0) - (getProductMinPrice(a).sellingPrice || 0)
         );
         break;
       case "rating":
@@ -278,7 +271,7 @@ const Products = () => {
     }
 
     return result;
-  }, [products, searchQuery, selectedCategory, selectedPlatform, sortBy]);
+  }, [products, searchQuery, selectedCategory, sortBy]);
 
   const handleProductClick = (productId) => {
     play();
@@ -301,9 +294,6 @@ const Products = () => {
         } else {
           searchParams.delete("category");
         }
-        break;
-      case "platform":
-        setSelectedPlatform(value);
         break;
       case "sort":
         setSortBy(value);
@@ -334,13 +324,12 @@ const Products = () => {
     play();
     setSearchQuery("");
     setSelectedCategory("all");
-    setSelectedPlatform("all");
     setSortBy("default");
     setSearchParams({});
   };
 
   const hasActiveFilters =
-    searchQuery || selectedCategory !== "all" || selectedPlatform !== "all" || sortBy !== "default";
+    searchQuery || selectedCategory !== "all" || sortBy !== "default";
 
   const FilterControls = () => (
     <Box className={styles.filterControls}>
@@ -354,21 +343,6 @@ const Products = () => {
           {categories.map((cat) => (
             <MenuItem key={cat.value} value={cat.value}>
               {cat.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl size="small" className={styles.filterSelect}>
-        <InputLabel>Platform</InputLabel>
-        <Select
-          value={selectedPlatform}
-          label="Platform"
-          onChange={(e) => handleFilterChange("platform", e.target.value)}
-        >
-          {platforms.map((plat) => (
-            <MenuItem key={plat.value} value={plat.value}>
-              {plat.label}
             </MenuItem>
           ))}
         </Select>
@@ -485,14 +459,6 @@ const Products = () => {
                   label={categories.find((c) => c.value === selectedCategory)?.label}
                   size="small"
                   onDelete={() => handleFilterChange("category", "all")}
-                  className={styles.filterChip}
-                />
-              )}
-              {selectedPlatform !== "all" && (
-                <Chip
-                  label={selectedPlatform}
-                  size="small"
-                  onDelete={() => handleFilterChange("platform", "all")}
                   className={styles.filterChip}
                 />
               )}
@@ -698,21 +664,6 @@ const Products = () => {
                 {categories.map((cat) => (
                   <MenuItem key={cat.value} value={cat.value}>
                     {cat.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth size="small" className={styles.mobileFilter}>
-              <InputLabel>Platform</InputLabel>
-              <Select
-                value={selectedPlatform}
-                label="Platform"
-                onChange={(e) => handleFilterChange("platform", e.target.value)}
-              >
-                {platforms.map((plat) => (
-                  <MenuItem key={plat.value} value={plat.value}>
-                    {plat.label}
                   </MenuItem>
                 ))}
               </Select>
