@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import useSound from "../../hooks/useSound";
 import { useTheme } from "../../context/ThemeContext";
 import SearchModal from "../SearchModal/SearchModal";
+import apiService from "../../services/api";
 import styles from "./HeroSection.module.css";
 
 import HERO_BG_1 from "../../assets/hero-1.jpg";
@@ -28,6 +29,7 @@ const HeroSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [popularGames, setPopularGames] = useState([]);
 
   const slides = [
     {
@@ -59,13 +61,28 @@ const HeroSection = () => {
     { icon: <TrendingUp />, text: "24/7 Support", subtext: "Always Online" },
   ];
 
-  const popularSearches = [
-    "Free Fire Diamonds",
-    "PUBG UC",
-    "Steam Wallet",
-    "Mobile Legends",
-    "Valorant Points",
-  ];
+  // Fetch popular/trending games
+  useEffect(() => {
+    const fetchPopularGames = async () => {
+      try {
+        // Fetch trending games first, fallback to featured if needed
+        const trendingResponse = await apiService.products.getTrending(4);
+        if (trendingResponse.success && trendingResponse.data.length > 0) {
+          setPopularGames(trendingResponse.data.slice(0, 4));
+        } else {
+          // Fallback to featured products
+          const featuredResponse = await apiService.products.getFeatured(4);
+          if (featuredResponse.success) {
+            setPopularGames(featuredResponse.data.slice(0, 4));
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching popular games:", error);
+      }
+    };
+
+    fetchPopularGames();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,6 +105,11 @@ const HeroSection = () => {
     play();
     setSearchQuery(query);
     setIsSearchModalOpen(true);
+  };
+
+  const handleGameTagClick = (gameId) => {
+    play();
+    navigate(`/products/${gameId}`);
   };
 
   const handleCloseSearchModal = () => {
@@ -212,35 +234,37 @@ const HeroSection = () => {
               </Box>
             </motion.div>
 
-            {/* Popular Searches */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className={styles.popularSearches}
-            >
-              <Typography className={styles.popularLabel}>
-                <Icon icon="mdi:fire" className={styles.popularIcon} />
-                Popular:
-              </Typography>
-              <Box className={styles.chipsContainer}>
-                {popularSearches.map((search, index) => (
-                  <motion.div
-                    key={search}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5 + index * 0.08 }}
-                  >
-                    <Chip
-                      label={search}
-                      onClick={() => handleQuickSearch(search)}
-                      className={styles.searchChip}
-                      clickable
-                    />
-                  </motion.div>
-                ))}
-              </Box>
-            </motion.div>
+            {/* Popular Games */}
+            {popularGames.length > 0 && (
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className={styles.popularSearches}
+              >
+                <Typography className={styles.popularLabel}>
+                  <Icon icon="mdi:fire" className={styles.popularIcon} />
+                  Popular:
+                </Typography>
+                <Box className={styles.chipsContainer}>
+                  {popularGames.map((game, index) => (
+                    <motion.div
+                      key={game.id}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5 + index * 0.08 }}
+                    >
+                      <Chip
+                        label={game.name}
+                        onClick={() => handleGameTagClick(game.id)}
+                        className={styles.searchChip}
+                        clickable
+                      />
+                    </motion.div>
+                  ))}
+                </Box>
+              </motion.div>
+            )}
 
             {/* Trust Badges */}
             <motion.div
