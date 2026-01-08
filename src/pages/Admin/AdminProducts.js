@@ -57,9 +57,23 @@ const AdminProducts = () => {
   // Snackbar
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
+  // Categories
+  const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     loadProducts();
+    loadCategories();
   }, []);
+
+  const loadCategories = async () => {
+    try {
+      const data = await apiService.categories.getAll();
+      const categoryList = Array.isArray(data) ? data : [];
+      setCategories(categoryList);
+    } catch (error) {
+      console.error("Error loading categories:", error);
+    }
+  };
 
   useEffect(() => {
     filterProducts();
@@ -108,7 +122,7 @@ const AdminProducts = () => {
       slug: product.slug || "",
       shortDescription: product.shortDescription || "",
       description: product.description || "",
-      category: product.category || "mobile-game",
+      category: product.category || (categories.length > 0 ? categories[0].slug : ""),
       platform: product.platform || "Mobile",
       region: product.region || "Global",
       image: product.image || "",
@@ -572,10 +586,17 @@ const AdminProducts = () => {
                   label="Category"
                   onChange={(e) => handleEditFormChange("category", e.target.value)}
                 >
-                  <MenuItem value="mobile-game">Mobile Game</MenuItem>
-                  <MenuItem value="pc-game">PC Game</MenuItem>
-                  <MenuItem value="gift-card">Gift Card</MenuItem>
-                  <MenuItem value="cross-platform">Cross Platform</MenuItem>
+                  {categories.length > 0 ? (
+                    categories.map((cat) => (
+                      <MenuItem key={cat.id} value={cat.slug}>
+                        {cat.name}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem value="" disabled>
+                      No categories available
+                    </MenuItem>
+                  )}
                 </Select>
               </FormControl>
             </Grid>
