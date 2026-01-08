@@ -907,6 +907,28 @@ const apiService = {
     },
 
     // -------------------------------------------------------------------------
+    // Admin User Management
+    // -------------------------------------------------------------------------
+
+    /**
+     * Get all users (admin view)
+     */
+    getUsers: async () => {
+      try {
+        if (IS_MOCK_API) {
+          const response = await api.get("/users");
+          return response.data;
+        } else {
+          const response = await api.get("/admin/users");
+          return extractData(response);
+        }
+      } catch (error) {
+        console.error("Admin get users error:", error);
+        return []; // Return empty array on error to prevent dashboard crash
+      }
+    },
+
+    // -------------------------------------------------------------------------
     // Admin Order Management
     // -------------------------------------------------------------------------
 

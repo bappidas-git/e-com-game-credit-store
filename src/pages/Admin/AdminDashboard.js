@@ -117,13 +117,11 @@ const AdminDashboard = () => {
       // Fetch products
       const products = await apiService.products.getAll();
 
-      // Fetch orders (get all orders for admin)
-      const ordersResponse = await fetch("http://localhost:3001/orders");
-      const orders = await ordersResponse.json();
+      // Fetch orders using apiService
+      const orders = await apiService.admin.getOrders();
 
-      // Fetch users
-      const usersResponse = await fetch("http://localhost:3001/users");
-      const users = await usersResponse.json();
+      // Fetch users using apiService
+      const users = await apiService.admin.getUsers();
 
       // Calculate stats
       const totalRevenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
