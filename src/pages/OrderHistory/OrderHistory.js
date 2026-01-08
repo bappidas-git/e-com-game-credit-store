@@ -349,11 +349,11 @@ const OrderHistory = () => {
                             </Typography>
                             <Box className={styles.contactDetails}>
                               <Typography>
-                                {order.contactInfo.firstName}{" "}
-                                {order.contactInfo.lastName}
+                                {order.contactInfo?.firstName}{" "}
+                                {order.contactInfo?.lastName}
                               </Typography>
-                              <Typography>{order.contactInfo.email}</Typography>
-                              <Typography>{order.contactInfo.phone}</Typography>
+                              <Typography>{order.contactInfo?.email}</Typography>
+                              <Typography>{order.contactInfo?.phone}</Typography>
                             </Box>
                           </Grid>
 
