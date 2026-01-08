@@ -284,10 +284,6 @@ const AuthModal = ({ open, onClose }) => {
                     >
                       {isLoading ? <CircularProgress size={24} /> : "Login"}
                     </Button>
-
-                    <Typography className={styles.demoText}>
-                      Demo credentials: user@mail.com / 112233
-                    </Typography>
                   </motion.div>
                 )}
 
