@@ -293,7 +293,7 @@ const OrderHistory = () => {
                           {order.items.map((item, itemIndex) => (
                             <Box key={itemIndex} className={styles.orderItem}>
                               <Box className={styles.itemImage}>
-                                <img src={item.image} alt={item.name} />
+                                <img src={item.image || item.product?.image || "https://via.placeholder.com/80?text=No+Image"} alt={item.name} />
                               </Box>
                               <Box className={styles.itemInfo}>
                                 <Typography className={styles.itemName}>
@@ -348,14 +348,14 @@ const OrderHistory = () => {
                               Contact Information
                             </Typography>
                             <Box className={styles.contactDetails}>
-                              {order.contactInfo ? (
+                              {order.contactInfo || order.contactEmail ? (
                                 <>
                                   <Typography>
-                                    {order.contactInfo.firstName || ""}{" "}
-                                    {order.contactInfo.lastName || ""}
+                                    {order.contactInfo?.firstName || order.contactFirstName || ""}{" "}
+                                    {order.contactInfo?.lastName || order.contactLastName || ""}
                                   </Typography>
-                                  <Typography>{order.contactInfo.email || ""}</Typography>
-                                  <Typography>{order.contactInfo.phone || ""}</Typography>
+                                  <Typography>{order.contactInfo?.email || order.contactEmail || ""}</Typography>
+                                  <Typography>{order.contactInfo?.phone || order.contactPhone || ""}</Typography>
                                 </>
                               ) : (
                                 <Typography color="textSecondary">

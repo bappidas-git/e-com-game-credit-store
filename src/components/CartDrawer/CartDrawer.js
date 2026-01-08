@@ -126,7 +126,7 @@ const CartDrawer = () => {
                   <Card className={styles.cartItem}>
                     <CardMedia
                       component="img"
-                      image={item.image || "https://via.placeholder.com/80"}
+                      image={item.image || item.product?.image || "https://via.placeholder.com/80?text=No+Image"}
                       alt={item.name}
                       className={styles.itemImage}
                     />

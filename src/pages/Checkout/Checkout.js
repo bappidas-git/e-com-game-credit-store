@@ -317,7 +317,7 @@ const Checkout = () => {
         {cartItems.map((item) => (
           <Card key={item.id} className={styles.cartItem}>
             <Box className={styles.itemImage}>
-              <img src={item.image} alt={item.name} />
+              <img src={item.image || item.product?.image || "https://via.placeholder.com/80?text=No+Image"} alt={item.name} />
             </Box>
             <Box className={styles.itemInfo}>
               <Typography className={styles.itemName}>{item.name}</Typography>

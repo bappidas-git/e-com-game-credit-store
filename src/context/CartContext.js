@@ -26,16 +26,16 @@ export const CartProvider = ({ children }) => {
     productId: item.productId,
     offerId: item.offerId,
     offerName: item.offerName || item.name?.split(" - ").pop() || "Item",
-    image: item.image || "",
-    platform: item.platform || "",
-    region: item.region || "",
+    image: item.image || item.product?.image || "",
+    platform: item.platform || item.product?.platform || "",
+    region: item.region || item.product?.region || "",
     price: item.price || 0,
     originalPrice: item.originalPrice || item.price || 0,
     discount: item.discount || 0,
     currency: item.currency || "INR",
     quantity: item.quantity || 1,
     requiredInfo: item.requiredInfo || {},
-    deliveryTime: item.deliveryTime || "",
+    deliveryTime: item.deliveryTime || item.product?.deliveryTime || "",
   });
 
   // Load cart from localStorage on mount
