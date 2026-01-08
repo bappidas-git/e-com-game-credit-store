@@ -248,11 +248,11 @@ const Checkout = () => {
       // Create order
       const orderData = {
         items: cartItems.map((item) => ({
-          id: item.id,
-          productId: item.productId,
-          offerId: item.offerId,
+          id: String(item.id),
+          productId: String(item.productId),
+          offerId: String(item.offerId),
           name: item.name,
-          offerName: item.offerName,
+          offerName: item.offerName || item.name?.split(" - ").pop() || "Item",
           image: item.image,
           platform: item.platform,
           region: item.region,

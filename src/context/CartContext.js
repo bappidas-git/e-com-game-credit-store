@@ -19,12 +19,34 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Helper function to normalize cart items
+  const normalizeCartItem = (item) => ({
+    ...item,
+    id: item.id || `${item.productId}-${item.offerId}`,
+    productId: item.productId,
+    offerId: item.offerId,
+    offerName: item.offerName || item.name?.split(" - ").pop() || "Item",
+    image: item.image || "",
+    platform: item.platform || "",
+    region: item.region || "",
+    price: item.price || 0,
+    originalPrice: item.originalPrice || item.price || 0,
+    discount: item.discount || 0,
+    currency: item.currency || "INR",
+    quantity: item.quantity || 1,
+    requiredInfo: item.requiredInfo || {},
+    deliveryTime: item.deliveryTime || "",
+  });
+
   // Load cart from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
-        setCartItems(JSON.parse(savedCart));
+        const parsedCart = JSON.parse(savedCart);
+        // Normalize cart items to ensure all required fields exist
+        const normalizedCart = parsedCart.map(normalizeCartItem);
+        setCartItems(normalizedCart);
       } catch (error) {
         console.error("Error loading cart:", error);
         localStorage.removeItem("cart");
@@ -56,7 +78,9 @@ export const CartProvider = ({ children }) => {
       setIsLoading(true);
       const cart = await apiService.cart.getCart(user.id);
       if (cart && cart.length > 0) {
-        setCartItems(cart);
+        // Normalize cart items to ensure all required fields exist
+        const normalizedCart = cart.map(normalizeCartItem);
+        setCartItems(normalizedCart);
       }
     } catch (error) {
       console.error("Error loading cart:", error);
