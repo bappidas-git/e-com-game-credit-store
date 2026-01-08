@@ -1054,7 +1054,7 @@ const apiService = {
           const response = await api.get("/categories");
           return response.data;
         } else {
-          const response = await api.get("/admin/categories");
+          const response = await api.get("/categories");
           return extractData(response);
         }
       } catch (error) {
@@ -1073,7 +1073,7 @@ const apiService = {
           const response = await api.post("/categories", categoryData);
           return response.data;
         } else {
-          const response = await api.post("/admin/categories", categoryData);
+          const response = await api.post("/categories", categoryData);
           return extractData(response);
         }
       } catch (error) {
@@ -1093,7 +1093,7 @@ const apiService = {
           const response = await api.put(`/categories/${id}`, categoryData);
           return response.data;
         } else {
-          const response = await api.put(`/admin/categories/${id}`, categoryData);
+          const response = await api.put(`/categories/${id}`, categoryData);
           return extractData(response);
         }
       } catch (error) {
@@ -1112,7 +1112,7 @@ const apiService = {
           const response = await api.delete(`/categories/${id}`);
           return response.data;
         } else {
-          const response = await api.delete(`/admin/categories/${id}`);
+          const response = await api.delete(`/categories/${id}`);
           return extractData(response);
         }
       } catch (error) {
