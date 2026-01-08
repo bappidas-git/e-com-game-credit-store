@@ -214,7 +214,7 @@ const OrderHistory = () => {
         {!isLoading && orders.length > 0 && (
           <Box className={styles.ordersList}>
             <AnimatePresence>
-              {orders.map((order, index) => {
+              {orders.filter((order) => order && order.id).map((order, index) => {
                 const status = getStatusConfig(order.status);
                 const StatusIcon = status.icon;
 
@@ -348,12 +348,20 @@ const OrderHistory = () => {
                               Contact Information
                             </Typography>
                             <Box className={styles.contactDetails}>
-                              <Typography>
-                                {order.contactInfo?.firstName}{" "}
-                                {order.contactInfo?.lastName}
-                              </Typography>
-                              <Typography>{order.contactInfo?.email}</Typography>
-                              <Typography>{order.contactInfo?.phone}</Typography>
+                              {order.contactInfo ? (
+                                <>
+                                  <Typography>
+                                    {order.contactInfo.firstName || ""}{" "}
+                                    {order.contactInfo.lastName || ""}
+                                  </Typography>
+                                  <Typography>{order.contactInfo.email || ""}</Typography>
+                                  <Typography>{order.contactInfo.phone || ""}</Typography>
+                                </>
+                              ) : (
+                                <Typography color="textSecondary">
+                                  Contact information not available
+                                </Typography>
+                              )}
                             </Box>
                           </Grid>
 

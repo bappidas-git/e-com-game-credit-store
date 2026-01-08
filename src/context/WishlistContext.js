@@ -36,10 +36,14 @@ export const WishlistProvider = ({ children }) => {
     localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
   }, [wishlistItems]);
 
-  // Load user's wishlist from API if logged in
+  // Load user's wishlist from API if logged in, or clear wishlist on logout
   useEffect(() => {
     if (user) {
       loadUserWishlist();
+    } else {
+      // Clear wishlist when user logs out
+      setWishlistItems([]);
+      localStorage.removeItem("wishlist");
     }
   }, [user]);
 
