@@ -50,7 +50,32 @@ export const WishlistProvider = ({ children }) => {
       setIsLoading(true);
       const wishlist = await apiService.wishlist.get(user.id);
       if (wishlist && wishlist.length > 0) {
-        setWishlistItems(wishlist);
+        // Transform nested product structure to flat structure expected by UI
+        const transformedWishlist = wishlist.map((item) => {
+          // If the item has a nested product object, flatten it
+          if (item.product) {
+            return {
+              id: item.id,
+              productId: item.productId || item.product.id,
+              name: item.product.name,
+              image: item.product.image,
+              platform: item.product.platform,
+              region: item.product.region,
+              category: item.product.category,
+              rating: item.product.rating,
+              totalReviews: item.product.totalReviews,
+              shortDescription: item.product.shortDescription,
+              offers: item.product.offers,
+              trending: item.product.trending,
+              hot: item.product.hot,
+              instantDelivery: item.product.instantDelivery,
+              addedAt: item.createdAt || item.addedAt || new Date().toISOString(),
+            };
+          }
+          // If already flat structure, return as-is
+          return item;
+        });
+        setWishlistItems(transformedWishlist);
       }
     } catch (error) {
       console.error("Error loading wishlist:", error);
