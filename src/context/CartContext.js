@@ -37,10 +37,15 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Load user's cart from API if logged in
+  // Load user's cart from API if logged in, or clear cart on logout
   useEffect(() => {
     if (user) {
       loadUserCart();
+    } else {
+      // Clear cart and close drawer when user logs out
+      setCartItems([]);
+      setIsCartOpen(false);
+      localStorage.removeItem("cart");
     }
   }, [user]);
 
