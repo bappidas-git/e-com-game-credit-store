@@ -23,6 +23,10 @@ import {
   Popover,
   Chip,
   CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useAdmin } from "../../context/AdminContext";
@@ -79,6 +83,14 @@ const AdminLayout = () => {
   const [notificationAnchor, setNotificationAnchor] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [notificationLoading, setNotificationLoading] = useState(false);
+  const [clearedNotifications, setClearedNotifications] = useState([]);
+  const [notificationsModalOpen, setNotificationsModalOpen] = useState(false);
+
+  // Get visible notifications (excluding cleared ones)
+  const visibleNotifications = notifications.filter(
+    (n) => !clearedNotifications.includes(n.id)
+  );
+  const panelNotifications = visibleNotifications.slice(0, 5);
 
   // Fetch notifications (new orders and leads)
   useEffect(() => {
@@ -156,6 +168,21 @@ const AdminLayout = () => {
   const handleNotificationItemClick = (link) => {
     navigate(link);
     handleNotificationClose();
+    setNotificationsModalOpen(false);
+  };
+
+  const handleClearAllNotifications = () => {
+    const allIds = notifications.map((n) => n.id);
+    setClearedNotifications(allIds);
+  };
+
+  const handleOpenNotificationsModal = () => {
+    handleNotificationClose();
+    setNotificationsModalOpen(true);
+  };
+
+  const handleCloseNotificationsModal = () => {
+    setNotificationsModalOpen(false);
   };
 
   const formatTimeAgo = (dateString) => {
@@ -343,7 +370,7 @@ const AdminLayout = () => {
               sx={{ color: "text.primary", ml: 1 }}
               onClick={handleNotificationClick}
             >
-              <Badge badgeContent={notifications.length} color="error">
+              <Badge badgeContent={visibleNotifications.length} color="error">
                 <Icon icon="mdi:bell-outline" />
               </Badge>
             </IconButton>
@@ -383,24 +410,42 @@ const AdminLayout = () => {
                 justifyContent: "space-between",
               }}
             >
-              <Typography variant="subtitle1" fontWeight="bold">
-                Notifications
-              </Typography>
-              <Chip
-                label={notifications.length}
-                size="small"
-                color="primary"
-                sx={{ height: 22, fontSize: "0.75rem" }}
-              />
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  Notifications
+                </Typography>
+                <Chip
+                  label={visibleNotifications.length}
+                  size="small"
+                  color="primary"
+                  sx={{ height: 22, fontSize: "0.75rem" }}
+                />
+              </Box>
+              {visibleNotifications.length > 0 && (
+                <Button
+                  size="small"
+                  onClick={handleClearAllNotifications}
+                  sx={{
+                    fontSize: "0.75rem",
+                    textTransform: "none",
+                    color: "error.main",
+                    minWidth: "auto",
+                    p: 0.5,
+                  }}
+                  startIcon={<Icon icon="mdi:notification-clear-all" style={{ fontSize: 16 }} />}
+                >
+                  Clear All
+                </Button>
+              )}
             </Box>
 
             {/* Notification List */}
-            <Box sx={{ maxHeight: 380, overflow: "auto" }}>
+            <Box sx={{ maxHeight: 320, overflow: "auto" }}>
               {notificationLoading ? (
                 <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
                   <CircularProgress size={24} />
                 </Box>
-              ) : notifications.length === 0 ? (
+              ) : visibleNotifications.length === 0 ? (
                 <Box sx={{ textAlign: "center", py: 4 }}>
                   <Icon
                     icon="mdi:bell-check-outline"
@@ -411,7 +456,7 @@ const AdminLayout = () => {
                   </Typography>
                 </Box>
               ) : (
-                notifications.map((notification) => (
+                panelNotifications.map((notification) => (
                   <Box
                     key={notification.id}
                     onClick={() => handleNotificationItemClick(notification.link)}
@@ -511,51 +556,231 @@ const AdminLayout = () => {
             </Box>
 
             {/* Footer */}
-            {notifications.length > 0 && (
+            {visibleNotifications.length > 0 && (
               <Box
                 sx={{
                   p: 1.5,
                   borderTop: "1px solid",
                   borderColor: "divider",
-                  textAlign: "center",
                 }}
               >
-                <Typography
-                  variant="caption"
-                  color="primary"
-                  sx={{
-                    cursor: "pointer",
-                    fontWeight: 500,
-                    "&:hover": { textDecoration: "underline" },
-                  }}
-                  onClick={() => {
-                    navigate("/admin/orders");
-                    handleNotificationClose();
-                  }}
-                >
-                  View All Orders
-                </Typography>
-                <Typography variant="caption" color="text.disabled" sx={{ mx: 1 }}>
-                  |
-                </Typography>
-                <Typography
-                  variant="caption"
-                  color="primary"
-                  sx={{
-                    cursor: "pointer",
-                    fontWeight: 500,
-                    "&:hover": { textDecoration: "underline" },
-                  }}
-                  onClick={() => {
-                    navigate("/admin/leads");
-                    handleNotificationClose();
-                  }}
-                >
-                  View All Leads
-                </Typography>
+                {visibleNotifications.length > 5 && (
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    onClick={handleOpenNotificationsModal}
+                    sx={{
+                      mb: 1,
+                      textTransform: "none",
+                      borderRadius: 1.5,
+                    }}
+                    startIcon={<Icon icon="mdi:bell-ring-outline" style={{ fontSize: 16 }} />}
+                  >
+                    Show All Notifications ({visibleNotifications.length})
+                  </Button>
+                )}
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography
+                    variant="caption"
+                    color="primary"
+                    sx={{
+                      cursor: "pointer",
+                      fontWeight: 500,
+                      "&:hover": { textDecoration: "underline" },
+                    }}
+                    onClick={() => {
+                      navigate("/admin/orders");
+                      handleNotificationClose();
+                    }}
+                  >
+                    View All Orders
+                  </Typography>
+                  <Typography variant="caption" color="text.disabled" sx={{ mx: 1 }}>
+                    |
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    color="primary"
+                    sx={{
+                      cursor: "pointer",
+                      fontWeight: 500,
+                      "&:hover": { textDecoration: "underline" },
+                    }}
+                    onClick={() => {
+                      navigate("/admin/leads");
+                      handleNotificationClose();
+                    }}
+                  >
+                    View All Leads
+                  </Typography>
+                </Box>
               </Box>
             )}
           </Popover>
+
+          {/* Full Notifications Modal */}
+          <Dialog
+            open={notificationsModalOpen}
+            onClose={handleCloseNotificationsModal}
+            maxWidth="md"
+            fullWidth
+            PaperProps={{
+              sx: {
+                borderRadius: 2,
+                maxHeight: "85vh",
+              },
+            }}
+          >
+            <DialogTitle
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                borderBottom: "1px solid",
+                borderColor: "divider",
+                pb: 2,
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+                <Icon icon="mdi:bell-outline" style={{ fontSize: 24 }} />
+                <Typography variant="h6" fontWeight="bold">
+                  All Notifications
+                </Typography>
+                <Chip
+                  label={visibleNotifications.length}
+                  size="small"
+                  color="primary"
+                  sx={{ height: 24, fontSize: "0.8rem" }}
+                />
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                {visibleNotifications.length > 0 && (
+                  <Button
+                    size="small"
+                    onClick={handleClearAllNotifications}
+                    sx={{
+                      textTransform: "none",
+                      color: "error.main",
+                    }}
+                    startIcon={<Icon icon="mdi:notification-clear-all" style={{ fontSize: 18 }} />}
+                  >
+                    Clear All
+                  </Button>
+                )}
+                <IconButton onClick={handleCloseNotificationsModal} size="small">
+                  <Icon icon="mdi:close" />
+                </IconButton>
+              </Box>
+            </DialogTitle>
+            <DialogContent sx={{ p: 0 }}>
+              {visibleNotifications.length === 0 ? (
+                <Box sx={{ textAlign: "center", py: 8 }}>
+                  <Icon
+                    icon="mdi:bell-check-outline"
+                    style={{ fontSize: 64, color: "#9e9e9e" }}
+                  />
+                  <Typography color="text.secondary" sx={{ mt: 2 }} variant="h6">
+                    No notifications
+                  </Typography>
+                  <Typography color="text.disabled" sx={{ mt: 0.5 }}>
+                    You're all caught up!
+                  </Typography>
+                </Box>
+              ) : (
+                <Box sx={{ maxHeight: "calc(85vh - 140px)", overflow: "auto" }}>
+                  {visibleNotifications.map((notification, index) => (
+                    <Box
+                      key={notification.id}
+                      onClick={() => handleNotificationItemClick(notification.link)}
+                      sx={{
+                        p: 2.5,
+                        borderBottom: index < visibleNotifications.length - 1 ? "1px solid" : "none",
+                        borderColor: "divider",
+                        cursor: "pointer",
+                        "&:hover": {
+                          bgcolor:
+                            theme.palette.mode === "dark"
+                              ? "rgba(255, 255, 255, 0.05)"
+                              : "rgba(0, 0, 0, 0.02)",
+                        },
+                      }}
+                    >
+                      <Box sx={{ display: "flex", gap: 2 }}>
+                        <Avatar
+                          sx={{
+                            width: 48,
+                            height: 48,
+                            bgcolor:
+                              notification.type === "order"
+                                ? "rgba(76, 175, 80, 0.15)"
+                                : "rgba(33, 150, 243, 0.15)",
+                            color:
+                              notification.type === "order" ? "#4caf50" : "#2196f3",
+                          }}
+                        >
+                          <Icon
+                            icon={
+                              notification.type === "order"
+                                ? "mdi:cart-outline"
+                                : "mdi:account-plus"
+                            }
+                            style={{ fontSize: 24 }}
+                          />
+                        </Avatar>
+                        <Box sx={{ flex: 1, minWidth: 0 }}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              mb: 0.5,
+                            }}
+                          >
+                            <Typography variant="body1" fontWeight={600}>
+                              {notification.title}
+                            </Typography>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                              <Chip
+                                label={notification.status}
+                                size="small"
+                                sx={{
+                                  height: 22,
+                                  fontSize: "0.7rem",
+                                  textTransform: "capitalize",
+                                  bgcolor:
+                                    notification.status === "pending"
+                                      ? "rgba(255, 152, 0, 0.15)"
+                                      : notification.status === "new"
+                                      ? "rgba(33, 150, 243, 0.15)"
+                                      : "rgba(102, 126, 234, 0.15)",
+                                  color:
+                                    notification.status === "pending"
+                                      ? "#ff9800"
+                                      : notification.status === "new"
+                                      ? "#2196f3"
+                                      : "#667eea",
+                                }}
+                              />
+                              <Typography
+                                variant="caption"
+                                color="text.disabled"
+                              >
+                                {formatTimeAgo(notification.time)}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Typography variant="body2" color="text.secondary">
+                            {notification.message}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+            </DialogContent>
+          </Dialog>
 
           {/* User Menu */}
           <IconButton onClick={handleMenuClick} sx={{ ml: 2 }}>
