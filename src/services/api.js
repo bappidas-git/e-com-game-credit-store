@@ -1040,6 +1040,120 @@ const apiService = {
         throw error;
       }
     },
+
+    // -------------------------------------------------------------------------
+    // Admin Category Management
+    // -------------------------------------------------------------------------
+
+    /**
+     * Get all categories (admin view)
+     */
+    getCategories: async () => {
+      try {
+        if (IS_MOCK_API) {
+          const response = await api.get("/categories");
+          return response.data;
+        } else {
+          const response = await api.get("/admin/categories");
+          return extractData(response);
+        }
+      } catch (error) {
+        console.error("Admin get categories error:", error);
+        throw error;
+      }
+    },
+
+    /**
+     * Create a new category
+     * @param {Object} categoryData - Category data { name, slug, description, icon, is_active }
+     */
+    createCategory: async (categoryData) => {
+      try {
+        if (IS_MOCK_API) {
+          const response = await api.post("/categories", categoryData);
+          return response.data;
+        } else {
+          const response = await api.post("/admin/categories", categoryData);
+          return extractData(response);
+        }
+      } catch (error) {
+        console.error("Admin create category error:", error);
+        throw error;
+      }
+    },
+
+    /**
+     * Update a category
+     * @param {string|number} id - Category ID
+     * @param {Object} categoryData - Updated category data
+     */
+    updateCategory: async (id, categoryData) => {
+      try {
+        if (IS_MOCK_API) {
+          const response = await api.put(`/categories/${id}`, categoryData);
+          return response.data;
+        } else {
+          const response = await api.put(`/admin/categories/${id}`, categoryData);
+          return extractData(response);
+        }
+      } catch (error) {
+        console.error("Admin update category error:", error);
+        throw error;
+      }
+    },
+
+    /**
+     * Delete a category
+     * @param {string|number} id - Category ID
+     */
+    deleteCategory: async (id) => {
+      try {
+        if (IS_MOCK_API) {
+          const response = await api.delete(`/categories/${id}`);
+          return response.data;
+        } else {
+          const response = await api.delete(`/admin/categories/${id}`);
+          return extractData(response);
+        }
+      } catch (error) {
+        console.error("Admin delete category error:", error);
+        throw error;
+      }
+    },
+
+    // -------------------------------------------------------------------------
+    // Admin Dashboard Statistics
+    // -------------------------------------------------------------------------
+
+    /**
+     * Get dashboard statistics
+     */
+    getDashboardStats: async () => {
+      try {
+        if (IS_MOCK_API) {
+          // For mock API, compute stats from data
+          const [products, orders, leads] = await Promise.all([
+            api.get("/products"),
+            api.get("/orders"),
+            api.get("/leads"),
+          ]);
+          return {
+            total_products: products.data.length,
+            total_orders: orders.data.length,
+            total_leads: leads.data.length,
+            pending_orders: orders.data.filter((o) => o.status === "pending").length,
+            completed_orders: orders.data.filter((o) => o.status === "completed").length,
+            total_revenue: orders.data.reduce((sum, o) => sum + (o.total || 0), 0),
+          };
+        } else {
+          const response = await api.get("/admin/dashboard/stats");
+          return extractData(response);
+        }
+      } catch (error) {
+        console.error("Admin get dashboard stats error:", error);
+        throw error;
+      }
+    },
   },
 };
 

@@ -55,6 +55,11 @@ const menuItems = [
     icon: "mdi:cloud-sync",
     path: "/admin/sync",
   },
+  {
+    title: "Settings",
+    icon: "mdi:cog",
+    path: "/admin/settings",
+  },
 ];
 
 const AdminLayout = () => {
